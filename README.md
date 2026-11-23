@@ -2,42 +2,40 @@
 
 # 📘 Claude Native Commands
 
-[![🇺🇸 English](https://img.shields.io/badge/%F0%9F%87%BA%F0%9F%87%B8-English-blue.svg)](README.md) [![🇧🇷 Português (Brasil)](https://img.shields.io/badge/%F0%9F%87%A7%F0%9F%87%B7-Portugu%C3%AAs%20(Brasil)-green.svg)](README.pt-BR.md)
-
-A Brazilian Portuguese guide to the native slash commands of Claude Code Desktop, with one infographic card per command.
+Um guia dos comandos nativos (de barra) do Claude Code Desktop, com um card de infográfico por comando.
 
 [![Version](https://img.shields.io/badge/version-unreleased-lightgrey.svg)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-All%20rights%20reserved-red.svg)](LICENSE) [![Runtime](https://img.shields.io/badge/python-3-blue.svg)](.claude/skills/notebooklm-command-infographic-playbook/scripts)
 
-[Installation](#-installation) · [Usage](#-usage) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+[Instalação](#-instalação) · [Uso](#-uso) · [Changelog](CHANGELOG.md) · [Segurança](SECURITY.md)
 
 </div>
 
 ## 📌 Status
 
-Alpha. No version tag exists yet, and the content may change at any time.
+Alfa. Ainda não há tag de versão, e o conteúdo pode mudar a qualquer momento.
 
-## 💡 Why it exists
+## 💡 Por que existe
 
-Claude Code Desktop offers slash commands that are hard to find and hard to tell apart. This page lists them in pt-BR, groups them by category and shows, for each command, what it does and when to use it. The page is generated from one hand-edited source file, so the guide and its standalone copy never drift apart.
+Os comandos de barra do Claude Code Desktop são difíceis de achar e de diferenciar. Esta página lista os comandos, agrupa por categoria e mostra, para cada comando, o que ele faz e quando usar. A página é gerada a partir de um único arquivo-fonte editado à mão, então o guia e a cópia independente nunca divergem.
 
-It does not run Claude commands, does not replace the official documentation and does not publish anything by itself.
+Ela não executa comandos do Claude, não substitui a documentação oficial e não publica nada sozinha.
 
-## 🎁 What it delivers
+## 🎁 O que entrega
 
-- `comandos-nativos.html`: a standalone page with the command guide, generated from `src/comandos-nativos.html`.
-- `src/comandos-nativos.html`: the only hand-edited page file. Card data lives in the `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` and `LOTE9_COMMANDS` arrays.
-- `assets/infographics/<slug>/`: per-command files (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) and the downloadable image formats for each card that has one.
-- `assets/infographics/manifest.json`: the index of the registered infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status` at this commit).
-- `.claude/skills/notebooklm-command-infographic-playbook/`: the project skill and the `infographic-register-tool.py` script that checks and registers each infographic, with 224 tests.
+- `comandos-nativos.html`: uma página independente com o guia dos comandos, gerada a partir de `src/comandos-nativos.html`.
+- `src/comandos-nativos.html`: o único arquivo de página editado à mão. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
+- `assets/infographics/<slug>/`: arquivos por comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e os formatos de imagem para download de cada card que tem imagem.
+- `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status` neste commit).
+- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto e o script `infographic-register-tool.py`, que verifica e registra cada infográfico, com 224 testes.
 
 <!-- CATALOG:BEGIN -->
-## 📚 Command catalog
+## 📚 Catálogo dos comandos
 
-The descriptions below are in Portuguese, as the guide is. The catalog has 82 commands; 14 already have a registered infographic (link "ver").
+O catálogo tem 82 comandos; 14 já têm infográfico registrado (link "ver").
 
 ### Contexto e memória
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/compact` | Resumir a conversa e liberar contexto | Comando embutido | [ver](assets/infographics/compact/infographic.webp) |
 | `/context` | Quanto da janela de contexto já foi usado | Comando embutido | [ver](assets/infographics/context/infographic.webp) |
@@ -51,7 +49,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Modelo e potência
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em produção |
 | `/effort` | Nível de esforço do modelo | Comando embutido | em produção |
@@ -62,7 +60,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Revisão de código
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/code-review` | Caçar bugs no diff atual | Skill embutida | [ver](assets/infographics/code-review/infographic.webp) |
 | `/simplify` | Limpar o código alterado | Skill embutida | em produção |
@@ -75,7 +73,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Automação
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/goal` | Trabalhar até a meta ser cumprida | Comando embutido | em produção |
 | `/loop` | Repetir em intervalos | Skill embutida | [ver](assets/infographics/loop/infographic.webp) |
@@ -89,7 +87,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Diagnóstico e uso
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/skill-doctor` | Skills carregadas que só gastam contexto | Comando embutido | em produção |
 | `/usage` | Custo da sessão e uso do plano | Comando embutido | em produção |
@@ -107,7 +105,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Extensões e conexões
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/mcp` | Gerenciar servidores MCP | Comando embutido | em produção |
 | `/list-agents` | Quem pode receber mensagem | Comando embutido | em produção |
@@ -122,7 +120,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Criação e referência
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | em produção |
 | `/run-skill-generator` | Criar a skill que sabe rodar o app do projeto | Skill embutida | em produção |
@@ -137,7 +135,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 
 ### Ajustes e permissões
 
-| Command | What it does | Type | Infographic |
+| Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em produção |
 | `/init` | Criar o CLAUDE.md do projeto | Comando embutido | em produção |
@@ -158,19 +156,19 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 82 co
 | `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em produção |
 
 
-Catalog generated from the data of the `comandos-nativos.html` page, in page order.
+Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem da página.
 <!-- CATALOG:END -->
 
-## 🔬 How it works
+## 🔬 Como funciona
 
-The page is a static HTML file with one inline script. The infographic pipeline has three barriers: the blueprint is checked before the NotebookLM run, the download is collected into the asset folder, and the audit report is checked before the result is registered.
+A página é um arquivo HTML estático com um script inline. O pipeline de infográficos tem três barreiras: o blueprint é verificado antes da execução no NotebookLM, o download é coletado para a pasta de assets e o relatório de auditoria é verificado antes do registro do resultado.
 
 ```mermaid
 flowchart LR
     src["src/comandos-nativos.html"] -->|register| page["comandos-nativos.html"]
-    src -->|register| block["INFOGRAPHICS block"]
-    blueprint["assets/infographics/slug/blueprint.json"] -->|check-blueprint| run["NotebookLM Studio in Chrome"]
-    run -->|collect-download| assets["infographic.webp and infographic-1920.png"]
+    src -->|register| block["bloco INFOGRAPHICS"]
+    blueprint["assets/infographics/slug/blueprint.json"] -->|check-blueprint| run["NotebookLM Studio no Chrome"]
+    run -->|collect-download| assets["infographic.webp e infographic-1920.png"]
     report["qa-report.json"] -->|check-qa| register["register"]
     assets --> register
     register --> manifest["assets/infographics/manifest.json"]
@@ -178,104 +176,104 @@ flowchart LR
 
 ```mermaid
 sequenceDiagram
-    participant Operator
-    participant Tool as infographic-register-tool.py
-    Operator->>Tool: check-blueprint slug
-    Tool-->>Operator: blueprint passes or lists the failing rules
-    Operator->>Tool: snapshot-downloads --out file
-    Tool-->>Operator: snapshot file of the current downloads
-    Operator->>Tool: collect-download slug --snapshot file --kind png
-    Tool-->>Operator: PNG moved into the asset folder
-    Operator->>Tool: check-qa slug
-    Tool-->>Operator: pass or fail from qa-report.json
-    Operator->>Tool: register slug
-    Tool-->>Operator: manifest, INFOGRAPHICS block and standalone page written
+    participant Operador
+    participant Ferramenta as infographic-register-tool.py
+    Operador->>Ferramenta: check-blueprint slug
+    Ferramenta-->>Operador: blueprint aprovado ou regras que falharam
+    Operador->>Ferramenta: snapshot-downloads --out arquivo
+    Ferramenta-->>Operador: arquivo com os downloads atuais
+    Operador->>Ferramenta: collect-download slug --snapshot arquivo --kind png
+    Ferramenta-->>Operador: PNG movido para a pasta de assets
+    Operador->>Ferramenta: check-qa slug
+    Ferramenta-->>Operador: aprovado ou reprovado pelo qa-report.json
+    Operador->>Ferramenta: register slug
+    Ferramenta-->>Operador: manifest, bloco INFOGRAPHICS e página independente gravados
 ```
 
-The image is made in NotebookLM Studio by hand in Chrome. No script calls NotebookLM.
+A imagem é feita à mão no NotebookLM Studio, no Chrome. Nenhum script chama o NotebookLM.
 
-## 📋 Prerequisites
+## 📋 Pré-requisitos
 
-| Platform | Status | Notes |
-| -------- | ------ | ----- |
-| Linux    | ✅     | Used for every test run in this repository. |
-| macOS    | ⚠️     | Not verified. |
-| Windows  | ⚠️     | Not verified. |
+| Plataforma | Status | Observações |
+| ---------- | ------ | ----------- |
+| Linux      | ✅     | Usado em todas as execuções de teste deste repositório. |
+| macOS      | ⚠️     | Não verificado. |
+| Windows    | ⚠️     | Não verificado. |
 
-Python 3 runs the register tool and the tests. A Chromium-based browser is needed only for the Playwright template tests and for the manual NotebookLM step.
+Python 3 executa a ferramenta de registro e os testes. Um navegador baseado em Chromium é necessário só para os testes de layout do template (Playwright) e para a etapa manual no NotebookLM.
 
-## 🚀 Installation
+## 🚀 Instalação
 
-### 1️⃣ Clone the repository
+### 1️⃣ Clone o repositório
 
 ```bash
-git clone <repository-url> claude-native-commands
+git clone <url-do-repositorio> claude-native-commands
 cd claude-native-commands
 ```
 
-### 2️⃣ Open the guide
+### 2️⃣ Abra o guia
 
-Open `comandos-nativos.html` in any browser. No build step is needed to read it.
+Abra `comandos-nativos.html` em qualquer navegador. Não há etapa de build para ler a página.
 
-### 3️⃣ Install the test dependencies (optional)
+### 3️⃣ Instale as dependências de teste (opcional)
 
 ```bash
 python3 -m pip install pytest ruff playwright
 python3 -m playwright install chromium
 ```
 
-## 🧹 Uninstall
+## 🧹 Desinstalação
 
-Delete the clone directory. Playwright keeps its browsers outside the repository; remove them with `python3 -m playwright uninstall`, then `python3 -m pip uninstall playwright pytest ruff` if you installed them only for this project.
+Apague a pasta do clone. O Playwright guarda os navegadores fora do repositório; remova-os com `python3 -m playwright uninstall` e, se instalou os pacotes só para este projeto, rode `python3 -m pip uninstall playwright pytest ruff`.
 
-## 🧭 Usage
+## 🧭 Uso
 
-Run from the repository root. `S` is `.claude/skills/notebooklm-command-infographic-playbook/scripts`, and `<slug>` is a card id such as `compact`.
+Execute a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-command-infographic-playbook/scripts`, e `<slug>` é um id de card, como `compact`.
 
-| Command | What it does |
-| ------- | ------------ |
-| `python3 S/infographic-register-tool.py --help` | Lists the subcommands. |
-| `check-blueprint <slug>` | Barrier 1, before the NotebookLM run. |
-| `labels <slug>` | Prints the lines for `roteiro.md`. |
-| `snapshot-downloads --out <file>` | Records the current downloads before each download. |
-| `collect-download <slug> --snapshot <file> --kind png` | Moves the new PNG into the asset folder. |
-| `check-qa <slug>` | Barrier 3, after `qa-report.json` is written. |
-| `register <slug>` | Writes the manifest item, the INFOGRAPHICS block and the standalone page. Needs `check-blueprint` and `check-qa` to pass. |
+| Comando | O que faz |
+| ------- | --------- |
+| `python3 S/infographic-register-tool.py --help` | Lista os subcomandos. |
+| `check-blueprint <slug>` | Barreira 1, antes da execução no NotebookLM. |
+| `labels <slug>` | Imprime as linhas para o `roteiro.md`. |
+| `snapshot-downloads --out <arquivo>` | Registra os downloads atuais antes de cada download. |
+| `collect-download <slug> --snapshot <arquivo> --kind png` | Move o PNG novo para a pasta de assets. |
+| `check-qa <slug>` | Barreira 3, depois que o `qa-report.json` é gravado. |
+| `register <slug>` | Grava o item do manifest, o bloco INFOGRAPHICS e a página independente. Exige `check-blueprint` e `check-qa` aprovados. |
 
-## 🧩 Configuration
+## 🧩 Configuração
 
-| Name | Where | Effect |
-| ---- | ----- | ------ |
-| `INFOGRAPHIC_DOWNLOADS_DIR` | environment variable | Folder that `snapshot-downloads` and `collect-download` read when `--downloads` is not given. |
-| `--root <dir>` | register tool flag | Project root. Without it, the tool searches upward from the working directory. |
+| Nome | Onde | Efeito |
+| ---- | ---- | ------ |
+| `INFOGRAPHIC_DOWNLOADS_DIR` | variável de ambiente | Pasta que `snapshot-downloads` e `collect-download` leem quando `--downloads` não é informado. |
+| `--root <dir>` | opção da ferramenta de registro | Raiz do projeto. Sem ela, a ferramenta procura para cima a partir do diretório atual. |
 
-## 🔒 Security and privacy
+## 🔒 Segurança e privacidade
 
-- The page loads two Google Fonts stylesheets (`fonts.googleapis.com`, `fonts.gstatic.com`) and links to `code.claude.com` documentation pages.
-- The register tool makes no network calls. The Playwright template tests block network requests from the page under test.
-- No API key, token or credential is stored in this repository. Report a vulnerability as described in [SECURITY.md](SECURITY.md).
+- A página carrega duas folhas de estilo do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
+- A ferramenta de registro não faz chamadas de rede. Os testes de layout do template (Playwright) bloqueiam requisições de rede da página testada.
+- Nenhuma chave de API, token ou credencial é guardada neste repositório. Para reportar uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
 
-## 🐞 Known issues
+## 🐞 Problemas conhecidos
 
-No known open issues as of 2026-11-23. Found one? Open an issue in this repository.
+Nenhum problema aberto conhecido em 2026-11-23. Encontrou um? Abra uma issue neste repositório.
 
-Limitations found in the code:
+Limitações encontradas no código:
 
-- Only 15 of the 82 cards have a registered infographic in `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status`); the other 67 are being generated. The other folders under `assets/infographics/` have blueprints and notes, but no registered image.
-- `work/infographic-contracts.md` (section 8) and the INFOGRAPHICS comment in the page still name `register_and_check.py`. The real script is `infographic-register-tool.py`.
+- Só 15 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status`); os outros 67 estão sendo gerados. As outras pastas em `assets/infographics/` têm blueprint e notas, mas ainda não têm imagem registrada.
+- `work/infographic-contracts.md` (seção 8) e o comentário INFOGRAPHICS da página ainda citam `register_and_check.py`. O script real é `infographic-register-tool.py`.
 
-## 🧪 Tests
+## 🧪 Testes
 
-| Category | Tests |
-| -------- | ----- |
-| blueprint rules (`test_blueprint_rules.py`) | 21 |
-| register and check pipeline (`test_register_and_check.py`) | 107 |
-| template layout, Playwright (`test_template_layout.py`) | 96 |
+| Categoria | Testes |
+| --------- | ------ |
+| regras do blueprint (`test_blueprint_rules.py`) | 21 |
+| pipeline de registro e verificação (`test_register_and_check.py`) | 107 |
+| layout do template, Playwright (`test_template_layout.py`) | 96 |
 | **Total** | **224** |
 
-Counts from `python3 -m pytest -o addopts= --collect-only -q -p no:cacheprovider tests`, run in `S`, grouped by test file, on 2026-11-23.
+Contagens de `python3 -m pytest -o addopts= --collect-only -q -p no:cacheprovider tests`, executado em `S`, agrupadas por arquivo de teste, em 2026-11-23.
 
-## 🔧 Development
+## 🔧 Desenvolvimento
 
 ```bash
 cd .claude/skills/notebooklm-command-infographic-playbook/scripts
@@ -283,20 +281,20 @@ python3 -m pytest -q -p no:cacheprovider tests
 ruff check .
 ```
 
-Add `--basetemp=<dir>` to keep pytest's temporary directories out of `/tmp`.
+Adicione `--basetemp=<dir>` para manter os diretórios temporários do pytest fora de `/tmp`.
 
 ## 📝 Changelog
 
-Changes are listed in [CHANGELOG.md](CHANGELOG.md). The project follows [Semantic Versioning](https://semver.org/), and no release has been tagged yet.
+As mudanças estão em [CHANGELOG.md](CHANGELOG.md). O projeto segue o [Versionamento Semântico](https://semver.org/lang/pt-BR/), e nenhuma versão foi marcada ainda.
 
-## 🤝 Contributing
+## 🤝 Contribuições
 
-Issues are welcome. Outside pull requests are not accepted.
+Issues são bem-vindas. Pull requests de fora não são aceitos.
 
-## 👤 Maintainer
+## 👤 Mantenedor
 
-The repository owner, through this repository's issues.
+O dono do repositório, pelas issues deste repositório.
 
-## 📄 License
+## 📄 Licença
 
-All rights reserved. This is proprietary software with no SPDX license identifier. No license is granted to use, copy, modify or distribute it. See [LICENSE](LICENSE).
+Todos os direitos reservados. Software proprietário, sem identificador SPDX de licença. Nenhuma licença é concedida para usar, copiar, modificar ou distribuir. Veja [LICENSE](LICENSE).

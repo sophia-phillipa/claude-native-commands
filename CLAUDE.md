@@ -37,4 +37,4 @@ Run from the repository root. `S` is `.claude/skills/notebooklm-command-infograp
   - `node --check` on the page's main inline script, extracted to a temp file;
   - the page served on localhost, with 0 console errors at 375 and 1280 px and no horizontal scroll;
   - every rendered card has 3 examples and an entry in `CATEGORIES`, `CONTEXTS`, `ICONS` and `MOTION`.
-- Language: card text is pt-BR; code, identifiers, comments and docs are English.
+- Language: card text and README.md are pt-BR (no English README, Sophia's choice); code, identifiers, comments and the other docs are English.
