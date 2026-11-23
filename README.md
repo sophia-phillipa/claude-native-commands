@@ -27,7 +27,7 @@ It does not run Claude commands, does not replace the official documentation and
 - `comandos-nativos.html`: a standalone page with the command guide, generated from `src/comandos-nativos.html`.
 - `src/comandos-nativos.html`: the only hand-edited page file. Card data lives in the `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` and `LOTE9_COMMANDS` arrays.
 - `assets/infographics/<slug>/`: per-command files (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) and the downloadable image formats for each card that has one.
-- `assets/infographics/manifest.json`: the index of the registered infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status` at this commit).
+- `assets/infographics/manifest.json`: the index of the registered infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status` at this commit).
 - `.claude/skills/notebooklm-command-infographic-playbook/`: the project skill and the `infographic-register-tool.py` script that checks and registers each infographic, with 224 tests.
 
 <!-- CATALOG:BEGIN -->
@@ -261,7 +261,7 @@ No known open issues as of 2026-11-23. Found one? Open an issue in this reposito
 
 Limitations found in the code:
 
-- Only 14 of the 82 cards have a registered infographic in `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status`); the other 68 are being generated. The other folders under `assets/infographics/` have blueprints and notes, but no registered image.
+- Only 15 of the 82 cards have a registered infographic in `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status`); the other 67 are being generated. The other folders under `assets/infographics/` have blueprints and notes, but no registered image.
 - `work/infographic-contracts.md` (section 8) and the INFOGRAPHICS comment in the page still name `register_and_check.py`. The real script is `infographic-register-tool.py`.
 
 ## 🧪 Tests

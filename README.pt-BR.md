@@ -27,7 +27,7 @@ Ela não executa comandos do Claude, não substitui a documentação oficial e n
 - `comandos-nativos.html`: uma página independente com o guia dos comandos, gerada a partir de `src/comandos-nativos.html`.
 - `src/comandos-nativos.html`: o único arquivo de página editado à mão. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
 - `assets/infographics/<slug>/`: arquivos por comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e os formatos de imagem para download de cada card que tem imagem.
-- `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status` neste commit).
+- `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status` neste commit).
 - `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto e o script `infographic-register-tool.py`, que verifica e registra cada infográfico, com 224 testes.
 
 <!-- CATALOG:BEGIN -->
@@ -261,7 +261,7 @@ Nenhum problema aberto conhecido em 2026-11-23. Encontrou um? Abra uma issue nes
 
 Limitações encontradas no código:
 
-- Só 14 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status`); os outros 68 estão sendo gerados. As outras pastas em `assets/infographics/` têm blueprint e notas, mas ainda não têm imagem registrada.
+- Só 15 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status`); os outros 67 estão sendo gerados. As outras pastas em `assets/infographics/` têm blueprint e notas, mas ainda não têm imagem registrada.
 - `work/infographic-contracts.md` (seção 8) e o comentário INFOGRAPHICS da página ainda citam `register_and_check.py`. O script real é `infographic-register-tool.py`.
 
 ## 🧪 Testes
