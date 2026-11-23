@@ -2,11 +2,36 @@
 
 # 📘 Claude Native Commands
 
-Um guia dos comandos nativos (de barra) do Claude Code Desktop, com um card de infográfico por comando.
+Aprenda os comandos nativos do Claude Code Desktop com um guia visual, testável e pronto para abrir no navegador.
+
+<img src="docs/screenshots/guide-hero-1280.webp" alt="Topo do guia: índice das categorias à esquerda, título com a contagem de 82 comandos e o painel de progresso dos testes" width="100%">
+
+Uma página HTML com um design atraente que ensina o que os comandos nativos do Claude Code Desktop podem fazer por você. Você testa cada comando e marca **Testei** (a marca fica só no seu navegador), navega pelas oito categorias e abre o infográfico de cada comando que tem um.
 
 [![Version](https://img.shields.io/badge/version-unreleased-lightgrey.svg)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-All%20rights%20reserved-red.svg)](LICENSE) [![Runtime](https://img.shields.io/badge/python-3-blue.svg)](.claude/skills/notebooklm-command-infographic-playbook/scripts)
 
 [Instalação](#-instalação) · [Uso](#-uso) · [Changelog](CHANGELOG.md) · [Segurança](SECURITY.md)
+
+<details>
+<summary>Sumário</summary>
+
+- [Status](#-status)
+- [A página com um card aberto](#-a-página-com-um-card-aberto)
+- [Infográficos registrados](#-infográficos-registrados)
+- [O que cada card traz](#-o-que-cada-card-traz)
+- [Menu e filtros](#-menu-e-filtros)
+- [Por que existe](#-por-que-existe)
+- [O que entrega](#-o-que-entrega)
+- [Catálogo dos comandos](#-catálogo-dos-comandos)
+- [Como funciona](#-como-funciona)
+- [Instalação](#-instalação)
+- [Uso](#-uso)
+- [Segurança e privacidade](#-segurança-e-privacidade)
+- [Problemas conhecidos](#-problemas-conhecidos)
+- [Testes](#-testes)
+- [Licença](#-licença)
+
+</details>
 
 </div>
 
@@ -14,19 +39,68 @@ Um guia dos comandos nativos (de barra) do Claude Code Desktop, com um card de i
 
 Alfa. Ainda não há tag de versão, e o conteúdo pode mudar a qualquer momento.
 
+## 🃏 A página com um card aberto
+
+<img src="docs/screenshots/guide-card-open-compact-1280.webp" alt="Página em 1280 px com os cards /context e /compact abertos, mostrando a linha de evidências, o botão Ver infográfico e a caixa Testei" width="100%">
+
+Captura de 1280 px com os cards `/context` e `/compact` abertos.
+
+## 🎨 Infográficos registrados
+
+Quando um comando tem infográfico registrado, o card mostra os botões **Ver infográfico** e **Baixar PNG**. Três exemplos; clique em cada um para abrir o PNG completo:
+
+<div align="center">
+
+<a href="assets/infographics/compact/infographic-1920.png"><img src="assets/infographics/compact/infographic.webp" alt="Infográfico do comando /compact" width="300"></a> <a href="assets/infographics/context/infographic-1920.png"><img src="assets/infographics/context/infographic.webp" alt="Infográfico do comando /context" width="300"></a> <a href="assets/infographics/code-review/infographic-1920.png"><img src="assets/infographics/code-review/infographic.webp" alt="Infográfico do comando /code-review" width="300"></a>
+
+</div>
+
+O catálogo completo, com os 82 comandos e o link de cada infográfico, está em [Catálogo dos comandos](#-catálogo-dos-comandos).
+
+## 🔎 O que cada card traz
+
+Cada card reúne:
+
+- **O quê** e **Por quê**: o que o comando faz e para que serve.
+- **Contexto**: quando vale rodar o comando.
+- **Como**: como chamar o comando, com ou sem parâmetros.
+- **Parâmetros**: cada parâmetro com o que faz, quando o comando tem algum.
+- **Três exemplos**: cada um com o botão **Copiar**.
+- Uma nota, quando o comando tem ressalva ou um detalhe da documentação oficial.
+- A linha de evidências: a versão do binário de referência (2.1.325), o link **Documentação**, o infográfico, **Modo Desktop** e o resultado do teste no app Desktop (funcionou, não funcionou ou ainda não testado).
+- A caixa **Testei**, que você marca depois de rodar o comando.
+
+## 🔍 Menu e filtros
+
+<img src="docs/screenshots/guide-menu-filters-1280.webp" alt="Índice de categorias à esquerda e filtros por categoria acima dos cards, em 1280 px" width="100%">
+
+O índice à esquerda lista as oito categorias, com quantos comandos você já testou em cada uma; clique num comando para ir até o card. Os filtros acima dos cards mostram só a categoria escolhida, e o modo memória esconde os nomes para você treinar a lembrança.
+
+<div align="center">
+
+<img src="docs/screenshots/guide-mobile-375.webp" alt="Página em 375 px, com o botão Índice no canto inferior direito" width="260">
+
+</div>
+
+Em 375 px, o índice sai da lateral e o botão **Índice** abre a lista.
+
 ## 💡 Por que existe
 
-Os comandos de barra do Claude Code Desktop são difíceis de achar e de diferenciar. Esta página lista os comandos, agrupa por categoria e mostra, para cada comando, o que ele faz e quando usar. A página é gerada a partir de um único arquivo-fonte editado à mão, então o guia e a cópia independente nunca divergem.
+Os comandos de barra do Claude Code Desktop são difíceis de achar e de diferenciar. Este guia:
 
-Ela não executa comandos do Claude, não substitui a documentação oficial e não publica nada sozinha.
+- agrupa os comandos por categoria e mostra, para cada um, o que faz, por que usar, quando vale rodar e como chamar;
+- deixa você marcar cada comando como testado, com o progresso guardado no navegador;
+- mostra o infográfico de cada comando que já tem um registrado.
+
+Ele não executa comandos do Claude, não substitui a documentação oficial e não publica nada sozinho.
 
 ## 🎁 O que entrega
 
-- `comandos-nativos.html`: uma página independente com o guia dos comandos, gerada a partir de `src/comandos-nativos.html`.
-- `src/comandos-nativos.html`: o único arquivo de página editado à mão. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
+- `comandos-nativos.html`: a página independente com os 82 cards, sem etapa de build.
+- `src/comandos-nativos.html`: o arquivo-fonte editado à mão. A página é gerada a partir dele, então o guia e a cópia independente nunca divergem. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
 - `assets/infographics/<slug>/`: arquivos por comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e os formatos de imagem para download de cada card que tem imagem.
 - `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status` neste commit).
-- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto e o script `infographic-register-tool.py`, que verifica e registra cada infográfico, com 224 testes.
+- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto e o script `infographic-register-tool.py`, que verifica e registra cada infográfico, com 229 testes.
 
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
@@ -211,9 +285,11 @@ git clone <url-do-repositorio> claude-native-commands
 cd claude-native-commands
 ```
 
+Sem Git, baixe o repositório pelo botão de código do GitHub, com a opção de baixar o ZIP, e descompacte a pasta.
+
 ### 2️⃣ Abra o guia
 
-Abra `comandos-nativos.html` em qualquer navegador. Não há etapa de build para ler a página.
+Dê um duplo clique em `comandos-nativos.html`, ou abra o arquivo em qualquer navegador. Não há etapa de build para ler a página.
 
 ### 3️⃣ Instale as dependências de teste (opcional)
 
@@ -250,6 +326,7 @@ Execute a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-comm
 ## 🔒 Segurança e privacidade
 
 - A página carrega duas folhas de estilo do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
+- As marcas **Testei** ficam no armazenamento local do navegador (`localStorage`); a página não as envia a nenhum servidor.
 - A ferramenta de registro não faz chamadas de rede. Os testes de layout do template (Playwright) bloqueiam requisições de rede da página testada.
 - Nenhuma chave de API, token ou credencial é guardada neste repositório. Para reportar uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
 
@@ -266,10 +343,10 @@ Limitações encontradas no código:
 
 | Categoria | Testes |
 | --------- | ------ |
-| regras do blueprint (`test_blueprint_rules.py`) | 21 |
+| regras do blueprint (`test_blueprint_rules.py`) | 26 |
 | pipeline de registro e verificação (`test_register_and_check.py`) | 107 |
 | layout do template, Playwright (`test_template_layout.py`) | 96 |
-| **Total** | **224** |
+| **Total** | **229** |
 
 Contagens de `python3 -m pytest -o addopts= --collect-only -q -p no:cacheprovider tests`, executado em `S`, agrupadas por arquivo de teste, em 2026-11-23.
 
