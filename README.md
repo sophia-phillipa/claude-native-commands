@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 22 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 23 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -150,7 +150,7 @@ O catálogo tem 82 comandos. Os 22 que já têm infográfico registrado trazem o
 | `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | [ver](assets/infographics/tasks/infographic.webp) |
 | `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em preparo |
 | `/subtask` | Subagente com a conversa inteira | Comando embutido | [ver](assets/infographics/subtask/infographic.webp) |
-| `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | em preparo |
+| `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | [ver](assets/infographics/deep-research/infographic.webp) |
 | `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em preparo |
 
 ### Diagnóstico e uso

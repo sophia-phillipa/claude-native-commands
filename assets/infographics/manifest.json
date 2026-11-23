@@ -91,6 +91,19 @@
       "slug": "copy",
       "updated_at": "2026-11-23T20:39:21Z"
     },
+    "deep-research": {
+      "command": "/deep-research",
+      "formats": {
+        "download": "assets/infographics/deep-research/infographic-1920.png",
+        "image": "assets/infographics/deep-research/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "deep-research",
+      "updated_at": "2026-11-23T20:56:34Z"
+    },
     "diff": {
       "command": "/diff",
       "formats": {
