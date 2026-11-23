@@ -93,13 +93,13 @@ Os comandos nativos do Claude Code Desktop, os que começam com `/`, são difíc
 - deixa você marcar cada comando como testado, com o progresso guardado no navegador;
 - mostra o infográfico de cada comando que já tem um registrado.
 
-O guia não executa comandos do Claude Code, não substitui a documentação oficial e não publica nada por conta própria.
+O guia não executa comandos do Claude Code e não substitui a documentação oficial.
 
 ## 🎁 O que entrega
 
 - `comandos-nativos.html`: a página com os 82 cards, que abre sozinha no navegador.
-- `assets/infographics/<slug>/`: as imagens de cada comando que já tem infográfico (`infographic.webp` e `infographic-1920.png`), que a página mostra e baixa.
-- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill que gera os infográficos no NotebookLM.
+- `assets/infographics/<slug>/`: as imagens de cada comando que já tem infográfico (`infographic.webp` e `infographic-1920.png`), que a página mostra e oferece para download.
+- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill que orienta a geração dos infográficos no NotebookLM.
 
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
@@ -234,7 +234,7 @@ Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem
 
 ## 🧭 Uso
 
-O `comandos-nativos.html` usa a pasta de pôsteres `assets/infographics/`, que fica ao lado dele e deve ser baixada junto. Fora isso, a página foi feita para depender do mínimo possível: abre direto no navegador.
+O `comandos-nativos.html` usa a pasta `assets/infographics/`, com os infográficos, que fica ao lado dele e deve ser baixada junto. A página foi feita para depender do mínimo possível e abre direto no navegador.
 
 ## 🔒 Segurança e privacidade
 
