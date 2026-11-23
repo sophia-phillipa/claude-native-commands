@@ -69,7 +69,7 @@ Close the tabs this run opened (`tabs_close_mcp`), leave Sophia's tabs open, and
 ## Hard rules
 
 - **Browser:** Claude in Chrome only (`mcp__claude-in-chrome__*`). Never the built-in browser or the Playwright MCP. Read the skill `anthropic-skills:chrome-browser` before the first browser step. Load the tools in ONE ToolSearch call. Call `tabs_context_mcp` first. Work in a new tab (`tabs_create_mcp`). If Chrome or the extension is not reachable, tell Sophia and stop.
-- **Sign-in and gates:** Se o Gemini exigir login, 2FA ou CAPTCHA, PAUSAR imediatamente e pedir ao usuário para autenticar manualmente na aba. Nunca tentar preencher credenciais.
+- **Sign-in and gates:** If Gemini asks for a sign-in, 2FA or a CAPTCHA, PAUSE at once and ask the user to sign in by hand in the tab. Never try to fill in credentials.
 - The same stop applies to a NotebookLM sign-in, 2FA or CAPTCHA, and to any consent or terms screen. Never type credentials, never solve a CAPTCHA, never accept terms, never change Google or NotebookLM settings.
 - **Sources:** only the two notes of step 3 are selected. Never delete notes, sources or outputs in the notebook; leftovers are reported.
 - **Generations:** one generation at a time; never send again while an output is still generating.
@@ -81,7 +81,7 @@ Close the tabs this run opened (`tabs_close_mcp`), leave Sophia's tabs open, and
 - **Labels:** Studio labels are UNVERIFIED until a screenshot shows them; record each one in the Observed UI log of `references/notebooklm-chrome-playbook.md` section 6.
 - **Waiting:** no shell `sleep`; use the `computer` `wait` action (at most 10 s per call).
 
-## FALLBACK DE EMERGÊNCIA, não usar no fluxo normal
+## Emergency fallback (never in the normal flow)
 
 Use only when Sophia asks for a vector infographic after the NotebookLM run failed. The vector template is not the generator.
 
