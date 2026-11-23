@@ -8,9 +8,9 @@ Aprenda os comandos nativos do Claude Code Desktop com um guia visual pronto par
 
 Uma página HTML com um design atraente que ensina o que os comandos nativos do Claude Code Desktop podem fazer por você. Você testa cada comando e marca **Testei** (a marca fica só no seu navegador), navega pelas oito categorias e abre o infográfico de cada comando que tem um.
 
-[![Version](https://img.shields.io/badge/version-unreleased-lightgrey.svg)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-All%20rights%20reserved-red.svg)](LICENSE) [![Runtime](https://img.shields.io/badge/python-3-blue.svg)](.claude/skills/notebooklm-command-infographic-playbook/scripts)
+[![Version](https://img.shields.io/badge/version-unreleased-lightgrey.svg)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-All%20rights%20reserved-red.svg)](LICENSE)
 
-[Instalação](#-instalação) · [Uso](#-uso) · [Changelog](CHANGELOG.md) · [Segurança](SECURITY.md)
+[Uso](#-uso) · [Changelog](CHANGELOG.md) · [Segurança](SECURITY.md)
 
 <details>
 <summary>Sumário</summary>
@@ -23,13 +23,8 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 - [Por que existe](#-por-que-existe)
 - [O que entrega](#-o-que-entrega)
 - [Catálogo dos comandos](#-catálogo-dos-comandos)
-- [Como funciona](#-como-funciona)
-- [Instalação](#-instalação)
 - [Uso](#-uso)
 - [Segurança e privacidade](#-segurança-e-privacidade)
-- [Problemas conhecidos](#-problemas-conhecidos)
-- [Testes](#-testes)
-- [Licença](#-licença)
 
 </details>
 
@@ -102,11 +97,9 @@ O guia não executa comandos do Claude Code, não substitui a documentação ofi
 
 ## 🎁 O que entrega
 
-- `comandos-nativos.html`: a página independente com os 82 cards, sem etapa de build.
-- `src/comandos-nativos.html`: o arquivo-fonte editado à mão. O `register` gera a partir dele a página da raiz, que não se edita à mão. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
-- `assets/infographics/<slug>/`: os arquivos de cada comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e, quando o card tem infográfico, as imagens para download.
-- `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status` neste commit).
-- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto, com o script `infographic-register-tool.py`, que verifica e registra cada infográfico, e os 229 testes da skill.
+- `comandos-nativos.html`: a página com os 82 cards, que abre sozinha no navegador.
+- `assets/infographics/<slug>/`: as imagens de cada comando que já tem infográfico (`infographic.webp` e `infographic-1920.png`), que a página mostra e baixa.
+- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill que gera os infográficos no NotebookLM.
 
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
@@ -239,145 +232,12 @@ O catálogo tem 82 comandos. Os 17 que já têm infográfico registrado trazem o
 Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem da página.
 <!-- CATALOG:END -->
 
-## 🔬 Como funciona
-
-A página é um arquivo HTML estático com um script embutido. Cada infográfico passa por barreiras: a ferramenta confere o blueprint antes da execução no NotebookLM, recolhe o download para a pasta de assets e confere o relatório de auditoria antes de registrar o resultado.
-
-```mermaid
-flowchart LR
-    src["src/comandos-nativos.html"] -->|register| page["comandos-nativos.html"]
-    src -->|register| block["bloco INFOGRAPHICS"]
-    blueprint["assets/infographics/slug/blueprint.json"] -->|check-blueprint| run["NotebookLM Studio no Chrome"]
-    run -->|collect-download| assets["infographic.webp e infographic-1920.png"]
-    report["qa-report.json"] -->|check-qa| register["register"]
-    assets --> register
-    register --> manifest["assets/infographics/manifest.json"]
-```
-
-```mermaid
-sequenceDiagram
-    participant Operador
-    participant Ferramenta as infographic-register-tool.py
-    Operador->>Ferramenta: check-blueprint slug
-    Ferramenta-->>Operador: blueprint aprovado ou regras que falharam
-    Operador->>Ferramenta: snapshot-downloads --out arquivo
-    Ferramenta-->>Operador: arquivo com os downloads atuais
-    Operador->>Ferramenta: collect-download slug --snapshot arquivo --kind png
-    Ferramenta-->>Operador: PNG movido para a pasta de assets
-    Operador->>Ferramenta: check-qa slug
-    Ferramenta-->>Operador: aprovado ou reprovado pelo qa-report.json
-    Operador->>Ferramenta: register slug
-    Ferramenta-->>Operador: manifest, bloco INFOGRAPHICS e página independente gravados
-```
-
-A imagem é gerada pelo NotebookLM Studio no Chrome, numa etapa manual: nenhum script chama o NotebookLM.
-
-## 📋 Pré-requisitos
-
-| Plataforma | Status | Observações |
-| ---------- | ------ | ----------- |
-| Linux      | ✅     | Usado em todas as execuções de teste deste repositório. |
-| macOS      | ⚠️     | Não verificado. |
-| Windows    | ⚠️     | Não verificado. |
-
-A ferramenta de registro e os testes rodam em Python 3. Você só precisa de um navegador baseado em Chromium para os testes de layout do template vetorial (Playwright) e para a etapa manual no NotebookLM.
-
-## 🚀 Instalação
-
-### 1️⃣ Clone o repositório
-
-```bash
-git clone <url-do-repositorio> claude-native-commands
-cd claude-native-commands
-```
-
-Sem Git, clique em **Code** na página do repositório no GitHub, escolha **Download ZIP** e descompacte o arquivo.
-
-### 2️⃣ Abra o guia
-
-Dê um duplo clique em `comandos-nativos.html` ou abra o arquivo no seu navegador. A página abre direto, sem build.
-
-### 3️⃣ Instale as dependências de teste (opcional)
-
-```bash
-python3 -m pip install pytest ruff playwright
-python3 -m playwright install chromium
-```
-
-## 🧹 Desinstalação
-
-Apague a pasta do clone. O Playwright guarda os navegadores fora do repositório; remova-os com `python3 -m playwright uninstall` e, se instalou os pacotes só para este projeto, rode `python3 -m pip uninstall playwright pytest ruff`.
-
 ## 🧭 Uso
 
-Rode os comandos a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-command-infographic-playbook/scripts`, e `<slug>` é o id de um card, como `compact`. Cada subcomando da tabela vai depois de `python3 S/infographic-register-tool.py`.
-
-| Comando | O que faz |
-| ------- | --------- |
-| `python3 S/infographic-register-tool.py --help` | Lista os subcomandos. |
-| `check-blueprint <slug>` | Barreira 1, antes da execução no NotebookLM. |
-| `labels <slug>` | Imprime as linhas para o `roteiro.md`. |
-| `snapshot-downloads --out <arquivo>` | Antes de cada download, grava num arquivo a lista dos downloads atuais. |
-| `collect-download <slug> --snapshot <arquivo> --kind png` | Move o PNG novo para a pasta de assets. |
-| `check-qa <slug>` | Barreira 3, depois que o `qa-report.json` é gravado. |
-| `register <slug>` | Grava o item do manifest, o bloco INFOGRAPHICS e a página independente. Exige `check-blueprint` e `check-qa` aprovados. |
-
-## 🧩 Configuração
-
-| Nome | Onde | Efeito |
-| ---- | ---- | ------ |
-| `INFOGRAPHIC_DOWNLOADS_DIR` | variável de ambiente | Pasta que `snapshot-downloads` e `collect-download` leem quando `--downloads` não é informado. |
-| `--root <dir>` | opção da ferramenta de registro | Raiz do projeto. Sem ela, a ferramenta sobe pelas pastas a partir do diretório atual até encontrar a raiz. |
+Abra `comandos-nativos.html` no navegador, com um duplo clique. A página roda sozinha, sem instalação, build ou servidor. Os infográficos vêm da pasta `assets/infographics/`: mantenha essa pasta ao lado do arquivo para que **Ver infográfico** e **Baixar PNG** funcionem.
 
 ## 🔒 Segurança e privacidade
 
 - A página carrega as fontes do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
 - As marcações da caixa **Testei** ficam no armazenamento local do navegador (`localStorage`); a página não as envia a nenhum servidor.
-- A ferramenta de registro não faz chamadas de rede. Os testes de layout do template (Playwright) bloqueiam requisições de rede da página testada.
 - Nenhuma chave de API, token ou credencial é guardada neste repositório. Para reportar uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
-
-## 🐞 Problemas conhecidos
-
-Nenhuma issue aberta em 2026-11-23. Encontrou um problema? Abra uma issue neste repositório.
-
-Limitações conhecidas:
-
-- Só 17 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (lista em [O que entrega](#-o-que-entrega)). Os outros 65 estão em produção: as pastas deles em `assets/infographics/` já têm blueprint e notas, mas ainda não têm imagem registrada.
-- `work/infographic-contracts.md` (seção 8) e o comentário INFOGRAPHICS da página ainda citam `register_and_check.py`. O script real é `infographic-register-tool.py`.
-
-## 🧪 Testes
-
-| Categoria | Testes |
-| --------- | ------ |
-| regras do blueprint (`test_blueprint_rules.py`) | 26 |
-| pipeline de registro e verificação (`test_register_and_check.py`) | 107 |
-| layout do template, Playwright (`test_template_layout.py`) | 96 |
-| **Total** | **229** |
-
-Contagens de `python3 -m pytest -o addopts= --collect-only -q -p no:cacheprovider tests`, executado em `S`, agrupadas por arquivo de teste, em 2026-11-23.
-
-## 🔧 Desenvolvimento
-
-```bash
-cd .claude/skills/notebooklm-command-infographic-playbook/scripts
-python3 -m pytest -q -p no:cacheprovider tests
-ruff check .
-```
-
-Adicione `--basetemp=<dir>` para manter os diretórios temporários do pytest fora de `/tmp`.
-
-## 📝 Changelog
-
-As mudanças estão em [CHANGELOG.md](CHANGELOG.md). O projeto segue o [Versionamento Semântico](https://semver.org/lang/pt-BR/) e ainda não tem tag de versão.
-
-## 🤝 Contribuições
-
-Issues são bem-vindas. Pull requests de fora não são aceitos.
-
-## 👤 Mantenedor
-
-O dono do repositório. O contato é pelas issues.
-
-## 📄 Licença
-
-Todos os direitos reservados. Software proprietário, sem identificador SPDX de licença. Nenhuma licença é concedida para usar, copiar, modificar ou distribuir. Veja [LICENSE](LICENSE).

@@ -8,11 +8,12 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- README rewritten for a company audience: screenshots of the guide in `docs/screenshots/`, a gallery of registered posters and the current count of 229 tests.
+- README rewritten for a company audience: screenshots of the guide in `docs/screenshots/` and a gallery of registered posters.
 - The repository is public, with a fresh history. Working notes (`dossier/`, and `work/` except `work/infographic-contracts.md`) stay local and gitignored, and the skill reads the NotebookLM notebook URL from a gitignored `references/notebook.local.md`.
 - Command guide card text corrected against the 2026-11-23 source recheck: 58 wording fixes, the reload-skills and rewind notes, two docs links and the `/doctor` app field.
 - Card arguments checked against the docs signatures: `/model`, `/effort` and `/goal` show their argument as optional, and `/simplify`, `/doctor`, `/context`, `/design-sync` and `/claude-in-chrome` list the optional argument they take.
 - README: screenshots of the `/simplify`, `/memory` and `/rewind` cards, a catalog that links all 17 registered posters, and a wording review.
+- README covers only the page. The install, how-it-works, prerequisites, uninstall, configuration, known-issues, tests, development, changelog, contributions, maintainer and license sections are gone, and usage is now opening the file.
 
 ### Added
 
