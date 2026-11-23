@@ -143,6 +143,19 @@
       "slug": "doctor",
       "updated_at": "2026-11-23T21:23:32Z"
     },
+    "heapdump": {
+      "command": "/heapdump",
+      "formats": {
+        "download": "assets/infographics/heapdump/infographic-1920.png",
+        "image": "assets/infographics/heapdump/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "heapdump",
+      "updated_at": "2026-11-23T22:03:40Z"
+    },
     "logout": {
       "command": "/logout",
       "formats": {
@@ -272,6 +285,32 @@
       "qa_status": "passed",
       "slug": "simplify",
       "updated_at": "2026-11-23T18:41:14Z"
+    },
+    "skills": {
+      "command": "/skills",
+      "formats": {
+        "download": "assets/infographics/skills/infographic-1920.png",
+        "image": "assets/infographics/skills/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "skills",
+      "updated_at": "2026-11-23T22:21:14Z"
+    },
+    "stats": {
+      "command": "/stats",
+      "formats": {
+        "download": "assets/infographics/stats/infographic-1920.png",
+        "image": "assets/infographics/stats/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "stats",
+      "updated_at": "2026-11-23T22:10:14Z"
     },
     "status": {
       "command": "/status",
