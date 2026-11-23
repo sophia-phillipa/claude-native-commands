@@ -2,7 +2,7 @@
 
 # 📘 Claude Native Commands
 
-Aprenda os comandos nativos do Claude Code Desktop com um guia visual, testável e pronto para abrir no navegador.
+Aprenda os comandos nativos do Claude Code Desktop com um guia visual pronto para abrir no navegador.
 
 <img src="docs/screenshots/guide-hero-1280.webp" alt="Topo do guia: índice das categorias à esquerda, título com a contagem de 82 comandos e o painel de progresso dos testes" width="100%">
 
