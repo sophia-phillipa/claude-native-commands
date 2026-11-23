@@ -18,7 +18,7 @@ motiva
 avalia
 devolve
 encerra
-<condição>
+[condição]
 Critério que define o pronto
 clear
 Remove a meta atual

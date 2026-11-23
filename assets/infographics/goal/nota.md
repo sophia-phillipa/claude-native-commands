@@ -9,10 +9,10 @@ Define uma condição de pronto. Depois de cada turno, um modelo avaliador separ
 Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a sessão só para quando o critério que você deu é verdadeiro, ou quando o avaliador julga a meta impossível ou um erro exige correção.
 
 ## Como usar
-Digite /goal seguido da condição. Para remover a meta, use /goal clear.
+Digite /goal seguido da condição. Sem condição, ele mostra a meta atual ou a última cumprida. Para remover a meta, use /goal clear.
 
 Parâmetros:
-- <condição>: texto livre com o critério de pronto. Quanto mais verificável, melhor: um teste que passa, um arquivo que existe, um comando que sai sem erro.
+- [condição]: opcional. Texto livre com o critério de pronto. Quanto mais verificável, melhor: um teste que passa, um arquivo que existe, um comando que sai sem erro.
 - clear: palavra fixa. Remove a meta atual.
 
 ## Quando usar

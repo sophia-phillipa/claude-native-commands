@@ -30,7 +30,7 @@
   },
   "connections": {
     "flags": [
-      { "text": "<condição>", "label": "Critério que define o pronto" },
+      { "text": "[condição]", "label": "Critério que define o pronto (opcional)" },
       { "text": "clear", "label": "Remove a meta atual" }
     ],
     "files": [],
