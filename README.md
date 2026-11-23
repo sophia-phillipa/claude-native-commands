@@ -10,7 +10,7 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 
 [![Version](https://img.shields.io/badge/version-unreleased-lightgrey.svg)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-All%20rights%20reserved-red.svg)](LICENSE)
 
-[Uso](#-uso) · [Changelog](CHANGELOG.md)
+[Uso](#-uso) · [Changelog](CHANGELOG.md) · [Segurança](SECURITY.md)
 
 <details>
 <summary>Sumário</summary>
@@ -240,3 +240,4 @@ O `comandos-nativos.html` usa a pasta `assets/infographics/`, com os infográfic
 
 - A página carrega as fontes do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
 - As marcações da caixa **Testei** ficam no armazenamento local do navegador (`localStorage`); a página não as envia a nenhum servidor.
+- Nenhuma chave de API, token ou credencial é guardada neste repositório.
