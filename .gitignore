@@ -17,5 +17,8 @@ __pycache__/
 /work/*
 !/work/infographic-contracts.md
 
+# Local-only tooling: the register script and its tests stay on disk while the posters are generated; the repos ship the page.
+/.claude/skills/notebooklm-command-infographic-playbook/scripts/
+
 # Local-only values, such as the private NotebookLM notebook URL.
 *.local.md

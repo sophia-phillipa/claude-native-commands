@@ -31,6 +31,7 @@ Run from the repository root. `S` is `.claude/skills/notebooklm-command-infograp
 - The audited `infographic.png` is gitignored and stays local; only the WebP and the 1920 px PNG ship.
 - Contracts: `work/infographic-contracts.md`. Its section 8 and the page's INFOGRAPHICS comment still name `register_and_check.py`; the real script is `infographic-register-tool.py`.
 - Tests in `S/tests/`: blueprint rules, the template layout (Playwright) and the register and check pipeline.
+- `S` is gitignored: the script and its tests stay local while the posters are generated. The repos ship the page, its poster images and at most the NotebookLM skill.
 - `dossier/` (local only, gitignored, like everything in `work/` except `work/infographic-contracts.md`) holds long-task state: `*-progress-reference.md` notes and `*-tasks-reference.json` lists whose `status` is `pass`, `pending` or `fail`.
 - Publishing: only the main session publishes the page, as a private claude.ai artifact built from `src/`, with the asset files and downloads capability. No script publishes.
 - Checks before each publish (manual, no script yet):

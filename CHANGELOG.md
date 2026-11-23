@@ -14,11 +14,10 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Card arguments checked against the docs signatures: `/model`, `/effort` and `/goal` show their argument as optional, and `/simplify`, `/doctor`, `/context`, `/design-sync` and `/claude-in-chrome` list the optional argument they take.
 - README: screenshots of the `/simplify`, `/memory` and `/rewind` cards, a catalog that links all 17 registered posters, and a wording review.
 - README covers only the page. The install, how-it-works, prerequisites, uninstall, configuration, known-issues, tests, development, changelog, contributions, maintainer and license sections are gone, and usage is now opening the file.
+- The register script and its tests are no longer in the repositories; they stay local while the posters are generated.
 
 ### Added
 
 - Command guide page `comandos-nativos.html`, generated from `src/comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
 - Cards for `/agents`, `/help` and `/whiteboard`; the guide now has 82 cards.
-- Infographic pipeline `infographic-register-tool.py`, with the barriers `check-blueprint`, `check-qa` and `register`.
 - 17 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.
-- 229 pytest tests under `.claude/skills/notebooklm-command-infographic-playbook/scripts/tests`.
