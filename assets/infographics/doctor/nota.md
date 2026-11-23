@@ -9,7 +9,7 @@ Faz um check-up da sua instalação e corrige problemas: saúde da instalação,
 Junta num só lugar o que normalmente se descobre aos poucos quando algo fica lento ou estranho.
 
 ## Como usar
-Rode /doctor ou o apelido /checkup, sem parâmetros. Se não aparecer no menu do app, abra claude no painel Terminal e rode lá.
+Rode /doctor ou o apelido /checkup. Segundo a documentação, /doctor prompt-audit audita as suas instruções em vez de fazer o check-up. Se não aparecer no menu do app, abra claude no painel Terminal e rode lá.
 
 ## Quando usar
 Quando algo fica estranho sem motivo claro, como o app lento, um hook que demora, um aviso de versão ou memórias repetidas. Também logo depois de atualizar o app.

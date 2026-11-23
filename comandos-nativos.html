@@ -549,7 +549,7 @@ const COMMANDS = [
     app: { ok: true, text: "Testado no app: tabela por categoria" },
     what: "Mostra o uso atual da janela de contexto, com uma tabela por categoria e a lista de ferramentas MCP, agentes e skills com os tokens de cada um.",
     why: "Explica por que uma sessão ficou pesada e o que cortar. Com muitos servidores MCP ligados, as ferramentas deles costumam ser uma das maiores fatias.",
-    how: "Rode <code>/context</code> sem parâmetros. No app, o teste cobriu só a tabela por categoria; o argumento <code>all</code>, que expande a tabela, não foi testado.",
+    how: "Rode <code>/context</code>. No app, o teste cobriu só a tabela por categoria; o argumento <code>all</code>, que expande a tabela, não foi testado.",
     examples: [
       ["/context", "Retrato do contexto agora."],
       ["/context", "Rode antes e depois de um /compact para ver quanto foi liberado."],
@@ -594,7 +594,10 @@ const COMMANDS = [
     id: "simplify", h: 290, icon: "wand", kind: "Skill embutida", short: "Limpar o código alterado",
     what: "Revisa o código alterado procurando reuso, simplificação, eficiência e o nível certo de abstração, e aplica as correções.",
     why: "Deixa o diff menor e mais legível antes do commit. Não procura bugs: para isso existe o /code-review.",
-    how: "Rode <code>/simplify</code> sem parâmetros, com mudanças no working tree.",
+    how: "Rode <code>/simplify</code> com mudanças no working tree, ou passe um caminho ou um PR para revisar só esse alvo.",
+    params: [
+      ["[alvo]", "Opcional. Um caminho ou uma referência de PR; sem ele, revisa as mudanças atuais."]
+    ],
     examples: [
       ["/simplify", "Limpa o diff atual e aplica as melhorias."],
       ["/code-review high", "Primeiro passo da dupla: caça bugs."],
@@ -617,7 +620,7 @@ const COMMANDS = [
     app: { ok: true, text: "Testado no app: funcionou" },
     what: "Faz um check-up da sua instalação e corrige problemas: saúde da instalação, extensões sem uso, arquivos de memória duplicados ou inchados, hooks lentos, atualizações e permissões.",
     why: "Junta num só lugar o que normalmente se descobre aos poucos quando algo fica lento ou estranho.",
-    how: "Rode <code>/doctor</code> ou o apelido <code>/checkup</code>, sem parâmetros. Se não aparecer no menu do app, abra <code>claude</code> no painel Terminal e rode lá.",
+    how: "Rode <code>/doctor</code> ou o apelido <code>/checkup</code>. Segundo a documentação, <code>/doctor prompt-audit</code> audita as suas instruções em vez de fazer o check-up. Se não aparecer no menu do app, abra <code>claude</code> no painel Terminal e rode lá.",
     note: "Testado no app Desktop: funciona. A lista do Desktop e a 2.1.325 o marcam como comando de terminal, como o /color e o /reload-plugins, que também funcionaram no app.",
     warn: true,
     examples: [
@@ -1059,7 +1062,7 @@ const NEW_COMMANDS = [
     short: "Enviar seu design system ao Claude Design",
     what: "Empacota os componentes React reais do seu design system, vindos do Storybook ou de um pacote, e os envia para um projeto no claude.ai/design.",
     why: "O Claude Design passa a trabalhar com os componentes que o seu código usa de verdade, não com imitações desenhadas à mão.",
-    how: "Digite <code>/design-sync</code> e acompanhe as perguntas. Ele roda um conversor que junta o código dos componentes e faz o envio, pedindo a sua confirmação antes de criar o projeto ou mexer em arquivos.",
+    how: "Digite <code>/design-sync</code> e acompanhe as perguntas. Ele roda um conversor que junta o código dos componentes e faz o envio, pedindo a sua confirmação antes de criar o projeto ou mexer em arquivos. Se quiser, dê um nome ao design system, como <code>/design-sync Acme DS</code>.",
     note: "Exige uma conta com acesso ao Claude Design e a liberação de acesso aos seus projetos de design. Pode pedir login antes de começar.",
     warn: true,
     examples: [
@@ -1208,7 +1211,7 @@ const NEW_COMMANDS = [
     short: "Deixar o Claude navegar no seu Chrome",
     what: "Liga o Claude ao seu Chrome para clicar, preencher formulários, capturar telas, ler o console e navegar. Ele abre as páginas em abas novas dentro da sua sessão do Chrome.",
     why: "O Claude passa a testar e conferir páginas reais, com os logins que já estão ali, em vez de só ler o código.",
-    how: "Digite <code>/claude-in-chrome</code>. A skill é lida antes de usar qualquer ferramenta mcp__claude-in-chrome__*.",
+    how: "Digite <code>/claude-in-chrome</code>, sozinho ou seguido de uma tarefa no navegador, como testar uma página ou preencher um formulário. A skill é lida antes de usar qualquer ferramenta mcp__claude-in-chrome__*.",
     note: "Exige a extensão do Claude no Chrome e a liberação de acesso por site, configurada na extensão.",
     warn: true,
     examples: [

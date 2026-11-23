@@ -9,7 +9,7 @@ Empacota os componentes React reais do seu design system, vindos do Storybook ou
 O Claude Design passa a trabalhar com os componentes que o seu código usa de verdade, não com imitações desenhadas à mão.
 
 ## Como usar
-Digite /design-sync e acompanhe as perguntas. Ele roda um conversor que junta o código dos componentes e faz o envio, pedindo a sua confirmação antes de criar o projeto ou mexer em arquivos.
+Digite /design-sync e acompanhe as perguntas. Ele roda um conversor que junta o código dos componentes e faz o envio, pedindo a sua confirmação antes de criar o projeto ou mexer em arquivos. Se quiser, dê um nome ao design system, como /design-sync Acme DS.
 
 ## Quando usar
 Quando o design system do seu time já existe em código e você quer que o Claude Design use os mesmos componentes.

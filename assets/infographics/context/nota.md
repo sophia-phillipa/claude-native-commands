@@ -9,7 +9,7 @@ Mostra o uso atual da janela de contexto, com uma tabela por categoria e a lista
 Explica por que uma sessão ficou pesada e o que cortar. Com muitos servidores MCP ligados, as ferramentas deles costumam ser uma das maiores fatias.
 
 ## Como usar
-Rode /context sem parâmetros. No app, o teste cobriu só a tabela por categoria; o argumento all, que expande a tabela, não foi testado.
+Rode /context. No app, o teste cobriu só a tabela por categoria; o argumento all, que expande a tabela, não foi testado.
 
 ## Quando usar
 Quando as respostas ficam lentas ou a sessão parece pesada, e antes de colar um log grande. Olhe primeiro as maiores fatias da tabela: é ali que o corte rende mais.

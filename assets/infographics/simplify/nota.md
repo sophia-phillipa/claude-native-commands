@@ -9,7 +9,10 @@ Revisa o código alterado procurando reuso, simplificação, eficiência e o ní
 Deixa o diff menor e mais legível antes do commit. Não procura bugs: para isso existe o /code-review.
 
 ## Como usar
-Rode /simplify sem parâmetros, com mudanças no working tree.
+Rode /simplify com mudanças no working tree, ou passe um caminho ou um PR para revisar só esse alvo.
+
+Parâmetros:
+- [alvo]: opcional. Um caminho ou uma referência de PR; sem ele, revisa as mudanças atuais.
 
 ## Quando usar
 Depois que a funcionalidade já funciona e os testes passam, antes do commit: é a hora de enxugar sem mudar o comportamento.
