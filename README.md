@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 37 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 40 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -193,10 +193,10 @@ O catálogo tem 82 comandos. Os 37 que já têm infográfico registrado trazem o
 | `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | em preparo |
 | `/run-skill-generator` | Criar a skill que sabe rodar o app do projeto | Skill embutida | [ver](assets/infographics/run-skill-generator/infographic.webp) |
 | `/design-sync` | Enviar seu design system ao Claude Design | Skill embutida | [ver](assets/infographics/design-sync/infographic.webp) |
-| `/dataviz` | Gráficos que seguem um só sistema visual | Skill embutida | em preparo |
+| `/dataviz` | Gráficos que seguem um só sistema visual | Skill embutida | [ver](assets/infographics/dataviz/infographic.webp) |
 | `/artifact-diagramming` | Diagramas que mostram o mecanismo, não só o nome | Skill embutida | [ver](assets/infographics/artifact-diagramming/infographic.webp) |
-| `/workflow-authoring` | Referência para escrever um script de workflow | Skill embutida | em preparo |
-| `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | em preparo |
+| `/workflow-authoring` | Referência para escrever um script de workflow | Skill embutida | [ver](assets/infographics/workflow-authoring/infographic.webp) |
+| `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | [ver](assets/infographics/plugin-authoring/infographic.webp) |
 | `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | em preparo |
 | `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | em preparo |
 | `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em preparo |

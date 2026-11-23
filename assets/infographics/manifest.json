@@ -117,6 +117,19 @@
       "slug": "cost",
       "updated_at": "2026-11-23T22:25:55Z"
     },
+    "dataviz": {
+      "command": "/dataviz",
+      "formats": {
+        "download": "assets/infographics/dataviz/infographic-1920.png",
+        "image": "assets/infographics/dataviz/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "dataviz",
+      "updated_at": "2026-11-23T23:26:15Z"
+    },
     "debug": {
       "command": "/debug",
       "formats": {
@@ -272,6 +285,19 @@
       "qa_status": "passed",
       "slug": "plugin",
       "updated_at": "2026-11-23T22:32:11Z"
+    },
+    "plugin-authoring": {
+      "command": "/plugin-authoring",
+      "formats": {
+        "download": "assets/infographics/plugin-authoring/infographic-1920.png",
+        "image": "assets/infographics/plugin-authoring/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "plugin-authoring",
+      "updated_at": "2026-11-23T23:50:02Z"
     },
     "recap": {
       "command": "/recap",
@@ -480,6 +506,19 @@
       "qa_status": "passed",
       "slug": "usage-credits",
       "updated_at": "2026-11-23T21:57:46Z"
+    },
+    "workflow-authoring": {
+      "command": "/workflow-authoring",
+      "formats": {
+        "download": "assets/infographics/workflow-authoring/infographic-1920.png",
+        "image": "assets/infographics/workflow-authoring/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "workflow-authoring",
+      "updated_at": "2026-11-23T23:33:32Z"
     }
   },
   "version": 1
