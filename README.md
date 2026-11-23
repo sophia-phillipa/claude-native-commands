@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 31 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 34 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -168,7 +168,7 @@ O catálogo tem 82 comandos. Os 31 que já têm infográfico registrado trazem o
 | `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | em preparo |
 | `/status` | Ver versão, modelo, conta e conectividade | Comando embutido | [ver](assets/infographics/status/infographic.webp) |
 | `/stats` | Abrir o painel de uso direto na aba Stats | Comando embutido | [ver](assets/infographics/stats/infographic.webp) |
-| `/cost` | Nome antigo do /usage | Alias | em preparo |
+| `/cost` | Nome antigo do /usage | Alias | [ver](assets/infographics/cost/infographic.webp) |
 | `/bug` | Nome antigo do /feedback | Alias | em preparo |
 
 ### Extensões e conexões
@@ -181,9 +181,9 @@ O catálogo tem 82 comandos. Os 31 que já têm infográfico registrado trazem o
 | `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | em preparo |
 | `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | [ver](assets/infographics/skills/infographic.webp) |
 | `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | em preparo |
-| `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | em preparo |
+| `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | [ver](assets/infographics/plugin/infographic.webp) |
 | `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em preparo |
-| `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | em preparo |
+| `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | [ver](assets/infographics/design-consent/infographic.webp) |
 | `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | em preparo |
 
 ### Criação e referência

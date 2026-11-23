@@ -91,6 +91,19 @@
       "slug": "copy",
       "updated_at": "2026-11-23T20:39:21Z"
     },
+    "cost": {
+      "command": "/cost",
+      "formats": {
+        "download": "assets/infographics/cost/infographic-1920.png",
+        "image": "assets/infographics/cost/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "cost",
+      "updated_at": "2026-11-23T22:25:55Z"
+    },
     "debug": {
       "command": "/debug",
       "formats": {
@@ -116,6 +129,19 @@
       "qa_status": "passed",
       "slug": "deep-research",
       "updated_at": "2026-11-23T20:56:34Z"
+    },
+    "design-consent": {
+      "command": "/design-consent",
+      "formats": {
+        "download": "assets/infographics/design-consent/infographic-1920.png",
+        "image": "assets/infographics/design-consent/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "design-consent",
+      "updated_at": "2026-11-23T22:39:31Z"
     },
     "diff": {
       "command": "/diff",
@@ -207,6 +233,19 @@
       "qa_status": "passed",
       "slug": "model",
       "updated_at": "2026-11-23T19:35:59Z"
+    },
+    "plugin": {
+      "command": "/plugin",
+      "formats": {
+        "download": "assets/infographics/plugin/infographic-1920.png",
+        "image": "assets/infographics/plugin/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "plugin",
+      "updated_at": "2026-11-23T22:32:11Z"
     },
     "recap": {
       "command": "/recap",
