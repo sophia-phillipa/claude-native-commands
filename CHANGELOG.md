@@ -20,6 +20,6 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Command guide page `comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
-- GitLab Pages job (`.gitlab-ci.yml`): publishes the page and its poster images on each push to the default branch that changes them.
+- GitLab Pages job (`.gitlab-ci.yml`): publishes the page and its poster images when a pipeline is started by hand on the default branch.
 - Cards for `/agents`, `/help` and `/whiteboard`; the guide now has 82 cards.
 - 25 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `copy`, `debug`, `deep-research`, `diff`, `doctor`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status`, `subtask`, `tasks`, `ultrareview`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.
