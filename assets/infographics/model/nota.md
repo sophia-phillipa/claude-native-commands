@@ -3,13 +3,13 @@
 Categoria: Modelo e potência. Tipo: comando embutido do Claude Code.
 
 ## O que faz
-Define o modelo de IA usado pelo Claude Code na sessão.
+Define o modelo de IA usado pelo Claude Code na sessão. Segundo a documentação, a escolha também vira o padrão das próximas sessões.
 
 ## Por que usar
 Modelos menores respondem mais rápido e custam menos. Os maiores resolvem melhor problemas difíceis. Combina com o /effort.
 
 ## Como usar
-Use /model <modelo>.
+Use /model [modelo]. Sem nome, abre o seletor.
 
 Parâmetros:
 - [modelo]: opcional. O nome do modelo, como opus, sonnet, haiku ou fable; sem ele, abre o seletor. A dica do comando mostra os aceitos na sua conta.

@@ -23,4 +23,4 @@ Combina com o nível de esforço
 Tarefa mecânica e rápida
 Problema difícil ou revisão importante
 Vira padrão das próximas sessões
-/model <modelo>
+/model sonnet

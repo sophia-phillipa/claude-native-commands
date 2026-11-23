@@ -9,7 +9,7 @@ Define quanto o modelo pensa em cada resposta.
 Esforço baixo é mais rápido e barato para tarefas simples. Esforço alto ajuda em problemas difíceis. Combina com o /usage.
 
 ## Como usar
-Use /effort <nível>.
+Use /effort [nível].
 
 Parâmetros:
 - low · medium · high: do mais rápido e barato ao mais cuidadoso.
@@ -23,7 +23,7 @@ Quando o tipo de tarefa muda no meio da sessão: abaixe para ajustes mecânicos 
 xhigh consome mais tokens que high. max é para problemas difíceis, pode pensar demais e mostrar retorno decrescente: teste antes de usar com frequência.
 
 ## O que acontece no fluxo do prompt e do motor
-1. Você digita /effort com nível.
+1. Você digita /effort high.
 2. O motor define o nível.
 3. Cada resposta usa esse esforço.
 4. Modelo pensa no nível escolhido.

@@ -9,7 +9,7 @@ Quando usar
 Armadilhas comuns
 Exemplo
 Define quanto o modelo pensa em cada resposta
-Você digita /effort com nível
+Você digita /effort high
 O motor define o nível
 Cada resposta usa esse esforço
 Modelo pensa no nível escolhido

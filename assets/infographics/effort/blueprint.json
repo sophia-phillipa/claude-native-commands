@@ -15,7 +15,7 @@
   "identity": { "purpose": "Define quanto o modelo pensa em cada resposta" },
   "flow": {
     "steps": [
-      { "id": "s1", "layer": "input", "label": "Você digita /effort com nível" },
+      { "id": "s1", "layer": "input", "label": "Você digita /effort high" },
       { "id": "s2", "layer": "processing", "label": "O motor define o nível" },
       { "id": "s3", "layer": "processing", "label": "Cada resposta usa esse esforço" },
       { "id": "s4", "layer": "result", "label": "Modelo pensa no nível escolhido" }

@@ -647,7 +647,7 @@ const COMMANDS = [
     id: "effort", h: 70, icon: "dial", kind: "Comando embutido", lote: 2, short: "Nível de esforço do modelo",
     what: "Define quanto o modelo pensa em cada resposta.",
     why: "Esforço baixo é mais rápido e barato para tarefas simples. Esforço alto ajuda em problemas difíceis. Combina com o /usage.",
-    how: "Use <code>/effort &lt;nível&gt;</code>.",
+    how: "Use <code>/effort [nível]</code>.",
     params: [
       ["low · medium · high", "Do mais rápido e barato ao mais cuidadoso."],
       ["xhigh · max", "Os níveis mais altos. Se o modelo atual não suporta o nível pedido, o Claude Code usa o mais alto que ele suporta abaixo dele."],
@@ -736,9 +736,9 @@ const COMMANDS = [
   },
   {
     id: "model", h: 340, icon: "chip", kind: "Comando embutido", lote: 3, short: "Trocar o modelo da sessão",
-    what: "Define o modelo de IA usado pelo Claude Code na sessão.",
+    what: "Define o modelo de IA usado pelo Claude Code na sessão. Segundo a documentação, a escolha também vira o padrão das próximas sessões.",
     why: "Modelos menores respondem mais rápido e custam menos. Os maiores resolvem melhor problemas difíceis. Combina com o /effort.",
-    how: "Use <code>/model &lt;modelo&gt;</code>.",
+    how: "Use <code>/model [modelo]</code>. Sem nome, abre o seletor.",
     params: [
       ["[modelo]", "Opcional. O nome do modelo, como opus, sonnet, haiku ou fable; sem ele, abre o seletor. A dica do comando mostra os aceitos na sua conta."]
     ],

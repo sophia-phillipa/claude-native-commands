@@ -36,6 +36,6 @@
   "contrast": {
     "when": [ "Tarefa mecânica e rápida", "Problema difícil ou revisão importante" ],
     "pitfalls": [ "Vira padrão das próximas sessões" ],
-    "example": "/model <modelo>"
+    "example": "/model sonnet"
   }
 }
