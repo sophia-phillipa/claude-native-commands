@@ -16,7 +16,7 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 <summary>Sumário</summary>
 
 - [Status](#-status)
-- [A página com um card aberto](#-a-página-com-um-card-aberto)
+- [A página com cards abertos](#-a-página-com-cards-abertos)
 - [Infográficos registrados](#-infográficos-registrados)
 - [O que cada card traz](#-o-que-cada-card-traz)
 - [Menu e filtros](#-menu-e-filtros)
@@ -39,7 +39,7 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 
 Alfa. Ainda não há tag de versão, e o conteúdo pode mudar a qualquer momento.
 
-## 🃏 A página com um card aberto
+## 🃏 A página com cards abertos
 
 <img src="docs/screenshots/guide-card-open-compact-1280.webp" alt="Página em 1280 px com os cards /context e /compact abertos, mostrando a linha de evidências, o botão Ver infográfico e a caixa Testei" width="100%">
 
@@ -64,17 +64,25 @@ Cada card reúne:
 - **O quê** e **Por quê**: o que o comando faz e para que serve.
 - **Contexto**: quando vale rodar o comando.
 - **Como**: como chamar o comando, com ou sem parâmetros.
-- **Parâmetros**: cada parâmetro com o que faz, quando o comando tem algum.
+- **Parâmetros**: o que cada parâmetro faz, quando o comando aceita algum.
 - **Três exemplos**: cada um com o botão **Copiar**.
-- Uma nota, quando o comando tem ressalva ou um detalhe da documentação oficial.
-- A linha de evidências: a versão do binário de referência (2.1.325), o link **Documentação**, o infográfico, **Modo Desktop** e o resultado do teste no app Desktop (funcionou, não funcionou ou ainda não testado).
+- Uma nota com a ressalva do comando ou um detalhe da documentação oficial, quando houver.
+- A linha de evidências: a versão do binário de referência (2.1.325), o link **Documentação**, o infográfico, o selo **Modo Desktop** (com aviso quando o comando está marcado como de terminal) e o resultado do teste no app Desktop: funcionou, não funcionou ou ainda não testado.
 - A caixa **Testei**, que você marca depois de rodar o comando.
+
+Três cards como aparecem na página; clique para ampliar:
+
+<div align="center">
+
+<a href="docs/screenshots/card-simplify-1280.webp"><img src="docs/screenshots/card-simplify-1280.webp" alt="Card do /simplify: o quê, por quê, contexto, como, o parâmetro opcional [alvo] e três exemplos com o botão Copiar" width="260"></a> <a href="docs/screenshots/card-memory-1280.webp"><img src="docs/screenshots/card-memory-1280.webp" alt="Card do /memory, com a linha de evidências, o botão Ver infográfico e três exemplos" width="260"></a> <a href="docs/screenshots/card-rewind-1280.webp"><img src="docs/screenshots/card-rewind-1280.webp" alt="Card do /rewind, com a nota sobre o que não volta e três exemplos" width="260"></a>
+
+</div>
 
 ## 🔍 Menu e filtros
 
 <img src="docs/screenshots/guide-menu-filters-1280.webp" alt="Índice de categorias à esquerda e filtros por categoria acima dos cards, em 1280 px" width="100%">
 
-O índice à esquerda lista as oito categorias, com quantos comandos você já testou em cada uma; clique num comando para ir até o card. Os filtros acima dos cards mostram só a categoria escolhida, e o modo memória esconde os nomes para você treinar a lembrança.
+O índice à esquerda lista as oito categorias, com quantos comandos você já testou em cada uma; clique num comando para ir até o card. Os filtros acima dos cards deixam só a categoria escolhida na tela. No **Modo memória**, os nomes somem: você lê a descrição, tenta lembrar o comando e clica em **Mostrar o comando**.
 
 <div align="center">
 
@@ -82,30 +90,28 @@ O índice à esquerda lista as oito categorias, com quantos comandos você já t
 
 </div>
 
-Em 375 px, o índice sai da lateral e o botão **Índice** abre a lista.
-
 ## 💡 Por que existe
 
-Os comandos de barra do Claude Code Desktop são difíceis de achar e de diferenciar. Este guia:
+Os comandos nativos do Claude Code Desktop, os que começam com `/`, são difíceis de achar e de diferenciar. Este guia:
 
 - agrupa os comandos por categoria e mostra, para cada um, o que faz, por que usar, quando vale rodar e como chamar;
 - deixa você marcar cada comando como testado, com o progresso guardado no navegador;
 - mostra o infográfico de cada comando que já tem um registrado.
 
-Ele não executa comandos do Claude, não substitui a documentação oficial e não publica nada sozinho.
+O guia não executa comandos do Claude Code, não substitui a documentação oficial e não publica nada por conta própria.
 
 ## 🎁 O que entrega
 
 - `comandos-nativos.html`: a página independente com os 82 cards, sem etapa de build.
-- `src/comandos-nativos.html`: o arquivo-fonte editado à mão. A página é gerada a partir dele, então o guia e a cópia independente nunca divergem. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
-- `assets/infographics/<slug>/`: arquivos por comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e os formatos de imagem para download de cada card que tem imagem.
+- `src/comandos-nativos.html`: o arquivo-fonte editado à mão. O `register` gera a partir dele a página da raiz, que não se edita à mão. Os dados dos cards ficam nos arrays `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` e `LOTE9_COMMANDS`.
+- `assets/infographics/<slug>/`: os arquivos de cada comando (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) e, quando o card tem infográfico, as imagens para download.
 - `assets/infographics/manifest.json`: o índice dos infográficos registrados (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status` neste commit).
-- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto e o script `infographic-register-tool.py`, que verifica e registra cada infográfico, com 229 testes.
+- `.claude/skills/notebooklm-command-infographic-playbook/`: a skill do projeto, com o script `infographic-register-tool.py`, que verifica e registra cada infográfico, e os 229 testes da skill.
 
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos; 14 já têm infográfico registrado (link "ver").
+O catálogo tem 82 comandos. Os 17 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em produção".
 
 ### Contexto e memória
 
@@ -119,7 +125,7 @@ O catálogo tem 82 comandos; 14 já têm infográfico registrado (link "ver").
 | `/btw` | Pergunta rápida que não entra na conversa | Comando embutido | [ver](assets/infographics/btw/infographic.webp) |
 | `/memory` | Editar CLAUDE.md e a memória automática | Comando embutido | [ver](assets/infographics/memory/infographic.webp) |
 | `/rewind` | Voltar a conversa ou o código a um ponto anterior | Comando embutido | [ver](assets/infographics/rewind/infographic.webp) |
-| `/resume` | Retomar uma conversa por ID, nome ou seletor | Comando embutido | em produção |
+| `/resume` | Retomar uma conversa por ID, nome ou seletor | Comando embutido | [ver](assets/infographics/resume/infographic.webp) |
 
 ### Modelo e potência
 
@@ -127,7 +133,7 @@ O catálogo tem 82 comandos; 14 já têm infográfico registrado (link "ver").
 | ------- | --------- | ---- | ----------- |
 | `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em produção |
 | `/effort` | Nível de esforço do modelo | Comando embutido | em produção |
-| `/model` | Trocar o modelo da sessão | Comando embutido | em produção |
+| `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
 | `/fast` | Modo rápido | Comando embutido | em produção |
 | `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em produção |
 | `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | em produção |
@@ -137,8 +143,8 @@ O catálogo tem 82 comandos; 14 já têm infográfico registrado (link "ver").
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/code-review` | Caçar bugs no diff atual | Skill embutida | [ver](assets/infographics/code-review/infographic.webp) |
-| `/simplify` | Limpar o código alterado | Skill embutida | em produção |
-| `/security-review` | Revisão de segurança do branch | Comando embutido | em produção |
+| `/simplify` | Limpar o código alterado | Skill embutida | [ver](assets/infographics/simplify/infographic.webp) |
+| `/security-review` | Revisão de segurança do branch | Comando embutido | [ver](assets/infographics/security-review/infographic.webp) |
 | `/ultrareview` | Revisão profunda de código em sandbox na nuvem | Comando embutido | em produção |
 | `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | em produção |
 | `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | em produção |
@@ -235,7 +241,7 @@ Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem
 
 ## 🔬 Como funciona
 
-A página é um arquivo HTML estático com um script inline. O pipeline de infográficos tem três barreiras: o blueprint é verificado antes da execução no NotebookLM, o download é coletado para a pasta de assets e o relatório de auditoria é verificado antes do registro do resultado.
+A página é um arquivo HTML estático com um script embutido. Cada infográfico passa por barreiras: a ferramenta confere o blueprint antes da execução no NotebookLM, recolhe o download para a pasta de assets e confere o relatório de auditoria antes de registrar o resultado.
 
 ```mermaid
 flowchart LR
@@ -264,7 +270,7 @@ sequenceDiagram
     Ferramenta-->>Operador: manifest, bloco INFOGRAPHICS e página independente gravados
 ```
 
-A imagem é feita à mão no NotebookLM Studio, no Chrome. Nenhum script chama o NotebookLM.
+A imagem é gerada pelo NotebookLM Studio no Chrome, numa etapa manual: nenhum script chama o NotebookLM.
 
 ## 📋 Pré-requisitos
 
@@ -274,7 +280,7 @@ A imagem é feita à mão no NotebookLM Studio, no Chrome. Nenhum script chama o
 | macOS      | ⚠️     | Não verificado. |
 | Windows    | ⚠️     | Não verificado. |
 
-Python 3 executa a ferramenta de registro e os testes. Um navegador baseado em Chromium é necessário só para os testes de layout do template (Playwright) e para a etapa manual no NotebookLM.
+A ferramenta de registro e os testes rodam em Python 3. Você só precisa de um navegador baseado em Chromium para os testes de layout do template vetorial (Playwright) e para a etapa manual no NotebookLM.
 
 ## 🚀 Instalação
 
@@ -285,11 +291,11 @@ git clone <url-do-repositorio> claude-native-commands
 cd claude-native-commands
 ```
 
-Sem Git, baixe o repositório pelo botão de código do GitHub, com a opção de baixar o ZIP, e descompacte a pasta.
+Sem Git, clique em **Code** na página do repositório no GitHub, escolha **Download ZIP** e descompacte o arquivo.
 
 ### 2️⃣ Abra o guia
 
-Dê um duplo clique em `comandos-nativos.html`, ou abra o arquivo em qualquer navegador. Não há etapa de build para ler a página.
+Dê um duplo clique em `comandos-nativos.html` ou abra o arquivo no seu navegador. A página abre direto, sem build.
 
 ### 3️⃣ Instale as dependências de teste (opcional)
 
@@ -304,14 +310,14 @@ Apague a pasta do clone. O Playwright guarda os navegadores fora do repositório
 
 ## 🧭 Uso
 
-Execute a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-command-infographic-playbook/scripts`, e `<slug>` é um id de card, como `compact`.
+Rode os comandos a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-command-infographic-playbook/scripts`, e `<slug>` é o id de um card, como `compact`. Cada subcomando da tabela vai depois de `python3 S/infographic-register-tool.py`.
 
 | Comando | O que faz |
 | ------- | --------- |
 | `python3 S/infographic-register-tool.py --help` | Lista os subcomandos. |
 | `check-blueprint <slug>` | Barreira 1, antes da execução no NotebookLM. |
 | `labels <slug>` | Imprime as linhas para o `roteiro.md`. |
-| `snapshot-downloads --out <arquivo>` | Registra os downloads atuais antes de cada download. |
+| `snapshot-downloads --out <arquivo>` | Antes de cada download, grava num arquivo a lista dos downloads atuais. |
 | `collect-download <slug> --snapshot <arquivo> --kind png` | Move o PNG novo para a pasta de assets. |
 | `check-qa <slug>` | Barreira 3, depois que o `qa-report.json` é gravado. |
 | `register <slug>` | Grava o item do manifest, o bloco INFOGRAPHICS e a página independente. Exige `check-blueprint` e `check-qa` aprovados. |
@@ -321,22 +327,22 @@ Execute a partir da raiz do repositório. `S` é `.claude/skills/notebooklm-comm
 | Nome | Onde | Efeito |
 | ---- | ---- | ------ |
 | `INFOGRAPHIC_DOWNLOADS_DIR` | variável de ambiente | Pasta que `snapshot-downloads` e `collect-download` leem quando `--downloads` não é informado. |
-| `--root <dir>` | opção da ferramenta de registro | Raiz do projeto. Sem ela, a ferramenta procura para cima a partir do diretório atual. |
+| `--root <dir>` | opção da ferramenta de registro | Raiz do projeto. Sem ela, a ferramenta sobe pelas pastas a partir do diretório atual até encontrar a raiz. |
 
 ## 🔒 Segurança e privacidade
 
-- A página carrega duas folhas de estilo do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
-- As marcas **Testei** ficam no armazenamento local do navegador (`localStorage`); a página não as envia a nenhum servidor.
+- A página carrega as fontes do Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) e tem links para páginas de documentação em `code.claude.com`.
+- As marcações da caixa **Testei** ficam no armazenamento local do navegador (`localStorage`); a página não as envia a nenhum servidor.
 - A ferramenta de registro não faz chamadas de rede. Os testes de layout do template (Playwright) bloqueiam requisições de rede da página testada.
 - Nenhuma chave de API, token ou credencial é guardada neste repositório. Para reportar uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
 
 ## 🐞 Problemas conhecidos
 
-Nenhum problema aberto conhecido em 2026-11-23. Encontrou um? Abra uma issue neste repositório.
+Nenhuma issue aberta em 2026-11-23. Encontrou um problema? Abra uma issue neste repositório.
 
-Limitações encontradas no código:
+Limitações conhecidas:
 
-- Só 17 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status`); os outros 65 estão sendo gerados. As outras pastas em `assets/infographics/` têm blueprint e notas, mas ainda não têm imagem registrada.
+- Só 17 dos 82 cards têm infográfico registrado em `assets/infographics/manifest.json` (lista em [O que entrega](#-o-que-entrega)). Os outros 65 estão em produção: as pastas deles em `assets/infographics/` já têm blueprint e notas, mas ainda não têm imagem registrada.
 - `work/infographic-contracts.md` (seção 8) e o comentário INFOGRAPHICS da página ainda citam `register_and_check.py`. O script real é `infographic-register-tool.py`.
 
 ## 🧪 Testes
@@ -362,7 +368,7 @@ Adicione `--basetemp=<dir>` para manter os diretórios temporários do pytest fo
 
 ## 📝 Changelog
 
-As mudanças estão em [CHANGELOG.md](CHANGELOG.md). O projeto segue o [Versionamento Semântico](https://semver.org/lang/pt-BR/), e nenhuma versão foi marcada ainda.
+As mudanças estão em [CHANGELOG.md](CHANGELOG.md). O projeto segue o [Versionamento Semântico](https://semver.org/lang/pt-BR/) e ainda não tem tag de versão.
 
 ## 🤝 Contribuições
 
@@ -370,7 +376,7 @@ Issues são bem-vindas. Pull requests de fora não são aceitos.
 
 ## 👤 Mantenedor
 
-O dono do repositório, pelas issues deste repositório.
+O dono do repositório. O contato é pelas issues.
 
 ## 📄 Licença
 
