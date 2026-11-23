@@ -13,7 +13,7 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Command guide card text corrected against the 2026-11-23 source recheck: 58 wording fixes, the reload-skills and rewind notes, two docs links and the `/doctor` app field.
 - Card arguments checked against the docs signatures: `/model`, `/effort` and `/goal` show their argument as optional, and `/simplify`, `/doctor`, `/context`, `/design-sync` and `/claude-in-chrome` list the optional argument they take.
 - README: screenshots of the `/simplify`, `/memory` and `/rewind` cards, a catalog that links all 19 registered posters, and a wording review.
-- README covers only the page. The install, how-it-works, prerequisites, uninstall, configuration, known-issues, tests, development, changelog, contributions, maintainer and license sections are gone, and Uso says the page needs the infographics folder beside it and keeps its dependencies to a minimum. A wording review (Fable 5.2 as advisor) tightened three more lines.
+- README covers only the page. The install, how-it-works, prerequisites, uninstall, configuration, known-issues, tests, development, changelog, contributions, maintainer and license sections are gone, and Uso says the page needs the infographics folder beside it and keeps its dependencies to a minimum. A wording review (Fable 5.2 as advisor) tightened three more lines, and the catalog marks commands still waiting for a poster as "em preparo".
 - The register script and its tests are no longer in the repositories; they stay local while the posters are generated.
 
 ### Added

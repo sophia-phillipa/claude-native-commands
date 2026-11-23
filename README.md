@@ -104,7 +104,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em produção".
+O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -124,12 +124,12 @@ O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em produção |
-| `/effort` | Nível de esforço do modelo | Comando embutido | em produção |
+| `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em preparo |
+| `/effort` | Nível de esforço do modelo | Comando embutido | em preparo |
 | `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
-| `/fast` | Modo rápido | Comando embutido | em produção |
-| `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em produção |
-| `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | em produção |
+| `/fast` | Modo rápido | Comando embutido | em preparo |
+| `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em preparo |
+| `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | em preparo |
 
 ### Revisão de código
 
@@ -140,93 +140,93 @@ O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o
 | `/security-review` | Revisão de segurança do branch | Comando embutido | [ver](assets/infographics/security-review/infographic.webp) |
 | `/ultrareview` | Revisão profunda de código em sandbox na nuvem | Comando embutido | [ver](assets/infographics/ultrareview/infographic.webp) |
 | `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | [ver](assets/infographics/diff/infographic.webp) |
-| `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | em produção |
+| `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | em preparo |
 | `/review` | Nome antigo do /code-review | Alias | [ver](assets/infographics/review/infographic.webp) |
-| `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | em produção |
+| `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | em preparo |
 
 ### Automação
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/goal` | Trabalhar até a meta ser cumprida | Comando embutido | em produção |
+| `/goal` | Trabalhar até a meta ser cumprida | Comando embutido | em preparo |
 | `/loop` | Repetir em intervalos | Skill embutida | [ver](assets/infographics/loop/infographic.webp) |
-| `/run` | Abrir o app e ver a mudança funcionando | Skill embutida | em produção |
-| `/batch` | Mudança grande em paralelo, um PR por parte | Skill embutida | em produção |
-| `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | em produção |
-| `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em produção |
-| `/subtask` | Subagente com a conversa inteira | Comando embutido | em produção |
-| `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | em produção |
-| `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em produção |
+| `/run` | Abrir o app e ver a mudança funcionando | Skill embutida | em preparo |
+| `/batch` | Mudança grande em paralelo, um PR por parte | Skill embutida | em preparo |
+| `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | em preparo |
+| `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em preparo |
+| `/subtask` | Subagente com a conversa inteira | Comando embutido | em preparo |
+| `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | em preparo |
+| `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em preparo |
 
 ### Diagnóstico e uso
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/skill-doctor` | Skills carregadas que só gastam contexto | Comando embutido | em produção |
-| `/usage` | Custo da sessão e uso do plano | Comando embutido | em produção |
-| `/doctor` | Check-up da instalação | Skill embutida | em produção |
-| `/insights` | Relatório das suas sessões | Comando embutido | em produção |
-| `/debug` | Investigar um problema da sessão | Skill embutida | em produção |
-| `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | em produção |
-| `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | em produção |
-| `/heapdump` | Gerar snapshot de memória para diagnóstico | Comando embutido | em produção |
-| `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | em produção |
+| `/skill-doctor` | Skills carregadas que só gastam contexto | Comando embutido | em preparo |
+| `/usage` | Custo da sessão e uso do plano | Comando embutido | em preparo |
+| `/doctor` | Check-up da instalação | Skill embutida | em preparo |
+| `/insights` | Relatório das suas sessões | Comando embutido | em preparo |
+| `/debug` | Investigar um problema da sessão | Skill embutida | em preparo |
+| `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | em preparo |
+| `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | em preparo |
+| `/heapdump` | Gerar snapshot de memória para diagnóstico | Comando embutido | em preparo |
+| `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | em preparo |
 | `/status` | Ver versão, modelo, conta e conectividade | Comando embutido | [ver](assets/infographics/status/infographic.webp) |
-| `/stats` | Abrir o painel de uso direto na aba Stats | Comando embutido | em produção |
-| `/cost` | Nome antigo do /usage | Alias | em produção |
-| `/bug` | Nome antigo do /feedback | Alias | em produção |
+| `/stats` | Abrir o painel de uso direto na aba Stats | Comando embutido | em preparo |
+| `/cost` | Nome antigo do /usage | Alias | em preparo |
+| `/bug` | Nome antigo do /feedback | Alias | em preparo |
 
 ### Extensões e conexões
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/mcp` | Gerenciar servidores MCP | Comando embutido | em produção |
-| `/list-agents` | Quem pode receber mensagem | Comando embutido | em produção |
-| `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | em produção |
-| `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | em produção |
-| `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | em produção |
-| `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | em produção |
-| `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | em produção |
-| `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em produção |
-| `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | em produção |
-| `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | em produção |
+| `/mcp` | Gerenciar servidores MCP | Comando embutido | em preparo |
+| `/list-agents` | Quem pode receber mensagem | Comando embutido | em preparo |
+| `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | em preparo |
+| `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | em preparo |
+| `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | em preparo |
+| `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | em preparo |
+| `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | em preparo |
+| `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em preparo |
+| `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | em preparo |
+| `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | em preparo |
 
 ### Criação e referência
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | em produção |
-| `/run-skill-generator` | Criar a skill que sabe rodar o app do projeto | Skill embutida | em produção |
-| `/design-sync` | Enviar seu design system ao Claude Design | Skill embutida | em produção |
-| `/dataviz` | Gráficos que seguem um só sistema visual | Skill embutida | em produção |
-| `/artifact-diagramming` | Diagramas que mostram o mecanismo, não só o nome | Skill embutida | em produção |
-| `/workflow-authoring` | Referência para escrever um script de workflow | Skill embutida | em produção |
-| `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | em produção |
-| `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | em produção |
-| `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | em produção |
-| `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em produção |
+| `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | em preparo |
+| `/run-skill-generator` | Criar a skill que sabe rodar o app do projeto | Skill embutida | em preparo |
+| `/design-sync` | Enviar seu design system ao Claude Design | Skill embutida | em preparo |
+| `/dataviz` | Gráficos que seguem um só sistema visual | Skill embutida | em preparo |
+| `/artifact-diagramming` | Diagramas que mostram o mecanismo, não só o nome | Skill embutida | em preparo |
+| `/workflow-authoring` | Referência para escrever um script de workflow | Skill embutida | em preparo |
+| `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | em preparo |
+| `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | em preparo |
+| `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | em preparo |
+| `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em preparo |
 
 ### Ajustes e permissões
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em produção |
-| `/init` | Criar o CLAUDE.md do projeto | Comando embutido | em produção |
-| `/output-style` | Estilo das respostas | Comando embutido | em produção |
-| `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | em produção |
-| `/color` | Cor da barra de prompt da sessão | Comando embutido | em produção |
-| `/config` | Mudar uma configuração pelo nome | Comando embutido | em produção |
-| `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | em produção |
-| `/rename` | Dar um nome à conversa atual | Comando embutido | em produção |
-| `/import` | Trazer a configuração de outro agente de código | Comando embutido | em produção |
-| `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | em produção |
+| `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em preparo |
+| `/init` | Criar o CLAUDE.md do projeto | Comando embutido | em preparo |
+| `/output-style` | Estilo das respostas | Comando embutido | em preparo |
+| `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | em preparo |
+| `/color` | Cor da barra de prompt da sessão | Comando embutido | em preparo |
+| `/config` | Mudar uma configuração pelo nome | Comando embutido | em preparo |
+| `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | em preparo |
+| `/rename` | Dar um nome à conversa atual | Comando embutido | em preparo |
+| `/import` | Trazer a configuração de outro agente de código | Comando embutido | em preparo |
+| `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | em preparo |
 | `/logout` | Sair da sua conta Anthropic | Comando embutido | [ver](assets/infographics/logout/infographic.webp) |
-| `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | em produção |
-| `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | em produção |
-| `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | em produção |
-| `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em produção |
-| `/login` | Entrar na sua conta Anthropic | Comando embutido | em produção |
-| `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em produção |
+| `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | em preparo |
+| `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | em preparo |
+| `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | em preparo |
+| `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em preparo |
+| `/login` | Entrar na sua conta Anthropic | Comando embutido | em preparo |
+| `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em preparo |
 
 
 Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem da página.
