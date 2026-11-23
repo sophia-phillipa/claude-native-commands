@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "slug": "review",
+  "command": "/review",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Encaminha o nome antigo ao /code-review, que revisa o diff atual."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /review"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "O app envia para /code-review"
+      },
+      {
+        "id": "s3",
+        "layer": "result",
+        "label": "/code-review revisa o diff atual"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "redireciona"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "executa"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/code-review",
+        "label": "Nome atual do mesmo comando"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Você lembra do nome antigo",
+      "Quer revisar o diff antes de entregar"
+    ],
+    "pitfalls": [
+      "No app, aparece /code-review (review)",
+      "Nível e flags ficam no /code-review"
+    ],
+    "example": "/review"
+  }
+}

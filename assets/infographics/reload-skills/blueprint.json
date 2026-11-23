@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "slug": "reload-skills",
+  "command": "/reload-skills",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Carrega skills criadas ou editadas sem reabrir a sessão." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /reload-skills" },
+      { "id": "s2", "layer": "processing", "label": "Motor relê skills do disco" },
+      { "id": "s3", "layer": "result", "label": "Skill nova vale nesta sessão" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "carrega" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/context", "label": "Mostra quanto as skills ocupam" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Depois de criar uma skill na sessão",
+      "Depois de editar uma skill na sessão"
+    ],
+    "pitfalls": [
+      "Mudança em plugin usa /reload-plugins",
+      "Skill nova pode não aparecer"
+    ],
+    "example": "/reload-skills"
+  }
+}

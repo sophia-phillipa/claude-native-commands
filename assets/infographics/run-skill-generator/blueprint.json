@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "run-skill-generator",
+  "command": "/run-skill-generator",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Ensina como compilar e subir o app." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /run-skill-generator" },
+      { "id": "s2", "layer": "processing", "label": "Claude cria a skill" },
+      { "id": "s3", "layer": "processing", "label": "A skill fica no projeto" },
+      { "id": "s4", "layer": "result", "label": "Agentes já sabem os passos" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "grava" },
+      { "from": "s3", "to": "s4", "verb": "orienta" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/run", "label": "Usa a skill gerada aqui" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Ao preparar o projeto", "Cada sessão nova gasta tempo" ],
+    "pitfalls": [ "Sem ela, cada sessão redescobre o app" ],
+    "example": "/run-skill-generator"
+  }
+}

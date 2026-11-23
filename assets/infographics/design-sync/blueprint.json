@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "slug": "design-sync",
+  "command": "/design-sync",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Envia o design system React ao Claude Design." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /design-sync" },
+      { "id": "s2", "layer": "processing", "label": "Motor converte o design system" },
+      { "id": "s3", "layer": "result", "label": "Claude Design recebe os componentes" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "envia" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/dataviz", "label": "Gráficos que seguem um só sistema visual" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Design system já existe em código", "Quer os componentes no Claude Design" ],
+    "pitfalls": [ "Repo grande pode levar horas", "Pode pedir login antes de começar" ],
+    "example": "/design-sync"
+  }
+}

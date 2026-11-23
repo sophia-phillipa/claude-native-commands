@@ -1,0 +1,3523 @@
+<title>Barra de Comandos Nativos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: prompt-box hero that "opens" the slash menu, then a 2-column deck of colour-coded instruction cards, each with its own hue. */
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --ink: #1a1c29;
+  --muted: #555b72;
+  --line: #dfe2ec;
+  --code-bg: #171925;
+  --code-ink: #e9ebf5;
+  --ok: #16834a;
+  --warn: #b25e00;
+  --bad: #c0262d;
+  --sat: 78%;
+  --l-strong: 44%;
+  --l-soft: 94%;
+  --l-mid: 84%;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11131c; --card: #1a1d2a; --ink: #eceef7; --muted: #a4a9c0; --line: #2b2f40;
+    --code-bg: #0b0c13; --code-ink: #e9ebf5; --ok: #4cd38a; --warn: #f0a548; --bad: #ff7a7a;
+    --sat: 80%; --l-strong: 66%; --l-soft: 17%; --l-mid: 28%;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11131c; --card: #1a1d2a; --ink: #eceef7; --muted: #a4a9c0; --line: #2b2f40;
+  --code-bg: #0b0c13; --code-ink: #e9ebf5; --ok: #4cd38a; --warn: #f0a548; --bad: #ff7a7a;
+  --sat: 80%; --l-strong: 66%; --l-soft: 17%; --l-mid: 28%;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+}
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+  display: flex; flex-direction: column; gap: 48px;
+}
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.01em; }
+p { margin: 0; }
+code, kbd { font-family: var(--f-mono); font-size: 0.92em; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- hero ---------- */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero > * { min-width: 0; }
+.hero-copy { display: flex; flex-direction: column; gap: 18px; }
+.hero-copy .lead { font-size: 1.15rem; color: var(--muted); max-width: 58ch; }
+.rainbow { display: flex; gap: 6px; }
+.rainbow span { height: 8px; flex: 1; border-radius: 4px; background: hsl(var(--h) var(--sat) var(--l-strong)); }
+.progress { display: flex; flex-direction: column; gap: 8px; max-width: 460px; }
+.progress-top { display: flex; justify-content: space-between; font-weight: 700; font-variant-numeric: tabular-nums; }
+.bar { height: 14px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, hsl(350 var(--sat) var(--l-strong)), hsl(35 var(--sat) var(--l-strong)), hsl(150 var(--sat) var(--l-strong)), hsl(195 var(--sat) var(--l-strong)));
+  transition: width .4s ease; }
+
+.prompt { background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 50px -24px rgba(20, 24, 60, .35); overflow: hidden; }
+.menu { list-style: none; margin: 0; padding: 8px; display: flex; flex-direction: column; gap: 2px; max-height: 360px; overflow: auto; }
+.menu li a { display: grid; grid-template-columns: 14px 11rem 1fr; gap: 10px; align-items: center; padding: 7px 10px; border-radius: 10px; color: inherit; text-decoration: none; }
+.menu li a:hover, .menu li a:focus-visible { background: hsl(var(--h) var(--sat) var(--l-soft)); outline: none; }
+.menu .dot { width: 12px; height: 12px; border-radius: 50%; background: hsl(var(--h) var(--sat) var(--l-strong)); }
+.menu .nm { font-family: var(--f-mono); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.menu .ds { color: var(--muted); font-size: .88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.input { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--line); padding: 14px 16px; font-family: var(--f-mono); font-size: 1.05rem; }
+.input .caret { width: 2px; height: 1.2em; background: var(--ink); animation: blink 1s steps(1) infinite; }
+#typed { white-space: nowrap; flex: none; }
+.input .hint { margin-left: auto; font-size: .75rem; color: var(--muted); }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- proof ---------- */
+.proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.step .n { font-family: var(--f-display); font-weight: 800; font-size: 2rem; line-height: 1; color: hsl(var(--h) var(--sat) var(--l-strong)); }
+.step h3 { font-size: 1.1rem; }
+.step p { color: var(--muted); font-size: .95rem; }
+.step code { color: var(--ink); background: var(--bg); padding: 1px 5px; border-radius: 5px; overflow-wrap: anywhere; }
+
+/* ---------- legend ---------- */
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--muted); font-size: .92rem; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ---------- cards ---------- */
+.deck { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.cmd { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; scroll-margin-top: 16px; }
+.cmd-head { background: hsl(var(--h) var(--sat) var(--l-soft)); padding: 20px 22px 16px; display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; }
+.glyph { width: 64px; height: 64px; border-radius: 16px; background: hsl(var(--h) var(--sat) var(--l-strong)); color: var(--card); display: grid; place-items: center; }
+.glyph svg { width: 38px; height: 38px; }
+.cmd-title { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cmd-title h3 { font-family: var(--f-mono); font-size: 1.45rem; font-weight: 600; color: hsl(var(--h) var(--sat) calc(var(--l-strong) - 8%)); overflow-wrap: anywhere; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: .74rem; letter-spacing: .04em; text-transform: uppercase; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--card); color: var(--muted); border: 1px solid hsl(var(--h) var(--sat) var(--l-mid)); }
+.tag.alias { text-transform: none; font-family: var(--f-mono); letter-spacing: 0; font-weight: 400; }
+
+.evidence { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 22px; border-bottom: 1px solid var(--line); }
+.ev { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; padding: 4px 10px; border-radius: 8px; background: var(--bg); }
+.ev b { color: var(--ok); }
+.ev.warn b { color: var(--warn); }
+.ev.fail b { color: var(--bad); }
+.ev.app { font-weight: 700; }
+.params { display: flex; flex-direction: column; gap: 8px; }
+.params .eyebrow { color: hsl(var(--h) var(--sat) calc(var(--l-strong) - 6%)); }
+.params dl { margin: 0; display: grid; gap: 8px; }
+.params dl div { display: grid; grid-template-columns: minmax(7rem, max-content) 1fr; gap: 12px; align-items: baseline; }
+.params dt { font-family: var(--f-mono); font-size: .86rem; font-weight: 600; background: hsl(var(--h) var(--sat) var(--l-soft)); border: 1px solid hsl(var(--h) var(--sat) var(--l-mid)); border-radius: 7px; padding: 2px 8px; justify-self: start; overflow-wrap: anywhere; }
+.params dd { margin: 0; min-width: 0; font-size: .94rem; }
+.ev.me { cursor: pointer; border: 1px dashed hsl(var(--h) var(--sat) var(--l-strong)); }
+.ev.me input { accent-color: hsl(var(--h) var(--sat) var(--l-strong)); width: 16px; height: 16px; margin: 0; }
+.ev.me:has(input:checked) { background: hsl(var(--h) var(--sat) var(--l-soft)); border-style: solid; font-weight: 700; }
+
+.body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.trio { display: grid; gap: 12px; }
+.trio div { display: grid; grid-template-columns: 5.8rem 1fr; gap: 10px; }
+.trio div.ctx { background: hsl(var(--h) var(--sat) var(--l-soft)); border-radius: 10px; padding: 8px 10px; margin-inline: -10px; }
+.trio dt { font-family: var(--f-display); font-weight: 700; color: hsl(var(--h) var(--sat) calc(var(--l-strong) - 6%)); }
+.trio dd { margin: 0; min-width: 0; }
+.trio dd code { background: var(--bg); padding: 1px 5px; border-radius: 5px; }
+.note { font-size: .9rem; color: var(--muted); border-left: 3px solid hsl(var(--h) var(--sat) var(--l-strong)); padding-left: 12px; }
+.examples { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.examples .eyebrow { color: hsl(var(--h) var(--sat) calc(var(--l-strong) - 6%)); }
+.ex { display: flex; flex-direction: column; gap: 4px; }
+.ex-code { display: flex; align-items: stretch; background: var(--code-bg); border-radius: 12px; overflow: hidden; }
+.ex-code pre { margin: 0; padding: 11px 14px; color: var(--code-ink); font-family: var(--f-mono); font-size: .9rem; overflow-x: auto; flex: 1; min-width: 0; white-space: pre; }
+.ex-code pre .sl { color: hsl(var(--h) 90% 70%); font-weight: 600; }
+.copy { border: 0; background: hsl(var(--h) var(--sat) var(--l-strong)); color: #fff; font-family: var(--f-body); font-weight: 700; font-size: .8rem; padding: 0 14px; cursor: pointer; }
+.copy:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+.ex small { color: var(--muted); font-size: .86rem; }
+
+/* ---------- categories ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; font: 700 .9rem var(--f-body); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.chip i { width: 10px; height: 10px; border-radius: 50%; background: hsl(var(--ch, 230) var(--sat) var(--l-strong)); }
+.chip small { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: hsl(var(--ch, 230) var(--sat) var(--l-soft)); border-color: hsl(var(--ch, 230) var(--sat) var(--l-strong)); }
+.chip:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.cats { display: flex; flex-direction: column; gap: 44px; }
+.cat { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 16px; }
+.cat[hidden] { display: none; }
+.cat-head { display: grid; grid-template-columns: 52px 1fr auto; gap: 16px; align-items: center; padding: 16px 18px; border-radius: 18px; background: hsl(var(--ch) var(--sat) var(--l-soft)); border-left: 8px solid hsl(var(--ch) var(--sat) var(--l-strong)); }
+.cat-glyph { width: 52px; height: 52px; border-radius: 14px; background: hsl(var(--ch) var(--sat) var(--l-strong)); color: var(--card); display: grid; place-items: center; }
+.cat-glyph svg { width: 30px; height: 30px; }
+.cat-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cat-copy h3 { font-size: 1.35rem; }
+.cat-copy .hint { font-family: var(--f-display); font-weight: 700; color: hsl(var(--ch) var(--sat) calc(var(--l-strong) - 6%)); }
+.cat-copy .cat-desc { color: var(--muted); font-size: .94rem; }
+.cat-count { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cmd { border-top: 6px solid hsl(var(--ch) var(--sat) var(--l-strong)); }
+.cmd-title .short { font-weight: 700; }
+
+/* ---------- memory aids: quiz mode, typing prompt ---------- */
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.quiz-btn { --ch: 300; }
+.tip { color: var(--muted); font-size: .94rem; }
+.tip code { color: var(--ink); background: var(--card); border: 1px solid var(--line); padding: 1px 5px; border-radius: 5px; }
+.mask, .reveal { display: none; }
+.cats.quiz .cmd:not(.shown) .nm,
+.cats.quiz .cmd:not(.shown) .tag.alias,
+.cats.quiz .cmd:not(.shown) .evidence,
+.cats.quiz .cmd:not(.shown) .body { display: none; }
+.cats.quiz .cmd:not(.shown) .mask { display: inline; letter-spacing: .14em; }
+.cats.quiz .cmd:not(.shown) .reveal { display: inline-flex; }
+.reveal { align-self: start; border: 0; border-radius: 999px; padding: 6px 14px; font: 700 .86rem var(--f-body); background: hsl(var(--h) var(--sat) var(--l-strong)); color: var(--card); cursor: pointer; }
+.reveal:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.menu { position: relative; }
+.menu li a.on { background: hsl(var(--h) var(--sat) var(--l-soft)); }
+.input .hint { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.glyph svg { transform-origin: 50% 50%; }
+
+/* ---------- side navigation (generated from CATEGORIES and COMMANDS) ---------- */
+.page { display: block; }
+.rail, .nav-fab, .drawer { display: none; }
+.nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.nav-cat > a { display: grid; grid-template-columns: 10px 1fr auto; gap: 8px; align-items: center; padding: 7px 8px; border-radius: 10px; color: var(--ink); text-decoration: none; font: 700 .88rem var(--f-body); }
+.nav-cat > a i { width: 10px; height: 10px; border-radius: 50%; background: hsl(var(--ch) var(--sat) var(--l-strong)); }
+.nav-cat > a small { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.nav-cmds { list-style: none; margin: 2px 0 6px 13px; padding: 0 0 0 8px; border-left: 2px solid hsl(var(--ch) var(--sat) var(--l-mid)); display: flex; flex-direction: column; gap: 1px; }
+.nav-cmds a { display: block; padding: 4px 8px; border-radius: 8px; color: var(--muted); text-decoration: none; font: 600 .8rem var(--f-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-list.quiz .nav-cmds a { font: 400 .84rem var(--f-body); }
+.nav-list a:hover { background: var(--bg); color: var(--ink); }
+.nav-list a:focus-visible { outline: 3px solid var(--ink); outline-offset: -2px; }
+.nav-cat > a[aria-current] { background: hsl(var(--ch) var(--sat) var(--l-soft)); }
+.nav-cmds a[aria-current] { background: hsl(var(--h) var(--sat) var(--l-soft)); color: var(--ink); box-shadow: inset 3px 0 0 hsl(var(--h) var(--sat) var(--l-strong)); }
+.nav-cat.off > a { opacity: .45; }
+.nav-cat.off .nav-cmds { display: none; }
+.drawer[hidden] { display: none; }
+.drawer-back { position: absolute; inset: 0; background: rgb(8 10 20 / .55); }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; margin-inline: auto; max-width: 640px; max-height: 82vh; max-height: 82dvh; display: flex; flex-direction: column; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-bottom: 0; border-radius: 22px 22px 0 0; padding: 14px 16px max(16px, env(safe-area-inset-bottom, 0px)); box-shadow: 0 -18px 50px -20px rgb(0 0 0 / .5); }
+.sheet:focus { outline: none; }
+.sheet-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.sheet-head h2 { font-size: 1.25rem; }
+.sheet-x { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--bg); color: var(--ink); font: 700 1rem var(--f-body); cursor: pointer; }
+.sheet-x:focus-visible, .nav-fab:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.sheet .nav-list { overflow-y: auto; overscroll-behavior: contain; }
+.nav-fab { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); z-index: 40; min-height: 44px; padding: 0 16px; gap: 8px; align-items: center; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font: 700 .92rem var(--f-body); cursor: pointer; box-shadow: 0 10px 30px -10px rgb(0 0 0 / .5); }
+.nav-fab svg { width: 18px; height: 18px; }
+@media (max-width: 1099px) {
+  .nav-fab { display: inline-flex; }
+  .drawer:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 50; }
+}
+@media (min-width: 1100px) {
+  .page { display: grid; grid-template-columns: 256px minmax(0, 1fr); max-width: 1440px; margin: 0 auto; }
+  .wrap { max-width: none; margin: 0; }
+  .rail { display: block; position: sticky; top: 16px; align-self: start; margin: 32px 0 0 16px; max-height: calc(100vh - 32px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px 10px; }
+  .rail .eyebrow { display: block; padding: 0 8px 8px; }
+}
+
+/* Motion lives only here, so reduced-motion users get the static page. Only transform, opacity and filter animate. */
+@media (prefers-reduced-motion: no-preference) {
+  .cmd { transition: transform .25s ease, box-shadow .25s ease; }
+  .cmd:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px hsl(var(--h) 60% 30% / .6); }
+  .cmd.play .glyph svg { animation: var(--anim, none) .9s cubic-bezier(.3, .7, .4, 1) both; }
+  .cmd.play .glyph.a-hue { animation: k-hue 1.4s linear both; }
+  .drawer:not([hidden]) .drawer-back { animation: k-back .2s ease both; }
+  .drawer:not([hidden]) .sheet { animation: k-sheet .26s cubic-bezier(.2, .8, .3, 1) both; }
+  .a-squeeze { --anim: k-squeeze; } .a-spin { --anim: k-spin; } .a-wipe { --anim: k-wipe; }
+  .a-dash { --anim: k-dash; } .a-beat { --anim: k-beat; } .a-shake { --anim: k-shake; }
+  .a-rise { --anim: k-rise; } .a-nod { --anim: k-nod; } .a-hue { --anim: k-nod; }
+  .ev.me.pop { animation: k-pop .35s ease; }
+  .copy.done { animation: k-pop .3s ease; }
+  .cats.quiz .cmd.shown .cmd-title h3 { animation: k-flip .5s ease both; }
+  .cats.quiz .cmd.shown .evidence, .cats.quiz .cmd.shown .body { animation: k-fade .4s ease both; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .28s; }
+}
+@keyframes k-squeeze { 0%, 100% { transform: none; } 40% { transform: scale(1.18, .5); } 70% { transform: scale(.94, 1.06); } }
+@keyframes k-spin { to { transform: rotate(360deg); } }
+@keyframes k-wipe { 0% { transform: none; opacity: 1; } 45% { transform: translateX(16px) rotate(10deg); opacity: 0; } 55% { transform: translateX(-16px); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes k-dash { 0%, 100% { transform: none; } 35% { transform: translateX(-6px) skewX(12deg); } 60% { transform: translateX(9px) skewX(-16deg); } }
+@keyframes k-beat { 0%, 100% { transform: none; } 20% { transform: scale(1.22); } 40% { transform: scale(.94); } 60% { transform: scale(1.12); } }
+@keyframes k-shake { 0%, 100% { transform: none; } 20% { transform: translateX(-4px) rotate(-7deg); } 40% { transform: translateX(4px) rotate(7deg); } 60% { transform: translateX(-3px) rotate(-4deg); } 80% { transform: translateX(2px) rotate(2deg); } }
+@keyframes k-rise { 0%, 100% { transform: none; } 40% { transform: translateY(-8px); } 65% { transform: translateY(2px); } }
+@keyframes k-nod { 0%, 100% { transform: none; } 30% { transform: rotate(-18deg); } 65% { transform: rotate(12deg); } }
+@keyframes k-hue { to { filter: hue-rotate(360deg); } }
+@keyframes k-back { from { opacity: 0; } to { opacity: 1; } }
+@keyframes k-sheet { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes k-pop { 50% { transform: scale(1.12); } }
+@keyframes k-flip { from { transform: rotateX(90deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes k-fade { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.ev.doc { color: inherit; text-decoration: none; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); }
+.ev.doc b { color: hsl(var(--h) var(--sat) calc(var(--l-strong) - 6%)); }
+.ev.doc:hover { text-decoration: underline; }
+.ev.doc:focus-visible, .panel a:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.doc-note { border-left-style: dashed; }
+.panel a { color: inherit; font-weight: 700; }
+.panel .small { color: var(--muted); font-size: .88rem; }
+
+/* ---------- extra ---------- */
+.lists { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.panel li code { font-weight: 600; }
+footer { color: var(--muted); font-size: .88rem; }
+
+/* ---------- infographic controls: chips in .evidence and one shared modal ---------- */
+.infographic-row { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.infographic-action { font-family: inherit; color: inherit; text-decoration: none; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); cursor: pointer; }
+.infographic-action:hover { text-decoration: underline; }
+.infographic-action:focus-visible, .infographic-view:focus-visible, .infographic-close:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.infographic-dialog { width: min(960px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 1px solid var(--line); border-radius: 18px; background: var(--card); color: var(--ink); }
+.infographic-dialog[open] { display: flex; flex-direction: column; }
+.infographic-dialog::backdrop { background: color-mix(in srgb, var(--ink) 55%, transparent); }
+.infographic-dialog-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.infographic-dialog-head h2 { margin: 0; font-family: var(--f-mono); font-size: 1.1rem; font-weight: 600; overflow-wrap: anywhere; }
+.infographic-views { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
+.infographic-view, .infographic-close { font: 700 .86rem var(--f-body); padding: 6px 14px; border: 0; border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
+.infographic-view[aria-pressed="true"] { background: var(--ink); color: var(--card); }
+.infographic-close { border: 1px solid var(--line); }
+.infographic-dialog-body { min-height: 0; overflow: auto; padding: 14px 18px 18px; }
+.infographic-frame { display: block; width: 100%; height: min(70vh, 720px); border: 0; background: var(--card); }
+.infographic-image { display: block; width: 100%; height: auto; }
+.infographic-dialog [hidden] { display: none !important; }
+
+@media (max-width: 900px) {
+  .hero, .lists { grid-template-columns: 1fr; }
+  .deck { grid-template-columns: 1fr; }
+  .proof { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .menu li a { grid-template-columns: 12px 1fr; }
+  .menu .ds { display: none; }
+  .trio div, .params dl div { grid-template-columns: 1fr; gap: 2px; }
+  .cmd-head { grid-template-columns: 52px 1fr; }
+  .glyph { width: 52px; height: 52px; }
+  .cat-head { grid-template-columns: 44px 1fr; gap: 12px; }
+  .cat-glyph { width: 44px; height: 44px; }
+  .cat-count { grid-column: 1 / -1; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; width: 100%; min-width: 0; padding-bottom: 6px; scrollbar-width: thin; }
+  .chip { flex: none; white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .input .caret { animation: none; }
+  .bar i { transition: none; }
+}
+</style>
+
+<div class="page">
+<aside class="rail" id="rail" aria-label="Índice">
+  <span class="eyebrow">Índice</span>
+  <ul class="nav-list" id="rail-list"></ul>
+</aside>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="rainbow" id="rainbow"></div>
+      <span class="eyebrow">Claude Code Desktop · versão 2.1.325</span>
+      <h1><span id="total">79</span> comandos nativos do Claude Code Desktop para aprender</h1>
+      <p class="lead">Cada cartão traz o que o comando faz, por que usar, o contexto em que vale a pena rodar, como chamar, o que cada parâmetro significa e três exemplos prontos para copiar. Os comandos estão em oito categorias e foram conferidos no binário do Claude Code que o app Desktop usa. Marque “Testei” quando rodar cada um.</p>
+      <div class="progress" aria-live="polite">
+        <div class="progress-top"><span>Seu progresso</span><span id="count">0 de 79 testados</span></div>
+        <div class="bar"><i id="bar"></i></div>
+      </div>
+    </div>
+    <div class="prompt" aria-label="Menu de comandos como aparece ao digitar barra">
+      <ul class="menu" id="menu"></ul>
+      <div class="input"><span id="typed">/</span><span class="caret"></span><span class="hint" id="typed-hint">digite / no campo de mensagem</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:18px">
+    <span class="eyebrow">Como eu confirmei</span>
+    <h2>Três provas para cada comando</h2>
+    <div class="proof">
+      <div class="step" style="--h:200">
+        <span class="n">1</span>
+        <h3>Achei o binário do Desktop</h3>
+        <p>Na conferência, o app rodava o Claude Code <code>2.1.325</code>. O <code>claude</code> instalado no terminal pode estar em outra versão, por isso a conferência foi feita no binário do app.</p>
+      </div>
+      <div class="step" style="--h:150">
+        <span class="n">2</span>
+        <h3>Li a definição no código</h3>
+        <p>Cada comando aparece no binário com nome, descrição e a variante que roda sem terminal, que é o modo usado pelo Desktop.</p>
+      </div>
+      <div class="step" style="--h:35">
+        <span class="n">3</span>
+        <h3>Rodei de verdade</h3>
+        <p>Executei o binário 2.1.325 sem janela, no modo que o Desktop usa. A lista oficial trouxe todos os comandos que têm cartão neste guia. O teste no próprio app conta mais: o <code>/skill-doctor</code> respondeu que não está disponível nesta conexão, e o cartão dele mostra isso.</p>
+      </div>
+    </div>
+    <div class="legend">
+      <span><b style="color:var(--ok)">✓</b> Definido no binário 2.1.325</span>
+      <span><b style="color:var(--ok)">✓</b> Na lista de comandos do modo Desktop</span>
+      <span><b style="color:var(--ok)">▶</b> Testado no app Desktop: funcionou</span>
+      <span><b style="color:var(--bad)">✗</b> Testado no app Desktop: não funcionou</span>
+      <span>Sem ▶ nem ✗: ainda não testado no app</span>
+      <span><b style="color:var(--warn)">!</b> Ressalva, leia a nota do cartão</span>
+      <span>☐ Testei: você marca depois de rodar</span>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:18px">
+    <span class="eyebrow">Os comandos, em oito categorias</span>
+    <h2>Seu baralho de instrução</h2>
+    <p class="tip">Para memorizar: passe o mouse ou toque no ícone e ele faz o gesto do comando. O <code>/compact</code> aperta, o <code>/loop</code> gira, o <code>/clear</code> apaga e o <code>/fast</code> dispara. No Modo memória, os nomes somem: leia a descrição, tente lembrar o comando e clique em Mostrar.</p>
+    <div class="toolbar">
+      <div class="filters" id="filters" role="toolbar" aria-label="Filtrar por categoria"></div>
+      <button class="chip quiz-btn" id="quiz" type="button" aria-pressed="false"><i></i>Modo memória</button>
+    </div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <section class="lists">
+    <div class="panel">
+      <span class="eyebrow">Histórico de lotes</span>
+      <h2>Como o baralho cresceu</h2>
+      <ul>
+        <li><b>Lote 1</b>, 20/11/2026: <code>/goal</code>, <code>/skill-doctor</code>, <code>/advisor</code>, <code>/compact</code>, <code>/usage</code>, <code>/context</code>, <code>/code-review</code>, <code>/fewer-permission-prompts</code>, <code>/simplify</code>, <code>/security-review</code> e o bônus <code>/doctor</code>.</li>
+        <li><b>Lote 2</b>, 20/11/2026: <code>/insights</code>, <code>/recap</code>, <code>/effort</code>, <code>/loop</code> e <code>/init</code>. Os cartões deste lote têm a etiqueta “Lote 2”.</li>
+        <li><b>Lote 3</b>, 20/11/2026: <code>/run</code>, <code>/mcp</code>, <code>/batch</code>, <code>/model</code>, <code>/output-style</code> e <code>/fast</code>. Todos os cartões passaram a ter três exemplos e a explicação dos parâmetros.</li>
+        <li><b>Lote 4</b>, 22/11/2026: <code>/autocompact</code>, <code>/clear</code>, <code>/list-agents</code>, <code>/reload-skills</code>, <code>/auto-mode-setup</code> e <code>/debug</code>. Todos os cartões ganharam o item Contexto, com a situação em que vale rodar o comando.</li>
+        <li><b>Lote 5</b>, 22/11/2026: <code>/color</code>, <code>/reload-plugins</code> e <code>/config</code>, os três testados no app Desktop. O baralho passou a ser agrupado em sete categorias, cada uma com uma dica para lembrar, e ganhou efeitos para memorizar: ícones que fazem o gesto do comando, o Modo memória e o menu que digita os comandos sozinho.</li>
+        <li><b>Lote 6</b>, 22/11/2026: <code>/update-config</code>, <code>/claude-api</code>, <code>/run-skill-generator</code>, <code>/design-sync</code>, <code>/dataviz</code>, <code>/artifact-diagramming</code>, <code>/workflow-authoring</code>, <code>/plugin-authoring</code>, <code>/rename</code>, <code>/import</code> e <code>/team-onboarding</code>. Entrou a categoria Criação e referência, e cada cartão ganhou o link para a documentação oficial. Outros quatro estão no binário, mas fora da lista do modo Desktop: ficaram em “Para testar no app”.</li>
+        <li><b>Lote 7</b>, 22/11/2026: 30 comandos confirmados no app Desktop: <code>/btw</code>, <code>/heapdump</code>, <code>/design</code>, <code>/ultrareview</code>, <code>/logout</code>, <code>/feedback</code>, <code>/status</code>, <code>/stats</code>, <code>/skills</code>, <code>/diff</code>, <code>/tasks</code>, <code>/workflows</code>, <code>/artifact-capabilities</code>, <code>/copy</code>, <code>/focus</code>, <code>/subtask</code>, <code>/slides</code>, <code>/theme</code>, <code>/memory</code>, <code>/permissions</code>, <code>/sandbox</code>, <code>/plan</code>, <code>/plugin</code>, <code>/rewind</code>, <code>/login</code>, <code>/remote-control</code>, <code>/design-consent</code>, <code>/design-revoke</code>, <code>/resume</code> e <code>/fork</code>. Três cartões de alias: <code>/cost</code>, <code>/review</code> e <code>/bug</code>, que o app aceita e mostra com o nome atual entre parênteses. <code>/add-dir</code> e <code>/usage-credits</code> voltam do lote 6, porque funcionam no app.</li>
+        <li><b>Lote 8</b>, 22/11/2026: entraram <code>/deep-research</code> e <code>/verify</code>, vistos no menu do app em vídeo de 22/11/2026. Ainda não foram testados no app; os cartões dizem isso.</li>
+      </ul>
+      <p>As marcações “Testei” dos lotes anteriores continuam salvas quando um lote novo entra.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Fora do Desktop</span>
+      <h2>Existem, mas não aparecem no app</h2>
+      <p>Estão no binário só na versão de terminal. No Desktop o app oferece botões próprios no lugar deles:</p>
+      <ul>
+        <li><code>/btw</code> faz uma pergunta paralela sem interromper a conversa.</li>
+        <li><code>/rewind</code> (também <code>/undo</code>) volta código e conversa a um ponto anterior.</li>
+      </ul>
+      <p>Para usá-los, abra <code>claude</code> no painel Terminal do app. A documentação lista <a href="https://code.claude.com/docs/en/desktop#what%E2%80%99s-not-available-in-desktop" target="_blank" rel="noopener">o que não está no Desktop ↗</a>.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Na documentação oficial</span>
+      <h2>Como a Anthropic classifica</h2>
+      <p>A referência de comandos reúne tudo numa tabela só e marca cada linha de um de três jeitos:</p>
+      <ul>
+        <li><b>Comando embutido:</b> o comportamento está programado no próprio Claude Code. É a maioria.</li>
+        <li><b>Skill:</b> uma skill que vem com o Claude Code. Funciona como as skills que você escreve: um roteiro entregue ao Claude.</li>
+        <li><b>Workflow:</b> um fluxo embutido que reparte o trabalho entre muitos subagentes.</li>
+      </ul>
+      <p>Nem todo comando aparece para todo mundo: depende da plataforma, do plano e do ambiente. Os comandos que abrem diálogos de terminal não existem no Desktop, que oferece telas próprias no lugar.</p>
+      <p><a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">Tabela de comandos ↗</a> · <a href="https://code.claude.com/docs/en/skills#bundled-skills" target="_blank" rel="noopener">Skills embutidas ↗</a> · <a href="https://code.claude.com/docs/en/desktop#what%E2%80%99s-not-available-in-desktop" target="_blank" rel="noopener">O que não está no Desktop ↗</a></p>
+      <p class="small">Documentação consultada em 22/11/2026, quando a tabela citava até a versão 2.1.327. O binário conferido neste guia é o 2.1.325.</p>
+    </div>
+  </section>
+
+  <footer>Lotes 1 a 3 conferidos em 20/11/2026 e lotes 4 a 8 em 22/11/2026, no Claude Code 2.1.325 do Claude Desktop (Linux). Comandos com controle de recurso, como o <code>/advisor</code>, dependem da conta e podem não aparecer em outra máquina.</footer>
+</div>
+</div>
+
+<button class="nav-fab" id="nav-open" type="button" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Índice</button>
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer-back"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="drawer-t" tabindex="-1">
+    <div class="sheet-head"><h2 id="drawer-t">Índice</h2><button class="sheet-x" id="nav-close" type="button" aria-label="Fechar índice">✕</button></div>
+    <ul class="nav-list" id="drawer-list"></ul>
+  </div>
+</div>
+
+<script>
+const ICONS = {
+  target: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="18" cy="22" r="13"/><circle cx="18" cy="22" r="7"/><circle cx="18" cy="22" r="1.5" fill="currentColor"/><path d="M18 22 33 7M28 7h5v5"/></svg>',
+  pill: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="30" height="12" rx="6" transform="rotate(-35 20 20)"/><path d="m15 27 10-14"/><path d="M30 31h6M33 28v6"/></svg>',
+  advisor: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="15" r="5"/><path d="M4 33c0-5 4-9 9-9s9 4 9 9"/><circle cx="28" cy="12" r="6"/><path d="M20 30c1-5 4-9 8-9 5 0 8 4 8 10"/><path d="M33 3l1 2.5L36.5 6 34 7l-1 2.5L32 7l-2.5-1L32 5z" fill="currentColor"/></svg>',
+  compact: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h24M8 34h24"/><path d="m14 12 6 6 6-6M14 28l6-6 6 6"/><path d="M10 20h20"/></svg>',
+  gauge: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 28a15 15 0 1 1 30 0"/><path d="m20 28 8-10"/><circle cx="20" cy="28" r="2.5" fill="currentColor"/><path d="M9 20l2 1M20 13v2M31 20l-2 1"/></svg>',
+  grid: '<svg viewBox="0 0 40 40" fill="currentColor"><rect x="5" y="5" width="8" height="8" rx="2"/><rect x="16" y="5" width="8" height="8" rx="2"/><rect x="27" y="5" width="8" height="8" rx="2"/><rect x="5" y="16" width="8" height="8" rx="2"/><rect x="16" y="16" width="8" height="8" rx="2"/><rect x="27" y="16" width="8" height="8" rx="2" opacity=".35"/><rect x="5" y="27" width="8" height="8" rx="2" opacity=".35"/><rect x="16" y="27" width="8" height="8" rx="2" opacity=".35"/><rect x="27" y="27" width="8" height="8" rx="2" opacity=".35"/></svg>',
+  lens: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="17" r="11"/><path d="m25 25 10 10"/><path d="m14 13-4 4 4 4M20 13l4 4-4 4"/></svg>',
+  shield: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4 7 9v10c0 8 6 14 13 17 7-3 13-9 13-17V9z"/><path d="m14 20 4 4 8-8"/></svg>',
+  wand: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 30c6-10 9 6 15-4s8 2 15-6"/><path d="M5 12h12M5 18h7"/><path d="M28 5l1.5 3.5L33 10l-3.5 1.5L28 15l-1.5-3.5L23 10l3.5-1.5z" fill="currentColor"/></svg>',
+  lock: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="17" width="24" height="18" rx="4"/><path d="M13 17v-5a7 7 0 0 1 14 0v5"/><path d="M20 24v5"/></svg>',
+  chart: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 35h30"/><rect x="8" y="20" width="6" height="11" rx="1.5" fill="currentColor"/><rect x="17" y="12" width="6" height="19" rx="1.5" fill="currentColor"/><rect x="26" y="6" width="6" height="25" rx="1.5" fill="currentColor" opacity=".45"/></svg>',
+  quote: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9h28v18H18l-8 6v-6H6z"/><path d="M12 18h16"/></svg>',
+  dial: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 10h28M6 20h28M6 30h28"/><circle cx="14" cy="10" r="3.5" fill="currentColor"/><circle cx="26" cy="20" r="3.5" fill="currentColor"/><circle cx="19" cy="30" r="3.5" fill="currentColor"/></svg>',
+  loop: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 16a13 13 0 0 0-23-5l-3 4"/><path d="M6 7v8h8"/><path d="M8 24a13 13 0 0 0 23 5l3-4"/><path d="M34 33v-8h-8"/></svg>',
+  file: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h15l8 8v24H9z"/><path d="M24 4v8h8"/><path d="M20.5 19v10M15.5 24h10"/></svg>',
+  heart: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34S5 25 5 14a8 8 0 0 1 15-4 8 8 0 0 1 15 4c0 11-15 20-15 20z"/><path d="M11 19h5l2-4 3 8 2-4h6"/></svg>',
+  play: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="32" height="22" rx="3"/><path d="M17 13v10l8-5z" fill="currentColor"/><path d="M13 35h14"/></svg>',
+  plug: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v8M26 4v8"/><path d="M9 12h22v6a11 11 0 0 1-22 0z"/><path d="M20 29v7"/></svg>',
+  stack: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5 4 13l16 8 16-8z"/><path d="m4 20 16 8 16-8"/><path d="m4 27 16 8 16-8"/></svg>',
+  chip: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="10" width="20" height="20" rx="3"/><rect x="16" y="16" width="8" height="8" rx="1" fill="currentColor"/><path d="M15 4v6M25 4v6M15 30v6M25 30v6M4 15h6M4 25h6M30 15h6M30 25h6"/></svg>',
+  type: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9h18M15 9v24"/><path d="M24 20h10M29 20v13"/></svg>',
+  ruler: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="32" height="14" rx="3"/><path d="M11 13v5M17 13v8M23 13v5M29 13v8"/><path d="M20 4v5M17 6l3 3 3-3"/></svg>',
+  fresh: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="22" height="26" rx="3"/><path d="M12 16h10M12 22h6" opacity=".4"/><path d="M32 4l1.5 3.5L37 9l-3.5 1.5L32 14l-1.5-3.5L27 9l3.5-1.5z" fill="currentColor"/></svg>',
+  people: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="4"/><circle cx="28" cy="13" r="4"/><circle cx="20" cy="22" r="4"/><path d="M4 30c1-4 4-6 8-6M36 30c-1-4-4-6-8-6M12 36c1-5 4-8 8-8s7 3 8 8"/></svg>',
+  refresh: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M33 20a13 13 0 1 1-4-9.4"/><path d="M33 5v8h-8"/><path d="M15 20l4 4 7-8"/></svg>',
+  gear: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="5"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8.7 8.7l3.5 3.5M27.8 27.8l3.5 3.5M8.7 31.3l3.5-3.5M27.8 12.2l3.5-3.5"/></svg>',
+  bug: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="12" width="16" height="22" rx="8"/><path d="M15 8l3 4M25 8l-3 4M12 20H5M35 20h-7M12 28l-6 3M28 28l6 3M20 16v16"/></svg>',
+  bolt: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3 8 23h11l-3 14 16-21H21z" fill="currentColor"/></svg>',
+  palette: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5C11 5 5 11.5 5 19.5 5 27 11 33 18 33c2.5 0 3-1.6 2.2-3.2-.9-1.8.2-3.8 2.3-3.8H27c4.5 0 8-3 8-7.5C35 11 28.5 5 20 5z"/><circle cx="13" cy="18" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/><circle cx="27" cy="13.5" r="2" fill="currentColor"/></svg>',
+  puzzle: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h7a3.5 3.5 0 1 1 7 0h7v7a3.5 3.5 0 1 1 0 7v7h-7a3.5 3.5 0 1 0-7 0H8v-7a3.5 3.5 0 1 0 0-7z"/></svg>',
+  toggle: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="32" height="12" rx="6"/><circle cx="29" cy="13" r="3.5" fill="currentColor"/><rect x="4" y="22" width="32" height="12" rx="6"/><circle cx="11" cy="28" r="3.5" fill="currentColor"/></svg>'
+};
+
+/* To add a card: append one object here and list its id in one CATEGORIES entry. app = result observed when the command ran in the Desktop app.
+   Card text must not contain reader-specific facts (names, machine paths, personal tools or test numbers). */
+const COMMANDS = [
+  {
+    id: "goal", h: 350, icon: "target", kind: "Comando embutido", short: "Trabalhar até a meta ser cumprida",
+    what: "Define uma condição de pronto. Antes de parar, Claude confere essa condição e continua trabalhando enquanto ela não estiver cumprida.",
+    why: "Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a parada só acontece quando o critério que você deu é verdadeiro.",
+    how: "Digite <code>/goal</code> seguido da condição. Para remover a meta, use <code>/goal clear</code>.",
+    params: [
+      ["<condição>", "Texto livre com o critério de pronto. Quanto mais verificável, melhor: um teste que passa, um arquivo que existe, um comando que sai sem erro."],
+      ["clear", "Palavra fixa. Remove a meta atual."]
+    ],
+    examples: [
+      ["/goal todos os testes do pytest passam e o ruff não acusa nada", "Meta verificável: Claude roda os testes antes de encerrar."],
+      ["/goal o README.md e o README.pt-BR.md têm a seção de desinstalação", "Meta sobre documentação: confere os dois arquivos antes de parar."],
+      ["/goal clear", "Apaga a meta atual quando você quer encerrar do seu jeito."]
+    ]
+  },
+  {
+    id: "skill-doctor", h: 20, icon: "pill", kind: "Comando embutido", short: "Skills carregadas que só gastam contexto",
+    app: { ok: false, text: "No app: indisponível nesta conexão" },
+    what: "Lista as skills carregadas na sessão com a origem, o contexto que cada uma ocupa por turno, os tokens dos últimos 7 dias, quantas vezes foi usada e quando.",
+    why: "Toda skill carregada entra no prompt de sistema em todo turno. Saber quais nunca são usadas mostra onde dá para economizar contexto.",
+    how: "No app Desktop ele responde “Skill usage reports are not available on this connection”. Rode no painel Terminal: abra <code>claude</code> e digite <code>/skill-doctor</code>.",
+    note: "Testado no app Desktop, ele não funcionou. No terminal ele roda normalmente e aponta as skills carregadas que nunca foram usadas. O /context, que funciona no app, mostra a parte “Skills” do contexto.",
+    warn: true,
+    examples: [
+      ["/skill-doctor", "No terminal: relatório completo das skills da sessão."],
+      ["/skill-doctor", "Rode de novo depois de instalar um plugin e compare a coluna context."],
+      ["/context", "Alternativa que funciona no app: veja a linha Skills na tabela."]
+    ]
+  },
+  {
+    id: "advisor", h: 270, icon: "advisor", kind: "Comando embutido", short: "Um revisor mais forte nos momentos-chave",
+    app: { ok: true, text: "Testado no app: “Advisor set to Fable 5.2”" },
+    what: "Liga um revisor com um modelo mais forte. Claude o consulta antes de começar o trabalho de verdade, quando trava e antes de dizer que terminou.",
+    why: "Um segundo olhar no começo evita seguir por um caminho errado, e no fim pega o que faltou conferir. Você paga a consulta só nesses momentos.",
+    how: "Digite <code>/advisor</code> seguido do modelo revisor, ou <code>/advisor off</code> para desligar.",
+    params: [
+      ["<modelo>", "O modelo que vai revisar. A dica do comando lista os aceitos na conta; fable, por exemplo, vira Fable 5.2."],
+      ["off", "Palavra fixa. Desliga o revisor."]
+    ],
+    note: "Depende de um controle de recurso da conta: pode não aparecer em todas.",
+    examples: [
+      ["/advisor fable", "Revisor Fable 5.2."],
+      ["/advisor opus", "Troca o revisor para o Opus."],
+      ["/advisor off", "Desliga o revisor para tarefas curtas e baratas."]
+    ]
+  },
+  {
+    id: "compact", h: 35, icon: "compact", kind: "Comando embutido", short: "Resumir a conversa e liberar contexto",
+    what: "Resume a conversa até aqui e segue com o resumo no lugar do histórico completo.",
+    why: "Libera espaço na janela de contexto sem abrir outra sessão. Com instruções, você escolhe o que o resumo deve preservar.",
+    how: "Rode <code>/compact</code> sozinho ou com instruções do que manter.",
+    params: [
+      ["[instruções]", "Opcional, texto livre. Diz ao resumo o que guardar com prioridade."]
+    ],
+    note: "A compactação automática roda sozinha perto do limite. O comando serve para compactar antes, na hora e com os critérios que você escolher.",
+    examples: [
+      ["/compact", "Resumo padrão da sessão."],
+      ["/compact mantenha os arquivos alterados, os testes que falharam e as decisões tomadas", "Resumo guiado pelo que importa para continuar."],
+      ["/compact descarte os logs longos e guarde só as conclusões", "Bom depois de uma sessão de depuração com muita saída."]
+    ]
+  },
+  {
+    id: "usage", h: 48, icon: "gauge", kind: "Comando embutido", aliases: ["/cost"], short: "Custo da sessão e uso do plano",
+    what: "Mostra o custo da sessão, o uso do seu plano e o que mais está consumindo os seus limites.",
+    why: "Ajuda a decidir quando trocar de modelo, baixar o esforço ou compactar antes de bater no limite.",
+    how: "Rode <code>/usage</code> sem parâmetros. <code>/cost</code> é apelido do mesmo comando. Na documentação, <code>/stats</code> é atalho de <code>/usage</code>; no app ele aparece como comando próprio.",
+    examples: [
+      ["/usage", "Painel de custo e limites."],
+      ["/cost", "Mesmo comando pelo apelido."],
+      ["/usage", "Antes de um /batch ou de um /code-review max, para ver quanto do plano ainda resta."]
+    ]
+  },
+  {
+    id: "context", h: 175, icon: "grid", kind: "Comando embutido", short: "Quanto da janela de contexto já foi usado",
+    app: { ok: true, text: "Testado no app: tabela por categoria" },
+    what: "Mostra o uso atual da janela de contexto, com uma tabela por categoria e a lista de ferramentas MCP, agentes e skills com os tokens de cada um.",
+    why: "Explica por que uma sessão ficou pesada e o que cortar. Com muitos servidores MCP ligados, as ferramentas deles costumam ser uma das maiores fatias.",
+    how: "Rode <code>/context</code> sem parâmetros. No app não há opções extras.",
+    examples: [
+      ["/context", "Retrato do contexto agora."],
+      ["/context", "Rode antes e depois de um /compact para ver quanto foi liberado."],
+      ["/context", "Rode depois de desligar um servidor com /mcp disable para ver a linha MCP diminuir."]
+    ]
+  },
+  {
+    id: "code-review", h: 205, icon: "lens", kind: "Skill embutida", short: "Caçar bugs no diff atual",
+    what: "Revisa o diff atual, um PR, um branch ou um caminho em busca de bugs de correção, no nível de esforço que você escolher.",
+    why: "Pega erros antes do commit. O nível controla quantos achados vêm: low traz poucos e certeiros, high e xhigh trazem mais.",
+    how: "Use <code>/code-review &lt;nível&gt; [alvo] [opções]</code>. Sem nível, ele repete o último que você usou.",
+    params: [
+      ["<nível>", "low, medium, high, xhigh ou max. ultra roda uma revisão com vários agentes na nuvem."],
+      ["[alvo]", "Opcional: número de PR, branch ou caminho. Sem alvo, revisa o diff atual."],
+      ["--fix", "Aplica as correções no working tree depois da revisão."],
+      ["--comment", "Publica os achados como comentários no PR."],
+      ["--max-findings <n>", "Limita a quantidade de achados. all mostra todos; default volta ao padrão."]
+    ],
+    note: "max e ultra são os mais caros: use só quando precisar.",
+    warn: true,
+    examples: [
+      ["/code-review high", "Revisão cuidadosa do que está alterado agora."],
+      ["/code-review medium --fix", "Revisa e já aplica as correções no working tree."],
+      ["/code-review high src/cli.py --max-findings 5", "Só um arquivo, com no máximo cinco achados."]
+    ]
+  },
+  {
+    id: "fewer-permission-prompts", h: 140, icon: "shield", kind: "Skill embutida", short: "Menos pedidos de permissão",
+    what: "Lê as suas transcrições, acha os comandos Bash e MCP só de leitura que você mais aprova e grava uma allowlist priorizada no <code>.claude/settings.json</code> do projeto.",
+    why: "Corta as interrupções repetidas de “posso rodar isso?” sem liberar comandos que alteram coisas.",
+    how: "Rode <code>/fewer-permission-prompts</code> na pasta do projeto.",
+    params: [
+      ["[instruções]", "Opcional, texto livre. Entra como instrução extra para a análise."]
+    ],
+    examples: [
+      ["/fewer-permission-prompts", "Allowlist sugerida a partir do seu histórico."],
+      ["/fewer-permission-prompts considere só git, rg e jq", "Limita a lista aos comandos que você citar."],
+      ["/fewer-permission-prompts não inclua nada de MCP", "Fica só com comandos Bash."]
+    ]
+  },
+  {
+    id: "simplify", h: 290, icon: "wand", kind: "Skill embutida", short: "Limpar o código alterado",
+    what: "Revisa o código alterado procurando reuso, simplificação, eficiência e o nível certo de abstração, e aplica as correções.",
+    why: "Deixa o diff menor e mais legível antes do commit. Não procura bugs: para isso existe o /code-review.",
+    how: "Rode <code>/simplify</code> sem parâmetros, com mudanças no working tree.",
+    examples: [
+      ["/simplify", "Limpa o diff atual e aplica as melhorias."],
+      ["/code-review high", "Primeiro passo da dupla: caça bugs."],
+      ["/simplify", "Segundo passo: enxuga o que sobrou. Envie um comando por vez."]
+    ]
+  },
+  {
+    id: "security-review", h: 0, icon: "lock", kind: "Comando embutido", short: "Revisão de segurança do branch",
+    what: "Faz uma revisão de segurança completa das mudanças pendentes no branch atual e entrega um relatório em markdown.",
+    why: "Usa subtarefas em paralelo para filtrar falsos positivos e descarta achados com confiança abaixo de 8 em 10.",
+    how: "Rode <code>/security-review</code> sem parâmetros, num branch com mudanças ainda não integradas.",
+    examples: [
+      ["/security-review", "Relatório de riscos das mudanças pendentes."],
+      ["/security-review", "Rode antes de abrir um PR que mexe em login, tokens ou entrada de usuário."],
+      ["/security-review", "Rode de novo depois das correções para confirmar que os achados sumiram."]
+    ]
+  },
+  {
+    id: "doctor", h: 330, icon: "heart", kind: "Skill embutida", aliases: ["/checkup"], bonus: true, short: "Check-up da instalação",
+    what: "Faz um check-up da sua instalação e corrige problemas: saúde da instalação, extensões sem uso, arquivos de memória duplicados ou inchados, hooks lentos, atualizações e permissões.",
+    why: "Junta num só lugar o que normalmente se descobre aos poucos quando algo fica lento ou estranho.",
+    how: "Rode <code>/doctor</code> ou o apelido <code>/checkup</code>, sem parâmetros. Se não aparecer no menu do app, abra <code>claude</code> no painel Terminal e rode lá.",
+    note: "Está na lista do modo Desktop, e a 2.1.325 o marca como comando de terminal. A mesma marca está no /color e no /reload-plugins, que funcionaram no app, então é provável que ele funcione também. Ainda não foi testado no app.",
+    warn: true,
+    examples: [
+      ["/doctor", "Check-up completo com sugestões de correção."],
+      ["/checkup", "Mesmo comando pelo apelido."],
+      ["/doctor", "Rode depois de atualizar o app para ver se sobrou algo da versão anterior."]
+    ]
+  },
+  {
+    id: "insights", h: 225, icon: "chart", kind: "Comando embutido", lote: 2, short: "Relatório das suas sessões",
+    what: "Analisa as sessões de todos os projetos desta máquina, não só do projeto aberto, e gera um relatório que pode ser compartilhado.",
+    why: "Dá uma visão do seu uso ao longo de vários projetos e sessões, que uma sessão sozinha não mostra.",
+    how: "Rode <code>/insights</code> sem parâmetros, de qualquer projeto: o resultado é o mesmo. Só você consegue chamar: o Claude não o dispara sozinho.",
+    note: "Ele lê a pasta <code>~/.claude/projects</code> inteira, das sessões mais recentes para as mais antigas. Guarda o que já analisou e, a cada rodada, analisa até cerca de 200 sessões novas, então a primeira vez demora mais.",
+    examples: [
+      ["/insights", "Gera o relatório das suas sessões."],
+      ["/insights", "Rode no fim da semana e compare com o relatório anterior."],
+      ["/insights", "Rode depois de um mês com um fluxo novo para ver se ele mudou o seu uso."]
+    ]
+  },
+  {
+    id: "recap", h: 95, icon: "quote", kind: "Comando embutido", lote: 2, short: "Resumo de uma linha agora",
+    what: "Gera na hora um resumo de uma linha da sessão.",
+    why: "Serve para lembrar onde você parou ao voltar a uma sessão, ou para anotar o estado antes de trocar de tarefa.",
+    how: "Rode <code>/recap</code> sem parâmetros.",
+    examples: [
+      ["/recap", "Resumo curto do que a sessão fez até aqui."],
+      ["/recap", "Rode antes de pausar e cole a linha nas suas notas do dia."],
+      ["/loop 30m /recap", "Combinado com /loop: um resumo novo a cada meia hora."]
+    ]
+  },
+  {
+    id: "effort", h: 70, icon: "dial", kind: "Comando embutido", lote: 2, short: "Nível de esforço do modelo",
+    what: "Define quanto o modelo pensa em cada resposta.",
+    why: "Esforço baixo é mais rápido e barato para tarefas simples. Esforço alto ajuda em problemas difíceis. Combina com o /usage.",
+    how: "Use <code>/effort &lt;nível&gt;</code>.",
+    params: [
+      ["low · medium · high", "Do mais rápido e barato ao mais cuidadoso."],
+      ["xhigh · max", "Os mais caros. O app só aceita os que o modelo atual suporta."],
+      ["auto", "Devolve a escolha do esforço ao Claude."]
+    ],
+    note: "xhigh e max consomem bem mais tokens. Use-os em tarefas curtas e difíceis, não na sessão inteira.",
+    warn: true,
+    examples: [
+      ["/effort high", "Mais raciocínio para um bug difícil."],
+      ["/effort low", "Rápido e barato para renomear arquivos ou ajustar texto."],
+      ["/effort auto", "Devolve a escolha do esforço ao Claude."]
+    ]
+  },
+  {
+    id: "loop", h: 250, icon: "loop", kind: "Skill embutida", aliases: ["/proactive"], lote: 2, short: "Repetir em intervalos",
+    what: "Roda um prompt ou um comando de barra repetidamente, num intervalo fixo ou no ritmo que o Claude escolher.",
+    why: "Bom para acompanhar algo que demora, como um deploy ou uma fila, sem você precisar pedir de novo a cada vez.",
+    how: "Use <code>/loop [intervalo] [prompt]</code>.",
+    params: [
+      ["[intervalo]", "Opcional. Tempo entre as voltas, como 5m ou 1h. Sem intervalo, o Claude decide quando voltar."],
+      ["[prompt]", "O pedido ou o comando de barra que vai se repetir."]
+    ],
+    note: "Não serve para tarefas de uma vez só. Para parar, peça na conversa que encerre o loop.",
+    examples: [
+      ["/loop 10m confira se o deploy de staging terminou", "Repete a cada 10 minutos."],
+      ["/loop 1h /usage", "Acompanha o consumo do plano de hora em hora."],
+      ["/loop /recap", "Sem intervalo: o Claude escolhe o ritmo."]
+    ]
+  },
+  {
+    id: "init", h: 310, icon: "file", kind: "Comando embutido", lote: 2, short: "Criar o CLAUDE.md do projeto",
+    what: "Analisa o código do projeto e cria um arquivo CLAUDE.md com a documentação que o Claude precisa para trabalhar nele.",
+    why: "Com o CLAUDE.md, toda sessão nova já começa sabendo como o projeto se organiza e como trabalhar nele.",
+    how: "Rode <code>/init</code> sem parâmetros na pasta do projeto. Revise o arquivo antes de fazer o commit.",
+    examples: [
+      ["/init", "Cria o CLAUDE.md num projeto novo."],
+      ["/init", "Rode de novo depois de uma mudança grande para comparar com o CLAUDE.md atual."],
+      ["/init", "Rode num repositório que você acabou de clonar, antes da primeira tarefa."]
+    ]
+  },
+  {
+    id: "run", h: 160, icon: "play", kind: "Skill embutida", lote: 3, short: "Abrir o app e ver a mudança funcionando",
+    what: "Inicia o app do projeto e o conduz para mostrar uma mudança funcionando de verdade, além dos testes.",
+    why: "Teste verde não garante que a tela abre. O /run sobe o app e mostra o resultado real, inclusive com captura de tela.",
+    how: "Use <code>/run</code> sozinho ou com um pedido do que mostrar.",
+    params: [
+      ["[pedido]", "Opcional, texto livre. Diz o que abrir, clicar ou conferir no app."]
+    ],
+    examples: [
+      ["/run", "Sobe o app do projeto do jeito padrão."],
+      ["/run abra a tela de login e tire uma captura", "Vai direto para a tela que você quer ver."],
+      ["/run confirme que o botão Salvar aparece no formulário de cadastro", "Verifica uma mudança específica no app real."]
+    ]
+  },
+  {
+    id: "mcp", h: 188, icon: "plug", kind: "Comando embutido", lote: 3, short: "Gerenciar servidores MCP",
+    what: "Mostra os servidores MCP da sessão e permite reconectar, ligar ou desligar cada um.",
+    why: "Um servidor caído deixa ferramentas fora do ar. Desligar os que você não usa também libera contexto, porque as ferramentas de cada servidor ocupam espaço na janela.",
+    how: "Use <code>/mcp</code> sozinho ou com uma ação.",
+    params: [
+      ["reconnect", "Reconecta um servidor que caiu ou travou."],
+      ["enable · disable", "Liga ou desliga um servidor nesta sessão."],
+      ["<servidor> · all", "O nome do servidor, ou all para todos de uma vez."]
+    ],
+    examples: [
+      ["/mcp", "Lista os servidores e o estado de cada um."],
+      ["/mcp reconnect context7", "Reconecta só o context7."],
+      ["/mcp disable playwright", "Desliga um servidor que esta sessão não vai usar."]
+    ]
+  },
+  {
+    id: "batch", h: 118, icon: "stack", kind: "Skill embutida", lote: 3, short: "Mudança grande em paralelo, um PR por parte",
+    what: "Pesquisa e planeja uma mudança grande e depois a executa em paralelo com 5 a 30 agentes, cada um num worktree isolado e cada um abrindo o seu PR.",
+    why: "Serve para mudanças mecânicas em muitos arquivos, como migrações, refatorações e renomeações em massa, que se dividem em partes independentes.",
+    how: "Use <code>/batch &lt;instrução&gt;</code>. Só você consegue chamar: o Claude não o dispara sozinho.",
+    params: [
+      ["<instrução>", "Obrigatória, texto livre. A mudança completa que você quer, com o critério de pronto."]
+    ],
+    note: "É o mais caro do guia: abre muitos agentes e muitos PRs de uma vez. Confira o plano e o custo antes de deixar executar.",
+    warn: true,
+    examples: [
+      ["/batch troque todos os print() por logging no pacote src/", "Migração mecânica dividida por arquivo."],
+      ["/batch renomeie a função load_cfg para load_config em todos os módulos e testes", "Renomeação em massa, um PR por área."],
+      ["/batch adicione type hints a todas as funções públicas de scripts/", "Refatoração grande e repetitiva."]
+    ]
+  },
+  {
+    id: "model", h: 340, icon: "chip", kind: "Comando embutido", lote: 3, short: "Trocar o modelo da sessão",
+    what: "Define o modelo de IA usado pelo Claude Code na sessão.",
+    why: "Modelos menores respondem mais rápido e custam menos. Os maiores resolvem melhor problemas difíceis. Combina com o /effort.",
+    how: "Use <code>/model &lt;modelo&gt;</code>.",
+    params: [
+      ["<modelo>", "O nome do modelo, como opus, sonnet, haiku ou fable. A dica do comando mostra os aceitos na sua conta."]
+    ],
+    examples: [
+      ["/model sonnet", "Bom equilíbrio para o trabalho do dia a dia."],
+      ["/model haiku", "Rápido e barato para tarefas mecânicas."],
+      ["/model opus", "Volta ao modelo mais forte para um problema difícil."]
+    ]
+  },
+  {
+    id: "output-style", h: 262, icon: "type", kind: "Comando embutido", lote: 3, short: "Estilo das respostas",
+    what: "Lista os estilos de resposta disponíveis ou troca para um deles.",
+    why: "O estilo muda como o Claude escreve para você. O Concise, por exemplo, corta a narração; o Explanatory e o Learning explicam mais.",
+    how: "Use <code>/output-style</code> sozinho para ver a lista, ou com o nome do estilo para trocar.",
+    params: [
+      ["[estilo]", "Opcional. O nome de um estilo da lista. Sem nome, o comando só lista."]
+    ],
+    examples: [
+      ["/output-style", "Mostra os estilos disponíveis."],
+      ["/output-style Concise", "Respostas curtas e diretas."],
+      ["/output-style", "Rode depois de criar um estilo seu para ver se ele entrou na lista."]
+    ]
+  },
+  {
+    id: "fast", h: 10, icon: "bolt", kind: "Comando embutido", lote: 3, short: "Modo rápido",
+    what: "Liga ou desliga o modo rápido, que acelera a saída do modelo da sessão quando ele suporta.",
+    why: "Útil quando você quer respostas mais ligeiras numa sequência de ajustes pequenos.",
+    how: "Use <code>/fast</code> para alternar, ou diga on ou off.",
+    params: [
+      ["on · off", "Opcional. Liga ou desliga. Sem parâmetro, alterna o estado atual."]
+    ],
+    note: "Se o modelo atual não suporta o modo rápido, o app passa a sessão para o Opus.",
+    warn: true,
+    examples: [
+      ["/fast", "Alterna o modo rápido."],
+      ["/fast on", "Liga para uma rodada de ajustes pequenos."],
+      ["/fast off", "Desliga e volta ao ritmo normal."]
+    ]
+  },
+  {
+    id: "autocompact", h: 130, icon: "ruler", kind: "Comando embutido", lote: 4, short: "Quando a compactação automática entra",
+    what: "Define em que tamanho de contexto a compactação automática entra, ou devolve essa escolha ao Claude Code.",
+    why: "O ponto padrão pode compactar cedo demais, cortando detalhes, ou tarde demais, deixando a sessão lenta e cara.",
+    how: "Use <code>/autocompact</code> com um número de tokens ou com <code>auto</code>.",
+    params: [
+      ["<tokens>", "Número de tokens em que a compactação automática entra, como 300000."],
+      ["auto", "Devolve o tamanho ao ajuste automático do Claude Code."]
+    ],
+    note: "Escolha um valor com folga abaixo do tamanho da janela do modelo. Se um hook ou um plugin também compacta a sessão, vale quem chegar primeiro.",
+    warn: true,
+    examples: [
+      ["/autocompact 300000", "Compacta com folga antes do fim da janela, sem cortar a resposta em curso."],
+      ["/autocompact 200000", "Sessões mais leves, para quem compacta com frequência."],
+      ["/autocompact auto", "Volta ao ajuste automático."]
+    ]
+  },
+  {
+    id: "clear", h: 300, icon: "fresh", kind: "Comando embutido", aliases: ["/reset", "/new"], lote: 4, short: "Começar do zero na mesma pasta",
+    what: "Começa uma sessão nova com o contexto vazio. A sessão anterior fica salva no disco.",
+    why: "Contexto limpo custa menos e evita que restos da tarefa anterior atrapalhem a nova. Diferente do /compact, nada da conversa passa para a sessão nova.",
+    how: "Use <code>/clear</code>, com ou sem um nome.",
+    params: [
+      ["[nome]", "Opcional. Um nome para identificar a sessão."]
+    ],
+    examples: [
+      ["/clear", "Contexto vazio para a próxima tarefa."],
+      ["/clear revisão dos READMEs", "Começa de novo já com um nome."],
+      ["/new", "Mesmo comando pelo apelido."]
+    ]
+  },
+  {
+    id: "list-agents", h: 215, icon: "people", kind: "Comando embutido", aliases: ["/peers"], lote: 4, short: "Quem pode receber mensagem",
+    what: "Lista os subagentes, colegas de equipe e outras sessões do Claude para os quais você pode mandar mensagem.",
+    why: "Mostra os nomes certos antes de enviar algo e quem está disponível agora.",
+    how: "Rode <code>/list-agents</code> sem parâmetros.",
+    note: "Depende do recurso de mensagens entre sessões estar ligado na conta. Ele estava na lista do modo Desktop.",
+    examples: [
+      ["/list-agents", "Lista quem pode receber mensagem."],
+      ["/peers", "Mesmo comando pelo apelido."],
+      ["/list-agents", "Rode depois de abrir uma sessão paralela para ver se ela já aparece."]
+    ]
+  },
+  {
+    id: "reload-skills", h: 82, icon: "refresh", kind: "Comando embutido", lote: 4, short: "Usar uma skill nova sem reabrir",
+    what: "Carrega as skills criadas ou alteradas no disco durante a sessão.",
+    why: "Sem ele, uma skill nova ou editada só passa a valer numa sessão nova.",
+    how: "Rode <code>/reload-skills</code> sem parâmetros.",
+    examples: [
+      ["/reload-skills", "Depois de criar uma skill, para chamá-la nesta mesma sessão."],
+      ["/reload-skills", "Depois de mudar a descrição de uma skill, para o Claude ler a versão nova."],
+      ["/context", "Em seguida, confira a linha Skills para ver quanto a skill nova custa."]
+    ]
+  },
+  {
+    id: "auto-mode-setup", h: 58, icon: "gear", kind: "Comando embutido", lote: 4, short: "Ensinar o modo auto sobre o seu ambiente",
+    what: "Descreve o seu ambiente para o modo auto e permite ajustar as regras do que ele aprova sem perguntar.",
+    why: "O modo auto decide sozinho o que pode rodar. Conhecendo o ambiente, ele erra menos: pergunta menos o que é normal e barra mais o que é arriscado.",
+    how: "Rode <code>/auto-mode-setup</code> sem parâmetros e siga o assistente.",
+    params: [
+      ["--wizard … --propose", "Avançado. Responde ao assistente de uma vez, com postura, escopo e profundidade, e só propõe as regras."],
+      ["--apply-file <arquivo>", "Avançado. Aplica um arquivo de regras já revisado, conferido com --expect-sha256."]
+    ],
+    note: "Só aparece com o modo auto disponível na conta.",
+    examples: [
+      ["/auto-mode-setup", "Abre o assistente de configuração."],
+      ["/auto-mode-setup", "Rode de novo depois de passar a trabalhar numa pasta ou ferramenta nova."],
+      ["/auto-mode-setup", "Rode quando o modo auto começar a perguntar coisas que você sempre aprova."]
+    ]
+  },
+  {
+    id: "debug", h: 196, icon: "bug", kind: "Skill embutida", lote: 4, short: "Investigar um problema da sessão",
+    what: "Liga o registro detalhado desta sessão e ajuda a investigar um problema. Ele só lê arquivos e registros, sem alterar nada.",
+    why: "Mostra o que de fato aconteceu num hook, num MCP ou num comando que falhou, em vez de adivinhar.",
+    how: "Use <code>/debug</code> com a descrição do problema. Só você consegue chamar: o Claude não o dispara sozinho.",
+    params: [
+      ["[descrição]", "Opcional, texto livre. O que deu errado, com o máximo de detalhe."]
+    ],
+    note: "O registro começa quando você roda o comando: o que aconteceu antes não fica gravado. Rode e repita o que falhou.",
+    examples: [
+      ["/debug o MCP context7 não conecta desde que abri a sessão", "Investiga uma conexão que falha."],
+      ["/debug um hook está deixando cada comando mais lento", "Procura o que está atrasando."],
+      ["/debug o /skill-doctor diz que não está disponível nesta conexão", "Investiga um comando que responde indisponível no app."]
+    ]
+  },
+  {
+    id: "color", h: 320, icon: "palette", kind: "Comando embutido", lote: 5, short: "Cor da barra de prompt da sessão",
+    app: { ok: true, text: "Testado no app: funcionou" },
+    what: "Muda a cor da barra de prompt desta sessão.",
+    why: "Com várias sessões abertas lado a lado, a cor mostra de relance em qual você está: uma cor por projeto ou por tipo de tarefa.",
+    how: "Use <code>/color</code> com o nome da cor, ou <code>/color default</code> para voltar à cor padrão.",
+    params: [
+      ["<cor>", "red, blue, green, yellow, purple, orange, pink ou cyan."],
+      ["default", "Palavra fixa. Volta à cor padrão."]
+    ],
+    note: "Um nome fora da lista devolve as cores aceitas. Numa sessão que é colega de uma equipe de agentes, quem lidera a equipe define a cor e o comando recusa a troca.",
+    examples: [
+      ["/color green", "Verde para a sessão de testes."],
+      ["/color red", "Vermelho para a sessão que mexe em produção: um alerta visual antes de digitar."],
+      ["/color default", "Volta à cor padrão."]
+    ]
+  },
+  {
+    id: "reload-plugins", h: 235, icon: "puzzle", kind: "Comando embutido", lote: 5, short: "Ativar plugins sem abrir outra sessão",
+    app: { ok: true, text: "Testado no app: funcionou" },
+    what: "Ativa na sessão atual as mudanças de plugins que ficaram pendentes, como um plugin instalado, atualizado, ligado ou desligado.",
+    why: "Sem ele, um plugin novo ou atualizado só passa a valer numa sessão nova, e você perde o contexto acumulado.",
+    how: "Rode <code>/reload-plugins</code>. Se ele avisar que a próxima mensagem vai reler a conversa inteira, rode <code>/reload-plugins --force</code> para aplicar.",
+    params: [
+      ["--force", "Aplica a recarga mesmo quando ela muda as ferramentas MCP ou a ferramenta LSP. Nesse caso o comando avisa que a próxima mensagem vai reler a conversa inteira, sem usar o cache, e só aplica com --force."]
+    ],
+    note: "Quando a recarga muda as ferramentas MCP ou a ferramenta LSP, a próxima mensagem relê a conversa inteira, sem usar o cache. Por isso, nesse caso, o comando só aplica com --force.",
+    warn: true,
+    examples: [
+      ["/reload-plugins", "Depois de instalar um plugin, para usá-lo nesta mesma sessão."],
+      ["/reload-plugins --force", "Quando o comando avisou que a próxima mensagem vai reler a conversa inteira."],
+      ["/reload-skills", "Para skills soltas no disco, fora de um plugin, use este outro."]
+    ]
+  },
+  {
+    id: "config", h: 150, icon: "toggle", kind: "Comando embutido", aliases: ["/settings"], lote: 5, short: "Mudar uma configuração pelo nome",
+    app: { ok: true, text: "Testado no app: funcionou" },
+    what: "Muda uma configuração do Claude Code no formato chave=valor. Sozinho, sem interface (<code>claude -p</code>), lista as chaves aceitas e os valores de cada uma.",
+    why: "Ajusta dicas, tema, editor, formato da hora e outras opções na hora, sem abrir arquivos de configuração.",
+    how: "Use <code>/config chave=valor</code>. Dá para passar vários pares de uma vez.",
+    params: [
+      ["(sem nada)", "Sem interface (<code>claude -p</code>), lista as chaves aceitas e os valores de cada uma. Na aba Code, segundo a documentação, abre as Configurações."],
+      ["chave=valor", "Uma configuração, como tips=false, turnDuration=true ou verbose=true."],
+      ["[chave=valor …]", "Vários pares separados por espaço, aplicados juntos."]
+    ],
+    note: "A mudança fica salva nas configurações, não só nesta sessão. Para desfazer, rode a mesma chave com o valor anterior. Chaves como permissionMode e autoCompact mudam o comportamento de todas as sessões: confira antes de trocar.",
+    warn: true,
+    examples: [
+      ["/config", "Sem interface, lista as chaves aceitas. Na aba Code, a documentação diz que abre as Configurações."],
+      ["/config tips=false turnDuration=true", "Dois ajustes de uma vez: tira as dicas e mostra quanto durou cada resposta."],
+      ["/config verbose=true", "Mostra mais detalhes de cada passo. Desfaça com verbose=false."]
+    ]
+  }
+];
+
+/* "Contexto" row: the situation where each command is worth running. */
+const CONTEXTS = {
+  "goal": "Tarefas longas que você deixa rodando sozinhas, como uma migração ou uma bateria de testes, quando você sabe dizer exatamente o que é “pronto” e não quer voltar e achar o trabalho parado no meio.",
+  "skill-doctor": "Quando a sessão já começa pesada e o /context mostra as skills ocupando milhares de tokens antes da primeira mensagem. Rode no terminal para decidir quais desligar.",
+  "advisor": "Tarefas de várias etapas com risco de errar o caminho, como uma refatoração ou uma decisão de arquitetura. Em perguntas rápidas, desligue para não pagar consultas à toa.",
+  "compact": "Perto do limite da sessão, antes de a compactação automática rodar sozinha. Rodando na mão, você descreve os critérios do resumo: o que guardar e o que descartar.",
+  "usage": "Antes de começar algo caro, como um /batch ou um /code-review max, e no meio de uma semana de uso pesado, para saber quanto ainda resta do plano.",
+  "context": "Quando as respostas ficam lentas ou a sessão parece pesada, e antes de colar um log grande. Olhe primeiro as maiores fatias da tabela: é ali que o corte rende mais.",
+  "code-review": "Logo antes do commit ou de abrir um PR, com o diff ainda pequeno. Em mudanças de segurança, use junto com o /security-review.",
+  "fewer-permission-prompts": "Quando você se pega aprovando os mesmos comandos de leitura, como git status, rg ou ls, toda hora num projeto que usa sempre.",
+  "simplify": "Depois que a funcionalidade já funciona e os testes passam, antes do commit: é a hora de enxugar sem mudar o comportamento.",
+  "security-review": "Antes de abrir um PR que mexe em login, tokens, cookies, entrada de usuário ou chamadas a serviços externos.",
+  "doctor": "Quando algo fica estranho sem motivo claro, como o app lento, um hook que demora, um aviso de versão ou memórias repetidas. Também logo depois de atualizar o app.",
+  "insights": "No fim de uma semana ou de um mês, para ver o seu uso em todos os projetos de uma vez e decidir o que vale automatizar.",
+  "recap": "Antes de pausar ou de trocar de sessão, e ao voltar para uma sessão antiga sem lembrar onde parou.",
+  "effort": "Quando o tipo de tarefa muda no meio da sessão: abaixe para ajustes mecânicos de texto e arquivos, suba ao chegar num bug difícil.",
+  "loop": "Quando você espera algo que termina fora da conversa, como um deploy, uma fila ou um build longo, e quer acompanhar sem ficar perguntando.",
+  "init": "No primeiro dia num repositório novo ou recém-clonado, e depois de uma reorganização grande da estrutura do projeto.",
+  "run": "Depois de mudar algo visível, como uma tela, um painel ou uma CLI, quando teste verde não basta e você quer ver o app de verdade.",
+  "mcp": "Quando uma ferramenta MCP para de responder ou some, e no começo de uma sessão que não vai usar certos servidores, para liberar contexto.",
+  "batch": "Mudanças grandes, repetitivas e independentes em muitos arquivos, que fariam uma sessão só levar horas. Não serve para partes que dependem umas das outras.",
+  "model": "Quando o trabalho muda de natureza: haiku ou sonnet para tarefas mecânicas e rápidas, opus para um problema difícil ou uma revisão importante.",
+  "output-style": "Quando você quer outro jeito de resposta por um tempo, por exemplo mais explicação ao aprender algo novo, e depois voltar ao estilo curto.",
+  "fast": "Numa sequência de ajustes pequenos e rápidos, em que esperar a resposta pesa mais que a profundidade dela.",
+  "autocompact": "Quando a compactação automática chega cedo ou tarde demais para o seu jeito de trabalhar, ou quando outra ferramenta já compacta a sessão e você quer que o Claude Code compacte antes dela.",
+  "clear": "Ao terminar uma tarefa e começar outra sem relação com ela, na mesma pasta: contexto limpo sai mais barato e não confunde a tarefa nova com a anterior.",
+  "list-agents": "Antes de mandar mensagem para outra sessão ou subagente, para conferir quem está disponível e com que nome.",
+  "reload-skills": "Logo depois de criar ou editar uma skill no meio da sessão, por exemplo com a skill skill-creator, para usá-la sem abrir outra janela.",
+  "auto-mode-setup": "Quando o modo auto pede confirmação para coisas que são normais no seu ambiente, ou deixa passar algo que você preferia bloquear.",
+  "debug": "Quando um hook, um MCP ou um comando se comporta diferente do esperado e você quer o registro detalhado do que acontece a partir de agora.",
+  "color": "Quando você trabalha com duas ou mais sessões ao mesmo tempo, como uma de código e outra de revisão, e quer saber de relance qual é qual antes de digitar.",
+  "reload-plugins": "Logo depois de instalar, atualizar, ligar ou desligar um plugin no meio de uma sessão longa, quando abrir outra janela faria perder o contexto acumulado.",
+  "config": "Quando um detalhe do dia a dia incomoda, como dicas que se repetem ou a falta do tempo de cada resposta, e você quer ajustar na hora sem procurar o arquivo de configuração."
+};
+
+/* Eight categories; every command id appears in exactly one. h = category hue. */
+const CATEGORIES = [
+  { id: "contexto", name: "Contexto e memória", h: 35, icon: "grid", hint: "A mochila da sessão: pesar, apertar, esvaziar.",
+    desc: "O que a sessão carrega na janela de contexto e como aliviar esse peso.",
+    ids: ["context", "compact", "autocompact", "clear", "recap"] },
+  { id: "motor", name: "Modelo e potência", h: 270, icon: "chip", hint: "O motor: quem pensa e com quanta força.",
+    desc: "Qual modelo responde, quanto ele pensa, quão rápido, e quem revisa.",
+    ids: ["model", "effort", "fast", "advisor"] },
+  { id: "revisao", name: "Revisão de código", h: 210, icon: "lens", hint: "A lupa antes de entregar.",
+    desc: "Conferir o diff antes do commit: bugs, segurança e limpeza.",
+    ids: ["code-review", "security-review", "simplify"] },
+  { id: "automacao", name: "Automação", h: 345, icon: "loop", hint: "Piloto automático.",
+    desc: "O Claude trabalhando sozinho: até a meta, em intervalos, em paralelo ou abrindo o app.",
+    ids: ["goal", "loop", "batch", "run"] },
+  { id: "diagnostico", name: "Diagnóstico e uso", h: 145, icon: "heart", hint: "O check-up: o que dói e quanto custa.",
+    desc: "Saúde da instalação, investigação de falhas e quanto do plano foi usado.",
+    ids: ["doctor", "skill-doctor", "debug", "usage", "insights"] },
+  { id: "extensoes", name: "Extensões e conexões", h: 188, icon: "plug", hint: "O que está plugado.",
+    desc: "Servidores MCP, plugins, skills e as outras sessões ligadas a esta.",
+    ids: ["mcp", "reload-plugins", "reload-skills", "list-agents"] },
+  { id: "criacao", name: "Criação e referência", h: 95, icon: "palette", hint: "A caixa de receitas: o Claude aprende a construir.",
+    desc: "Skills embutidas que ensinam o Claude a fazer gráficos, diagramas, apps com a API, workflows, mods e a skill que roda o seu app.",
+    ids: [] },
+  { id: "ajustes", name: "Ajustes e permissões", h: 52, icon: "gear", hint: "Deixar do seu jeito.",
+    desc: "Configurações, cor, estilo das respostas, CLAUDE.md e o que roda sem pedir.",
+    ids: ["config", "output-style", "color", "init", "fewer-permission-prompts", "auto-mode-setup"] }
+];
+
+/* The gesture each icon plays on hover; every command id appears in exactly one list. */
+const MOTION = {
+  squeeze: ["compact", "autocompact"],
+  spin: ["loop", "reload-skills", "reload-plugins", "auto-mode-setup", "model"],
+  wipe: ["clear"],
+  dash: ["fast", "batch", "run"],
+  beat: ["goal", "doctor", "fewer-permission-prompts", "context", "list-agents", "recap"],
+  shake: ["debug", "security-review", "skill-doctor", "code-review"],
+  rise: ["insights", "usage", "init", "mcp"],
+  nod: ["effort", "advisor", "output-style", "config", "simplify"],
+  hue: ["color"]
+};
+
+/* Lote 6 (22/11/2026). Ids in NOT_IN_APP did not work in the app test of 22/11/2026: they stay out of the cards. */
+/* Lote 6: 15 cards verified in the Claude Code 2.1.325 Desktop binary. Data only; see lote6-evidence.md. */
+
+const NEW_ICONS = {
+  braces: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6c-4 0-5 2-5 5v4c0 3-2 5-5 5 3 0 5 2 5 5v4c0 3 1 5 5 5"/><path d="M26 6c4 0 5 2 5 5v4c0 3 2 5 5 5-3 0-5 2-5 5v4c0 3-1 5-5 5"/><circle cx="20" cy="20" r="1.8" fill="currentColor"/></svg>',
+  flow: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="4" width="14" height="9" rx="2.5"/><rect x="3" y="27" width="14" height="9" rx="2.5"/><rect x="23" y="27" width="14" height="9" rx="2.5"/><path d="M20 13v6M10 27v-4h20v4"/></svg>',
+  tag: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14l16 16-14 14L5 19z"/><circle cx="13" cy="13" r="2.2" fill="currentColor"/></svg>',
+  download: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5v21M11 18l9 9 9-9"/><path d="M6 34h28"/></svg>',
+  folder: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a3 3 0 0 1 3-3h9l4 5h13a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M20 19v10M15 24h10"/></svg>',
+  coins: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="11" rx="11" ry="5"/><path d="M6 11v8c0 2.8 5 5 11 5s11-2.2 11-5v-8"/><path d="M6 19v8c0 2.8 5 5 11 5 3 0 5.600-.5 7.500-1.400"/><path d="M30 24.500c2.500.5 4.500 1.500 4.500 3v6c0 2-4 4-9 4"/></svg>',
+  stop: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><rect x="14" y="14" width="12" height="12" rx="2" fill="currentColor"/></svg>',
+  globe: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><path d="M5 20h30"/><path d="M20 5c-6 5-6 25 0 30M20 5c6 5 6 25 0 30"/></svg>'
+};
+
+const NEW_COMMANDS = [
+  {
+    id: "update-config", h: 6, icon: "dial", kind: "Skill embutida", lote: 6,
+    short: "Mudar hooks, permissões e variáveis em palavras",
+    what: "Uma skill que edita o settings.json do Claude Code por você. Você descreve o que quer, como “permitir npm” ou “sempre que eu terminar, mostre X”, e ela escolhe o arquivo certo e escreve a configuração.",
+    why: "Comportamentos automáticos (“sempre que…”) só funcionam como hook no settings.json: é o programa que executa, não a memória do Claude. Esta skill sabe onde cada coisa vai e evita você errar o formato.",
+    how: "Digite <code>/update-config</code> seguido do que você quer mudar, ou apenas descreva o pedido na conversa. Ela cobre permissões, variáveis de ambiente e hooks, e ajuda a depurar um hook que não dispara.",
+    note: "Para ajustes simples como tema e modelo, o <code>/config</code> é mais direto. A skill é para o que exige editar o arquivo.",
+    examples: [
+      ["/update-config permitir os comandos npm test e npm run lint sem perguntar", "Cria a regra de permissão no arquivo de configuração certo."],
+      ["/update-config definir a variável DEBUG=true para todos os projetos", "Grava a variável de ambiente nas configurações."],
+      ["/update-config quando o Claude terminar, rodar o formatador do projeto", "Monta um hook de fim de resposta."]
+    ]
+  },
+  {
+    id: "claude-api", h: 24, icon: "braces", kind: "Skill embutida", lote: 6,
+    short: "Referência da API da Claude ao construir apps",
+    what: "Uma skill com a referência da API da Claude e do SDK da Anthropic: ids de modelos, preços, parâmetros, streaming, uso de ferramentas, MCP, agentes, cache de prompt, contagem de tokens e migração entre modelos.",
+    why: "Evita que o Claude responda de memória sobre modelos e preços, que mudam. Com a skill carregada, ele consulta a referência antes de escrever o código ou de explicar um limite.",
+    how: "Digite <code>/claude-api</code> seguido da pergunta ou da tarefa. Ela também é acionada sozinha quando a conversa fala de Claude, Anthropic ou de um app com LLM.",
+    note: "Ela libera a consulta ao domínio platform.claude.com para buscar a documentação. Pode ser desligada pela configuração de skills embutidas.",
+    examples: [
+      ["/claude-api como ligo o cache de prompt no meu chatbot em Python?", "Passo a passo com o SDK, usando a referência."],
+      ["/claude-api qual a diferença de preço entre os modelos atuais?", "Consulta a tabela em vez de chutar."],
+      ["/claude-api migrar meu código do modelo antigo para o mais novo", "Lista o que muda em parâmetros e comportamento."]
+    ]
+  },
+  {
+    id: "run-skill-generator", h: 40, icon: "play", kind: "Skill embutida", lote: 6,
+    short: "Criar a skill que sabe rodar o app do projeto",
+    what: "Cria ou melhora uma skill por projeto, a “run”, que diz aos agentes como compilar, iniciar e operar o app. Ela vem com um modelo e exemplos para você partir de algo pronto.",
+    why: "Sem instruções de execução, cada sessão redescobre como subir o app, e erra. Com a skill escrita uma vez, o <code>/run</code> e os agentes já sabem os passos.",
+    how: "Digite <code>/run-skill-generator</code>. Use quando for preparar o projeto, escrever instruções de execução ou conferir que o build e a execução funcionam num ambiente limpo.",
+    note: "Só você chama: o Claude não a dispara sozinho. Combina com o <code>/run</code>, que usa a skill gerada.",
+    examples: [
+      ["/run-skill-generator", "Cria a skill de execução do projeto atual."],
+      ["/run-skill-generator revise a skill run: o comando de build mudou", "Atualiza uma skill existente."],
+      ["/run-skill-generator confira se dá para subir o app a partir de um clone novo", "Valida os passos num ambiente limpo."]
+    ]
+  },
+  {
+    id: "design-sync", h: 56, icon: "palette", kind: "Skill embutida", lote: 6,
+    short: "Enviar seu design system ao Claude Design",
+    what: "Empacota os componentes React reais do seu design system, vindos do Storybook ou de um pacote, e os envia para um projeto no claude.ai/design.",
+    why: "O Claude Design passa a trabalhar com os componentes que o seu código usa de verdade, não com imitações desenhadas à mão.",
+    how: "Digite <code>/design-sync</code> e acompanhe as perguntas. Ele roda um conversor que junta o código dos componentes e faz o envio, pedindo a sua confirmação antes de criar o projeto ou mexer em arquivos.",
+    note: "Exige uma conta com acesso ao Claude Design e a liberação de acesso aos seus projetos de design. Pode pedir login antes de começar.",
+    warn: true,
+    examples: [
+      ["/design-sync", "Inicia o envio do design system do projeto atual."],
+      ["/design-sync meu Storybook está em packages/ui", "Aponta de onde vêm os componentes."],
+      ["/design-sync atualize o projeto de design depois das mudanças nos botões", "Reenvia o que mudou."]
+    ]
+  },
+  {
+    id: "dataviz", h: 76, icon: "chart", kind: "Skill embutida", lote: 6,
+    short: "Gráficos que seguem um só sistema visual",
+    what: "Uma skill de visualização de dados: guia a escolha do tipo de gráfico, das cores e do layout de painéis, valendo para qualquer saída, seja página HTML, SVG, código de plot ou imagem.",
+    why: "Gráficos feitos “no olho” saem com cores sem relação, legendas confusas e contraste ruim. A skill dá um método e uma paleta validada, e funciona em tema claro e escuro.",
+    how: "Digite <code>/dataviz</code> com o que você quer mostrar. Ela é lida antes de escrever qualquer código de gráfico, de cartão de indicador ou de painel.",
+    examples: [
+      ["/dataviz vendas por mês em 2026 em um gráfico de linha", "Gráfico simples com eixo e legenda claros."],
+      ["/dataviz painel com 4 indicadores e um gráfico de barras por região", "Layout de painel consistente."],
+      ["/dataviz refaça esse gráfico do matplotlib com cores acessíveis", "Revisão de um gráfico existente."]
+    ]
+  },
+  {
+    id: "artifact-diagramming", h: 106, icon: "flow", kind: "Skill embutida", lote: 6,
+    short: "Diagramas que mostram o mecanismo, não só o nome",
+    what: "Uma skill sobre quando um desenho vale a pena e como fazê-lo em SVG: mostrar por onde os dados passam, quem conversa com quem e como duas opções diferem, legível em tema claro e escuro.",
+    why: "Uma caixa escrita “cache” diz menos que o texto. A skill orienta o desenho a mostrar o caminho real de um pedido, e a desistir do diagrama quando uma frase explica mais rápido.",
+    how: "Digite <code>/artifact-diagramming</code> com o que precisa ser explicado. Ela serve de guia quando um artefato ou página precisa de um diagrama.",
+    examples: [
+      ["/artifact-diagramming fluxo de login com token de sessão", "Sequência de quem chama quem, passo a passo."],
+      ["/artifact-diagramming comparar fila simples e fila com tentativas", "Duas opções lado a lado, mostrando a diferença."],
+      ["/artifact-diagramming estados de um pedido de compra", "Diagrama de estados e transições."]
+    ]
+  },
+  {
+    id: "workflow-authoring", h: 124, icon: "stack", kind: "Skill embutida", lote: 6,
+    short: "Referência para escrever um script de workflow",
+    what: "Uma referência para escrever um script da ferramenta Workflow, que coordena vários subagentes: a API do script, armadilhas, como retomar uma execução, padrões de qualidade e exemplos.",
+    why: "Um script de workflow pode disparar dezenas de agentes e gastar muito. Ler a referência antes evita erros caros de estrutura.",
+    how: "Digite <code>/workflow-authoring</code> antes de montar o script. Carregar a skill não autoriza rodar nada: a execução continua dependendo do seu pedido.",
+    warn: true,
+    note: "Pensada para quando você já decidiu usar um workflow. Para uma tarefa comum, um subagente basta.",
+    examples: [
+      ["/workflow-authoring", "Carrega a referência para escrever o script."],
+      ["/workflow-authoring revisar todos os módulos em paralelo e juntar os achados", "Monta o esqueleto de um script de revisão."],
+      ["/workflow-authoring como retomar uma execução que parou no meio?", "Consulta a seção de retomada."]
+    ]
+  },
+  {
+    id: "plugin-authoring", h: 154, icon: "puzzle", kind: "Skill de plugin embutido", lote: 6,
+    short: "Criar um mod: painel, barra, comando ou hook",
+    what: "Uma skill para fazer um “mod”: uma mudança na interface ou no comportamento do Claude, como tema, painel ao lado do chat, faixa, linha de status, aviso, comando de barra ou hook em chamadas de ferramenta.",
+    why: "Cada tipo de mod tem seu formato e seus cuidados. A skill reúne o necessário para você criar, mudar ou depurar um sem descobrir tudo por tentativa.",
+    how: "Digite <code>/plugin-authoring</code> com o que o mod deve fazer. Serve também para consertar um mod ou o módulo de hooks dele.",
+    examples: [
+      ["/plugin-authoring uma linha de status com a hora do último commit", "Cria um mod de linha de status."],
+      ["/plugin-authoring um comando /hoje que lista as tarefas abertas", "Cria um comando de barra novo."],
+      ["/plugin-authoring meu hook não dispara antes das chamadas do Bash", "Depura um hook existente."]
+    ]
+  },
+  {
+    id: "rename", h: 166, icon: "tag", kind: "Comando embutido", aliases: ["/name"], lote: 6,
+    short: "Dar um nome à conversa atual",
+    what: "Muda o nome da conversa atual. O nome é opcional na linha de comando.",
+    why: "Com várias sessões abertas, nomes como “conversa de ontem” não ajudam. Um nome curto torna fácil achar e retomar a sessão certa depois.",
+    how: "Rode <code>/rename</code> seguido do nome desejado. O apelido <code>/name</code> faz o mesmo.",
+    params: [["[name]", "Opcional. O novo nome da conversa."]],
+    examples: [
+      ["/rename migração do banco para Postgres 16", "Nome claro para achar a sessão na lista."],
+      ["/name revisão do PR de login", "Mesmo comando pelo apelido."],
+      ["/rename migração-v2", "Nomes curtos e sem espaços também funcionam."]
+    ]
+  },
+  {
+    id: "import", h: 182, icon: "download", kind: "Comando embutido", lote: 6,
+    short: "Trazer a configuração de outro agente de código",
+    what: "Importa configuração de outro agente de código: servidores MCP, comandos de barra, subagentes, skills e instruções. Primeiro ele só varre e lista o que dá para importar.",
+    why: "Quem usa outra ferramenta não precisa recriar tudo à mão. A importação aplica verificações de nomes e de caminhos seguras, em vez de você copiar arquivos por conta própria.",
+    how: "Rode <code>/import</code> para escanear e listar. A saída informa um código; depois rode <code>/import --yes=&lt;código&gt;</code> para aplicar o que foi listado.",
+    params: [
+      ["--yes=<código>", "Aplica a importação listada. O código vem da saída do escaneamento."]
+    ],
+    note: "Aparece só em algumas versões e contas. Se o comando não estiver na sua lista, ele não está liberado aí.",
+    warn: true,
+    examples: [
+      ["/import", "Escaneia e lista o que pode ser importado."],
+      ["/import", "Rode de novo depois de configurar o outro agente, para ver a lista atualizada."],
+      ["/import --yes=<código>", "Aplica a importação, usando o código da listagem."]
+    ]
+  },
+  {
+    id: "team-onboarding", h: 220, icon: "people", kind: "Comando embutido", lote: 6,
+    short: "Guia para novos colegas, feito do seu uso",
+    what: "Gera um guia para colegas começarem no Claude Code, montado a partir do seu uso recente: ele examina o histórico dentro de uma janela de dias e escreve o roteiro. A lista de ferramentas liberadas inclui editar um arquivo ONBOARDING.md.",
+    why: "Um guia baseado no que você realmente faz é mais útil que um genérico: mostra os comandos e hábitos que funcionam no seu time.",
+    how: "Rode <code>/team-onboarding</code> dentro do projeto. Ele mostra a mensagem “scanning usage data” enquanto lê os dados.",
+    note: "Só você chama. O comando exige uma pasta de trabalho e pode ser desligado pela política da organização.",
+    warn: true,
+    examples: [
+      ["/team-onboarding", "Gera o guia a partir do seu uso."],
+      ["/team-onboarding", "Rode na raiz do repositório, para o guia ficar junto do código."],
+      ["/team-onboarding", "Revise o texto e remova o que for específico demais antes de compartilhar."]
+    ]
+  },
+  {
+    id: "add-dir", h: 242, icon: "folder", kind: "Comando embutido", lote: 6,
+    short: "Dar acesso a mais uma pasta de trabalho",
+    what: "Adiciona uma pasta ao conjunto de diretórios de trabalho da sessão, para o Claude ler e editar arquivos fora da pasta onde você abriu.",
+    why: "Projetos reais se espalham por pastas: uma biblioteca ao lado do app, um repositório de documentação. Adicionar a pasta evita copiar arquivos ou reabrir a sessão.",
+    how: "Rode <code>/add-dir</code> seguido do caminho da pasta.",
+    params: [["<path>", "O caminho da pasta a adicionar."]],
+    examples: [
+      ["/add-dir ../minha-biblioteca", "Inclui a biblioteca vizinha ao app."],
+      ["/add-dir ~/projetos/docs", "Inclui um repositório de documentação."],
+      ["/add-dir /srv/config-compartilhada", "Inclui uma pasta de configuração usada por vários projetos."]
+    ]
+  },
+  {
+    id: "usage-credits", h: 280, icon: "coins", kind: "Comando embutido", aliases: ["/extra-usage"], lote: 6,
+    short: "Créditos extras quando o limite do plano acaba",
+    what: "Configura créditos de uso ou os pede ao administrador quando você bate num limite. O nome antigo era <code>/extra-usage</code>, hoje oculto.",
+    why: "Evita ficar parado esperando o limite renovar: com créditos ligados, o trabalho continua, e o pedido ao administrador sai sem você procurar o painel.",
+    how: "Rode <code>/usage-credits</code> sem parâmetros e siga as opções que aparecerem.",
+    note: "Depende do tipo de conta: no app só aparece em contas que têm esse recurso.",
+    warn: true,
+    examples: [
+      ["/usage-credits", "Abre a configuração de créditos."],
+      ["/usage", "Antes de tudo, veja quanto do plano já foi usado."],
+      ["/usage-credits", "Depois de bater no limite: peça créditos ao administrador."]
+    ]
+  },
+  {
+    id: "stop", h: 304, icon: "stop", kind: "Comando embutido", lote: 6,
+    short: "Parar esta sessão em segundo plano",
+    what: "Encerra a sessão em segundo plano em que você está, mantendo a transcrição e a pasta de trabalho (worktree).",
+    why: "Quando uma sessão que roda sozinha já cumpriu seu papel, ou está indo para o lado errado, você a para sem perder o que ela produziu.",
+    how: "Rode <code>/stop</code> dentro da sessão em segundo plano.",
+    note: "O comando só existe em sessões em segundo plano. Em uma sessão comum, ele não aparece.",
+    warn: true,
+    examples: [
+      ["/stop", "Encerra a sessão em segundo plano atual."],
+      ["/stop", "Use quando o trabalho já terminou e você só quer liberar a sessão."],
+      ["/stop", "Use quando a sessão se perdeu: a transcrição fica para você revisar."]
+    ]
+  },
+  {
+    id: "claude-in-chrome", h: 326, icon: "globe", kind: "Skill embutida", lote: 6,
+    short: "Deixar o Claude navegar no seu Chrome",
+    what: "Liga o Claude ao seu Chrome para clicar, preencher formulários, capturar telas, ler o console e navegar. Ele abre as páginas em abas novas dentro da sua sessão do Chrome.",
+    why: "O Claude passa a testar e conferir páginas reais, com os logins que já estão ali, em vez de só ler o código.",
+    how: "Digite <code>/claude-in-chrome</code>. A skill é lida antes de usar qualquer ferramenta mcp__claude-in-chrome__*.",
+    note: "Exige a extensão do Claude no Chrome e a liberação de acesso por site, configurada na extensão.",
+    warn: true,
+    examples: [
+      ["/claude-in-chrome abrir localhost:3000 e conferir se o formulário envia", "Teste manual guiado de uma página local."],
+      ["/claude-in-chrome tirar uma captura da tela de preços", "Captura de uma página."],
+      ["/claude-in-chrome ler os erros do console da página de login", "Leitura do console do navegador."]
+    ]
+  }
+];
+
+const NEW_CONTEXTS = {
+  "update-config": "Quando você quer que algo aconteça sempre (“depois de cada resposta, rode o formatador”) ou parar de aprovar o mesmo comando, e prefere dizer em palavras a editar o arquivo.",
+  "claude-api": "Ao construir ou depurar um app que usa a API da Claude, e ao trocar de modelo ou calcular custo, quando o número tem que estar certo.",
+  "run-skill-generator": "Logo depois de o projeto ficar utilizável, ou quando cada sessão nova gasta tempo descobrindo como subir o app.",
+  "design-sync": "Quando o design system do seu time já existe em código e você quer que o Claude Design use os mesmos componentes.",
+  "dataviz": "Antes de montar um gráfico, um cartão de indicadores ou um painel, para que cores, legendas e tema fiquem coerentes.",
+  "artifact-diagramming": "Quando um texto sobre fluxo, arquitetura ou estados ficou difícil de seguir e um desenho mostraria o caminho de uma vez.",
+  "workflow-authoring": "Só depois de decidir que a tarefa pede vários agentes coordenados por script, e antes de escrever o primeiro.",
+  "plugin-authoring": "Quando você quer mudar a interface ou o comportamento do próprio Claude, como um painel, uma linha de status ou um hook, e não sabe por onde começar.",
+  "rename": "Assim que a sessão ganha um assunto claro, e sempre que você mantém mais de uma conversa aberta e precisa distingui-las na lista depois.",
+  "import": "Ao trocar de outro agente de código para o Claude Code, para não recriar à mão servidores MCP, skills e instruções.",
+  "team-onboarding": "Quando entra gente nova no time, ou quando você quer registrar os hábitos de uso que funcionam antes que se percam.",
+  "add-dir": "Quando a tarefa atravessa pastas, como um app e a biblioteca ao lado, e o Claude precisa ler ou editar nas duas.",
+  "usage-credits": "Quando um limite do plano interrompe um trabalho que precisa continuar hoje.",
+  "stop": "Quando uma sessão em segundo plano já entregou o que devia, ou saiu do rumo, e você quer encerrá-la sem perder a transcrição.",
+  "claude-in-chrome": "Quando conferir o resultado exige uma página real: testar um formulário, ler o console ou capturar a tela, com os logins que já estão no seu Chrome."
+};
+
+/* Closest of the 7 existing categories; an 8th, "criacao" ("Criação e design"), is proposed in the report for design-sync, dataviz and artifact-diagramming. */
+const NEW_CATEGORY = {
+  "update-config": "ajustes",
+  "claude-api": "criacao",
+  "run-skill-generator": "criacao",
+  "design-sync": "criacao",
+  "dataviz": "criacao",
+  "artifact-diagramming": "criacao",
+  "workflow-authoring": "criacao",
+  "plugin-authoring": "criacao",
+  "rename": "ajustes",
+  "import": "ajustes",
+  "team-onboarding": "diagnostico",
+  "add-dir": "ajustes",
+  "usage-credits": "diagnostico",
+  "stop": "automacao",
+  "claude-in-chrome": "extensoes"
+};
+
+const NEW_MOTION = {
+  "update-config": "nod",
+  "claude-api": "beat",
+  "run-skill-generator": "dash",
+  "design-sync": "hue",
+  "dataviz": "rise",
+  "artifact-diagramming": "wipe",
+  "workflow-authoring": "spin",
+  "plugin-authoring": "squeeze",
+  "rename": "nod",
+  "import": "rise",
+  "team-onboarding": "beat",
+  "add-dir": "squeeze",
+  "usage-credits": "shake",
+  "stop": "shake",
+  "claude-in-chrome": "spin"
+};
+const NOT_IN_APP = ["stop", "claude-in-chrome"];
+Object.assign(ICONS, NEW_ICONS);
+COMMANDS.push(...NEW_COMMANDS.filter((c) => !NOT_IN_APP.includes(c.id)));
+Object.assign(CONTEXTS, NEW_CONTEXTS);
+for (const [id, cat] of Object.entries(NEW_CATEGORY)) if (!NOT_IN_APP.includes(id)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
+for (const [id, a] of Object.entries(NEW_MOTION)) if (!NOT_IN_APP.includes(id)) MOTION[a].push(id);
+
+/* Official docs (code.claude.com, read 22/11/2026). note = what the docs say about the Desktop app. */
+const DOCS = {
+ "goal": {
+  "url": "https://code.claude.com/docs/en/goal",
+  "note": "A documentação confirma que funciona no app Desktop."
+ },
+ "skill-doctor": {
+  "url": "https://code.claude.com/docs/en/skills#find-unused-skills",
+  "note": ""
+ },
+ "advisor": {
+  "url": "https://code.claude.com/docs/en/advisor",
+  "note": "A documentação confirma que funciona no app Desktop."
+ },
+ "compact": {
+  "url": "https://code.claude.com/docs/en/context-window#what-survives-compaction",
+  "note": "A documentação do Desktop cita o /compact para resumir antes do limite."
+ },
+ "usage": {
+  "url": "https://code.claude.com/docs/en/costs#plan-usage-breakdown",
+  "note": ""
+ },
+ "context": {
+  "url": "https://code.claude.com/docs/en/context-window#check-your-own-session",
+  "note": ""
+ },
+ "code-review": {
+  "url": "https://code.claude.com/docs/en/code-review-local",
+  "note": ""
+ },
+ "fewer-permission-prompts": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "simplify": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "security-review": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "doctor": {
+  "url": "https://code.claude.com/docs/en/skills#check-your-setup-with-/doctor",
+  "note": ""
+ },
+ "insights": {
+  "url": "https://code.claude.com/docs/en/costs#analyze-your-usage-patterns",
+  "note": ""
+ },
+ "recap": {
+  "url": "https://code.claude.com/docs/en/interactive-mode#session-recap",
+  "note": ""
+ },
+ "effort": {
+  "url": "https://code.claude.com/docs/en/model-config#adjust-effort-level",
+  "note": ""
+ },
+ "loop": {
+  "url": "https://code.claude.com/docs/en/scheduled-tasks",
+  "note": "Serve para repetir dentro da sessão. As tarefas agendadas do Desktop são outro recurso."
+ },
+ "init": {
+  "url": "https://code.claude.com/docs/en/memory",
+  "note": ""
+ },
+ "run": {
+  "url": "https://code.claude.com/docs/en/skills#run-and-verify-your-app",
+  "note": ""
+ },
+ "mcp": {
+  "url": "https://code.claude.com/docs/en/mcp",
+  "note": "No Desktop, os conectores também têm uma tela própria; o /mcp é o caminho por comando."
+ },
+ "batch": {
+  "url": "https://code.claude.com/docs/en/skills#bundled-skills",
+  "note": ""
+ },
+ "model": {
+  "url": "https://code.claude.com/docs/en/model-config",
+  "note": "No Desktop, o modelo também pode ser trocado no seletor abaixo da caixa de prompt."
+ },
+ "output-style": {
+  "url": "https://code.claude.com/docs/en/output-styles#change-your-output-style",
+  "note": "A documentação do Desktop sugere definir o outputStyle nas configurações."
+ },
+ "fast": {
+  "url": "https://code.claude.com/docs/en/fast-mode#toggle-fast-mode",
+  "note": ""
+ },
+ "autocompact": {
+  "url": "https://code.claude.com/docs/en/model-config#set-the-auto-compact-window",
+  "note": ""
+ },
+ "clear": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "list-agents": {
+  "url": "https://code.claude.com/docs/en/cross-session-messaging#availability",
+  "note": "A documentação descreve o uso no terminal; no Desktop dá para pedir a lista em linguagem natural."
+ },
+ "reload-skills": {
+  "url": "https://code.claude.com/docs/en/skills",
+  "note": ""
+ },
+ "auto-mode-setup": {
+  "url": "https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries",
+  "note": ""
+ },
+ "debug": {
+  "url": "https://code.claude.com/docs/en/skills#bundled-skills",
+  "note": ""
+ },
+ "color": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "reload-plugins": {
+  "url": "https://code.claude.com/docs/en/plugins/cli-reference#reload-plugins",
+  "note": "A documentação confirma que também roda no app Desktop."
+ },
+ "config": {
+  "url": "https://code.claude.com/docs/en/settings",
+  "note": "Na aba Code do app, o /config sozinho abre as Configurações."
+ },
+ "update-config": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "claude-api": {
+  "url": "https://code.claude.com/docs/en/skills#work-on-claude-api-projects",
+  "note": ""
+ },
+ "run-skill-generator": {
+  "url": "https://code.claude.com/docs/en/skills#run-and-verify-your-app",
+  "note": ""
+ },
+ "design-sync": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "dataviz": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "artifact-diagramming": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": "Exige a versão 2.1.221 ou mais nova e artifacts disponíveis."
+ },
+ "workflow-authoring": {
+  "url": "https://code.claude.com/docs/en/workflows",
+  "note": "Os workflows dinâmicos rodam no Desktop."
+ },
+ "plugin-authoring": {
+  "url": "https://code.claude.com/docs/en/plugins/mods/create#ask-claude-for-a-mod",
+  "note": "Exige a versão 2.1.287 ou mais nova."
+ },
+ "rename": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": "A documentação cita o app Desktop entre os lugares onde funciona."
+ },
+ "import": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "team-onboarding": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ },
+ "add-dir": {
+  "url": "https://code.claude.com/docs/en/permissions#additional-directories-grant-file-access-not-configuration",
+  "note": "No Desktop, a tela “Add folders to a session” faz o mesmo."
+ },
+ "usage-credits": {
+  "url": "https://code.claude.com/docs/en/costs#add-usage-credits-to-your-subscription",
+  "note": ""
+ },
+ "stop": {
+  "url": "https://code.claude.com/docs/en/agent-view#peek-and-reply",
+  "note": ""
+ },
+ "claude-in-chrome": {
+  "url": "https://code.claude.com/docs/en/commands#all-commands",
+  "note": ""
+ }
+};
+
+/* Lote 7 (22/11/2026). Cards for the commands that work in the Claude Code Desktop app (app tests of 22/11/2026, binary 2.1.325), plus the aliases /cost, /review and /bug. Commands that did not work, were removed or were not tested are left out. */
+const LOTE7_ICONS = {};
+
+const LOTE7_COMMANDS = [
+  {
+    "id": "btw",
+    "h": 30,
+    "icon": "quote",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Pergunta rápida que não entra na conversa",
+    "what": "Faz uma pergunta lateral sobre a sessão atual sem acrescentá-la à conversa. Sem pergunta, mostra a última pergunta lateral feita, para rever respostas anteriores; se ainda não houve nenhuma, imprime uma linha de uso.",
+    "why": "Tira uma dúvida rápida no meio do trabalho sem poluir o histórico da conversa principal.",
+    "how": "Digite <code>/btw</code> seguido da pergunta. Sem pergunta, <code>/btw</code> mostra a última que você fez.",
+    "note": "Doc do Desktop: há um “side chat” para perguntas laterais.",
+    "params": [
+      [
+        "[question]",
+        "Opcional. A pergunta lateral; sem ela, o comando mostra a última feita."
+      ]
+    ],
+    "examples": [
+      [
+        "/btw qual a diferença entre fork e branch?",
+        "Pergunta lateral, que não entra no histórico principal."
+      ],
+      [
+        "/btw",
+        "Mostra a última pergunta lateral, para rever a resposta."
+      ],
+      [
+        "/btw o nome dessa função é o mesmo do arquivo?",
+        "Dúvida rápida, respondida sem mudar a conversa."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "heapdump",
+    "h": 112,
+    "icon": "gauge",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Gerar snapshot de memória para diagnóstico",
+    "what": "Grava um snapshot do heap do JavaScript e um resumo de memória na pasta ~/Desktop, ou no seu diretório pessoal no Linux quando não há pasta Desktop. Serve para diagnosticar uso alto de memória.",
+    "why": "Dá material concreto para entender um consumo de memória alto antes de relatar o problema.",
+    "how": "Digite <code>/heapdump</code> por inteiro, porque o comando fica oculto na lista. Ao relatar um problema de memória, anexe só o arquivo <code>-diagnostics.json</code>.",
+    "note": "O arquivo .heapsnapshot contém toda a conversa e credenciais, então não deve ser compartilhado.",
+    "examples": [
+      [
+        "/heapdump",
+        "Grava o snapshot e o resumo de memória na pasta indicada."
+      ],
+      [
+        "/heapdump",
+        "Use para investigar memória em excesso antes de reportar o problema."
+      ],
+      [
+        "/heapdump",
+        "Envie só o arquivo -diagnostics.json, nunca o .heapsnapshot."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "design",
+    "h": 66,
+    "icon": "palette",
+    "kind": "Skill embutida",
+    "lote": 7,
+    "short": "Rascunhar telas e artes como pranchetas no Claude Design",
+    "what": "Rascunha telas, fluxos, landing pages ou pôsteres como pranchetas (artboards) em uma mesma tela, publicados como artefato do Claude Design. Você edita as pranchetas num navegador no computador, e as mudanças são salvas sozinhas.",
+    "why": "Cada prancheta pode ser exportada em PNG ou PDF.",
+    "how": "Digite <code>/design</code> seguido do briefing, como <code>/design tela de configurações para um app de banco digital</code>.",
+    "note": "Exige Claude Code v2.1.265 ou posterior, uma sessão com artefatos disponíveis e uma conta com o template Design liberado. Disponível na API da Anthropic; no Amazon Bedrock, no Google Cloud Agent Platform, no Microsoft Foundry e no Claude Platform on AWS os artefatos não estão disponíveis, e o comando fica indisponível.",
+    "params": [
+      [
+        "[brief]",
+        "Opcional. Descrição do que desenhar, como uma tela ou uma landing page."
+      ]
+    ],
+    "examples": [
+      [
+        "/design tela de configurações para um app de banco digital",
+        "Cria as pranchetas da tela de ajustes no mesmo canvas."
+      ],
+      [
+        "/design landing page de uma loja de cafés",
+        "Rascunha a página inicial como artefato do Claude Design."
+      ],
+      [
+        "/design pôster para o evento de lançamento do produto",
+        "Gera o pôster como prancheta, pronta para exportar em PNG ou PDF."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "ultrareview",
+    "h": 328,
+    "icon": "lens",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Revisão profunda de código em sandbox na nuvem",
+    "what": "Faz uma revisão de código profunda, com vários agentes, num sandbox na nuvem. Com uma referência de PR, revisa aquele pull request; com uma branch ou commit, muda a base da comparação.",
+    "why": "Dá uma revisão mais profunda que a comum, feita fora da sua máquina, para alterações grandes antes do merge.",
+    "how": "Rode <code>/ultrareview</code> sozinho ou seguido de um PR, uma branch ou um commit. A forma preferida pela referência é <code>/code-review ultra</code>.",
+    "note": "/ultrareview é alias de /code-review ultra.",
+    "params": [
+      [
+        "[PR ou branch]",
+        "Opcional. Um PR para revisar, ou a branch ou commit base da comparação."
+      ]
+    ],
+    "examples": [
+      [
+        "/ultrareview",
+        "Inicia a revisão profunda em sandbox na nuvem, sem indicar PR nem branch."
+      ],
+      [
+        "/ultrareview 482",
+        "Revisa o pull request de número 482."
+      ],
+      [
+        "/ultrareview main",
+        "Muda a base da comparação para a branch main."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "logout",
+    "h": 152,
+    "icon": "lock",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Sair da sua conta Anthropic",
+    "what": "Encerra a sessão com a sua conta Anthropic, conforme a descrição da referência oficial.",
+    "why": "Serve para desconectar a conta num computador que você divide com outras pessoas.",
+    "how": "Rode <code>/logout</code> para sair da conta atual.",
+    "note": "",
+    "examples": [
+      [
+        "/logout",
+        "Encerra a sessão com a conta atual."
+      ],
+      [
+        "/logout",
+        "Depois de sair, a conta precisa de /login para voltar."
+      ],
+      [
+        "/login",
+        "Para entrar de novo depois de sair."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "feedback",
+    "h": 100,
+    "icon": "heart",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Enviar feedback sobre o Claude Code",
+    "what": "Envia feedback sobre o Claude Code pelo mesmo diálogo do <code>/bug</code>, com o mesmo consentimento e as mesmas regras de envio. Se a sessão tiver rascunhos sugeridos pelo Claude, sem argumento o comando abre a fila de rascunhos, onde você revisa, edita, envia ou descarta cada um.",
+    "why": "Permite relatar o que faltou ou não funcionou, com uma etapa de consentimento antes do envio.",
+    "how": "Rode <code>/feedback</code> seguido do texto do relatório para abrir o diálogo direto, ou só <code>/feedback</code> para ver a fila de rascunhos, quando houver.",
+    "note": "Documentado na referência oficial.",
+    "params": [
+      [
+        "[report]",
+        "Opcional. Texto do relatório; com ele, o diálogo de envio abre direto."
+      ]
+    ],
+    "examples": [
+      [
+        "/feedback a busca de arquivos demora muito em pastas com milhares de itens",
+        "Abre o diálogo de envio direto, com esse relato."
+      ],
+      [
+        "/feedback",
+        "Mostra os rascunhos que o Claude deixou na fila, se houver."
+      ],
+      [
+        "/feedback seria útil um atalho para repetir o último comando",
+        "Registra uma sugestão de melhoria."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "status",
+    "h": 283,
+    "icon": "lens",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Ver versão, modelo, conta e conectividade",
+    "what": "Abre as configurações na aba Status, com versão, modelo, conta e conectividade. Em uma sessão em segundo plano, a linha Session kind mostra background job · attached ou background job · unattended, conforme haja terminal anexado; nas demais sessões, mostra interactive.",
+    "why": "Ajuda a confirmar a versão, o modelo em uso ou a conectividade quando algo parece errado.",
+    "how": "Rode <code>/status</code>. Ele funciona mesmo enquanto o Claude está respondendo.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/status",
+        "Mostra versão, modelo, conta e conectividade."
+      ],
+      [
+        "/status",
+        "Em sessão em segundo plano, a linha Session kind mostra se há terminal anexado."
+      ],
+      [
+        "/status",
+        "Pode ser usado enquanto o Claude ainda está respondendo."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "stats",
+    "h": 277,
+    "icon": "chart",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Abrir o painel de uso direto na aba Stats",
+    "what": "Abre o painel de uso já posicionado na aba Stats. Na documentação, é atalho de /usage.",
+    "why": "Serve para ir direto às estatísticas de uso quando é só isso que você quer ver.",
+    "how": "Rode <code>/stats</code>. O mesmo painel também é aberto por <code>/usage</code>.",
+    "note": "No app aparece como comando próprio: o menu mostra só <code>stats</code>, sem <code>usage (stats)</code>.",
+    "examples": [
+      [
+        "/stats",
+        "Abre o painel de uso na aba Stats."
+      ],
+      [
+        "/stats",
+        "Mostra a mesma tela que o /usage abre."
+      ],
+      [
+        "/stats",
+        "Útil quando você só quer as estatísticas de uso."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "skills",
+    "h": 272,
+    "icon": "stack",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Listar e filtrar as skills disponíveis",
+    "what": "Lista as skills disponíveis. Você filtra digitando parte do nome, da descrição ou da origem, ordena pelo número de tokens com a tecla t e alterna a visibilidade de cada skill para o Claude e para o menu /.",
+    "why": "Mostra quais skills o Claude enxerga e quanto cada uma pesa em tokens, antes de você decidir esconder alguma.",
+    "how": "Rode <code>/skills</code>, digite para filtrar, pressione <code>t</code> para ordenar por tokens e <code>Espaço</code> ou <code>Enter</code> para alternar a visibilidade. <code>Esc</code> salva e fecha.",
+    "note": "Documentado na referência oficial. Skills de plugin, skills com disable-model-invocation: true e skills com skillOverrides em configurações gerenciadas ou na flag --settings não podem ter a visibilidade alterada.",
+    "examples": [
+      [
+        "/skills",
+        "Abre a lista de skills disponíveis."
+      ],
+      [
+        "/skills",
+        "Digite parte do nome de uma skill para filtrar a lista."
+      ],
+      [
+        "/skills",
+        "Pressione t para ordenar pelo número de tokens de cada uma."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "diff",
+    "h": 89,
+    "icon": "ruler",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Revisar as mudanças da árvore de trabalho",
+    "what": "Mostra as alterações na árvore de trabalho (working tree), incluindo as edições que o Claude já fez na sessão.",
+    "why": "Permite conferir o que mudou nos arquivos antes de seguir adiante.",
+    "how": "Rode <code>/diff</code> no prompt do Claude Code.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/diff",
+        "Mostra as alterações feitas até agora nesta sessão."
+      ],
+      [
+        "/diff",
+        "Use para revisar o que mudou na árvore de trabalho antes de continuar."
+      ],
+      [
+        "/diff",
+        "Lista as edições do Claude junto com as suas mudanças pendentes."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "tasks",
+    "h": 297,
+    "icon": "stack",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/bashes"
+    ],
+    "lote": 7,
+    "short": "Ver e gerenciar o trabalho em segundo plano",
+    "what": "Mostra e gerencia o trabalho em segundo plano da sessão atual, incluindo os subagentes que já terminaram.",
+    "why": "Permite conferir o que ainda roda e o que já terminou, sem perder o acompanhamento da conversa.",
+    "how": "Rode <code>/tasks</code> para abrir a lista. O mesmo comando também funciona como <code>/bashes</code>.",
+    "note": "Documentado na referência oficial. Doc do Desktop: o painel Background tasks mostra o trabalho em segundo plano.",
+    "examples": [
+      [
+        "/tasks",
+        "Lista o trabalho em segundo plano desta sessão."
+      ],
+      [
+        "/bashes",
+        "Mesmo comando, pelo nome alternativo."
+      ],
+      [
+        "/tasks",
+        "Mostra também os subagentes que já terminaram."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "workflows",
+    "h": 357,
+    "icon": "flow",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Acompanhar workflows em execução e concluídos",
+    "what": "Abre a visão de andamento dos workflows, onde você acompanha, pausa, retoma e salva os que estão rodando ou já terminaram.",
+    "why": "Com vários agentes rodando, esta tela mostra em que ponto cada workflow está e permite pausar ou retomar um deles.",
+    "how": "Digite <code>/workflows</code> para abrir a visão. Dali, acompanhe a execução escolhida, pause, retome ou salve.",
+    "note": "Documentado na referência oficial. No app, <code>/workflow</code> também funciona e aparece como <code>/workflows (workflow)</code>.",
+    "examples": [
+      [
+        "/workflows",
+        "Mostra os workflows em execução e os que já terminaram."
+      ],
+      [
+        "/workflows",
+        "Pausa uma execução em andamento para retomá-la depois."
+      ],
+      [
+        "/workflows",
+        "Salva uma execução concluída para consulta posterior."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "artifact-capabilities",
+    "h": 4,
+    "icon": "puzzle",
+    "kind": "Skill embutida",
+    "lote": 7,
+    "short": "Recursos que uma página publicada pode usar",
+    "what": "Carrega a referência dos recursos de runtime que um artifact publicado pode usar, como chamar seus conectores ou oferecer um arquivo para download, junto com os recursos que a sua conta tem. Normalmente o Claude a carrega sozinho antes de criar uma página que use um desses recursos.",
+    "why": "Ajuda a conferir o que a conta pode usar antes de a página depender de um conector ou de um download.",
+    "how": "Digite <code>/artifact-capabilities</code> quando quiser ver a referência antes de montar a página. Você também pode deixar o Claude carregá-la sozinho.",
+    "note": "Documentado na referência oficial. Disponível onde os artifacts estão disponíveis.",
+    "examples": [
+      [
+        "/artifact-capabilities",
+        "Carrega a referência dos recursos que a página pode usar."
+      ],
+      [
+        "/artifact-capabilities",
+        "Mostra quais recursos a sua conta tem disponíveis."
+      ],
+      [
+        "/artifact-capabilities",
+        "Consulta a referência antes de criar uma página que chama um conector."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "copy",
+    "h": 50,
+    "icon": "file",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Copiar a última resposta ou uma anterior",
+    "what": "Copia a última resposta do Claude para a área de transferência. Com um número N, copia a N-ésima resposta mais recente. Se a resposta tiver blocos de código ou citações, abre um seletor para escolher blocos individuais ou a resposta inteira.",
+    "why": "Você leva o texto para outro lugar sem selecioná-lo na tela, o que ajuda quando a resposta é longa ou traz código.",
+    "how": "Rode <code>/copy</code> para a última resposta ou <code>/copy 2</code> para a penúltima. No seletor, aperte <code>w</code> para gravar a escolha num arquivo em vez de copiar; isso serve, por exemplo, quando você trabalha por SSH.",
+    "note": "Documentado na referência oficial.",
+    "params": [
+      [
+        "[N]",
+        "Opcional. Número da resposta, contando a partir da última: 2 copia a penúltima."
+      ]
+    ],
+    "examples": [
+      [
+        "/copy",
+        "Copia a última resposta inteira para a área de transferência."
+      ],
+      [
+        "/copy 2",
+        "Copia a penúltima resposta, a anterior à última."
+      ],
+      [
+        "/copy",
+        "Com blocos de código na resposta, o seletor aparece para escolher o que levar."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "focus",
+    "h": 103,
+    "icon": "target",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Alternar a visão só com prompt e resposta",
+    "what": "Liga ou desliga a visão de foco, que mostra só o seu último prompt, um resumo de uma linha das chamadas de ferramenta com as estatísticas de edição e a resposta final. O resumo também conta os subagentes lançados no turno e junta as notificações de tarefas em segundo plano concluídas em uma única contagem.",
+    "why": "Deixa a conversa mais limpa quando você quer ver só o pedido e o resultado, sem a sequência de ferramentas.",
+    "how": "Rode <code>/focus</code> para alternar. A escolha fica salva e vale nas próximas sessões; a configuração <code>viewMode</code> pode substituí-la.",
+    "note": "Só funciona com renderização em tela cheia.",
+    "examples": [
+      [
+        "/focus",
+        "Liga a visão de foco: prompt, resumo e resposta final."
+      ],
+      [
+        "/focus",
+        "Chamado de novo, volta à visão normal da conversa."
+      ],
+      [
+        "/focus",
+        "A escolha fica salva e vale nas próximas sessões."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "subtask",
+    "h": 294,
+    "icon": "flow",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Subagente com a conversa inteira",
+    "what": "Cria um subagente em segundo plano que herda a conversa inteira, trabalha na tarefa enquanto você segue e devolve o resultado para esta conversa.",
+    "why": "Serve para tarefas laterais que precisam de todo o contexto da conversa, sem parar o que você está fazendo.",
+    "how": "Digite <code>/subtask</code> seguido da tarefa. Para copiar a conversa numa sessão separada em segundo plano, use <code>/fork</code>.",
+    "note": "Funciona no app 2.1.325.",
+    "params": [
+      [
+        "<task>",
+        "Obrigatório. A tarefa que o subagente deve executar."
+      ]
+    ],
+    "examples": [
+      [
+        "/subtask revisar os testes do módulo de pagamento",
+        "Cria um subagente que herda a conversa e devolve o resultado quando termina."
+      ],
+      [
+        "/subtask levantar os endpoints sem documentação",
+        "A tarefa segue em segundo plano enquanto você continua na conversa."
+      ],
+      [
+        "/fork",
+        "Para copiar a conversa numa sessão separada, use /fork."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "slides",
+    "h": 274,
+    "icon": "wand",
+    "kind": "Skill embutida",
+    "lote": 7,
+    "short": "Criar uma apresentação a partir de um resumo",
+    "what": "Cria uma apresentação nova como artefato do Claude Slides, preenchida a partir do seu resumo. Como o recurso depende da conta e da plataforma, o comando pode não aparecer.",
+    "why": "Gera um primeiro rascunho de apresentação a partir de uma descrição curta, sem montar os slides do zero.",
+    "how": "Rode <code>/slides</code> seguido do resumo do que a apresentação deve cobrir, por exemplo <code>/slides revisão trimestral da equipe de plataforma</code>.",
+    "note": "Documentado na referência oficial. Exige o Claude Code 2.1.265 ou mais novo, uma sessão com artefatos disponíveis e uma conta com o template de slides. Disponível na API da Anthropic; não está disponível no Amazon Bedrock, no Google Cloud (Agent Platform), no Microsoft Foundry nem no Claude Platform on AWS.",
+    "params": [
+      [
+        "[brief]",
+        "Opcional. O assunto ou o resumo da apresentação."
+      ]
+    ],
+    "examples": [
+      [
+        "/slides uma revisão trimestral da equipe de plataforma",
+        "Monta uma apresentação nova com esse tema."
+      ],
+      [
+        "/slides resultados do primeiro semestre para a diretoria",
+        "Cria a apresentação a partir desse resumo."
+      ],
+      [
+        "/slides",
+        "Só aparece se a conta e a sessão tiverem o recurso de artefatos."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "theme",
+    "h": 314,
+    "icon": "palette",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Trocar o tema de cores do Claude Code",
+    "what": "Muda o tema de cores. Há a opção auto, que acompanha o fundo claro ou escuro do terminal, variantes claras e escuras, temas para daltonismo, temas ANSI que usam a paleta do terminal e temas personalizados de ~/.claude/themes/ ou de plugins.",
+    "why": "Deixa a leitura confortável no seu terminal e, para quem tem daltonismo, facilita a distinção entre as cores.",
+    "how": "Rode <code>/theme</code> e escolha na lista. Para criar um tema próprio, selecione a opção New custom theme…",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/theme",
+        "Abre a lista de temas para escolher um."
+      ],
+      [
+        "/theme",
+        "Escolha auto para acompanhar o fundo claro ou escuro do terminal."
+      ],
+      [
+        "/theme",
+        "Selecione New custom theme… para criar um tema próprio."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "memory",
+    "h": 157,
+    "icon": "stack",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Editar CLAUDE.md e a memória automática",
+    "what": "Edita os arquivos CLAUDE.md, liga ou desliga a memória automática e mostra as entradas que ela guardou.",
+    "why": "As instruções em CLAUDE.md valem em toda sessão do projeto. Ver a memória automática evita que o Claude siga uma nota antiga.",
+    "how": "Rode <code>/memory</code> e escolha o arquivo ou a opção que quer editar.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/memory",
+        "Abre os arquivos CLAUDE.md para editar as instruções do projeto."
+      ],
+      [
+        "/memory",
+        "Mostra o que a memória automática registrou até agora."
+      ],
+      [
+        "/memory",
+        "Desliga a memória automática para que novas notas deixem de ser guardadas."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "permissions",
+    "h": 172,
+    "icon": "shield",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/allowed-tools"
+    ],
+    "lote": 7,
+    "short": "Gerenciar regras de permissão das ferramentas",
+    "what": "Abre um diálogo para ver, adicionar e remover regras de allow, ask e deny por escopo. Ele também gerencia as pastas de trabalho e mostra as negações recentes do modo automático.",
+    "why": "Define quais ações o Claude pode executar sem perguntar, e reduz aprovações repetidas do mesmo comando.",
+    "how": "Rode <code>/permissions</code> para abrir o diálogo, ou edite os arquivos de configuração com as regras.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/permissions",
+        "Abre o diálogo com as regras de cada escopo."
+      ],
+      [
+        "/permissions",
+        "Mostra as ações que o modo automático negou recentemente."
+      ],
+      [
+        "/permissions",
+        "Lista as pastas de trabalho que o Claude pode acessar."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "sandbox",
+    "h": 252,
+    "icon": "shield",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Ligar ou desligar o modo sandbox",
+    "what": "Liga ou desliga o modo sandbox. Segundo a documentação oficial, o comando só está disponível em plataformas compatíveis.",
+    "why": "Permite trocar o modo sandbox direto na sessão, quando o recurso estiver disponível na plataforma em uso.",
+    "how": "Rode <code>/sandbox</code> para alternar o modo. O comando está disponível só em plataformas compatíveis.",
+    "note": "Documentado na referência oficial. Disponível só em plataformas compatíveis.",
+    "examples": [
+      [
+        "/sandbox",
+        "Alterna o modo sandbox nesta plataforma."
+      ],
+      [
+        "/sandbox",
+        "Se a plataforma não for compatível, o comando não está disponível."
+      ],
+      [
+        "/sandbox",
+        "Rode de novo para voltar ao estado anterior."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "plan",
+    "h": 177,
+    "icon": "ruler",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Entrar no modo plano, com ou sem tarefa",
+    "what": "Entra no modo plano direto pelo prompt. Com uma descrição, entra no modo e já começa essa tarefa.",
+    "why": "Em tarefas grandes, planejar antes evita mudanças no escopo errado.",
+    "how": "Rode <code>/plan</code> sozinho para entrar no modo, ou <code>/plan</code> seguido da tarefa para começar nela.",
+    "note": "Documentado na referência oficial.",
+    "params": [
+      [
+        "[description]",
+        "Opcional. A tarefa a planejar; sem ela, só o modo é ativado."
+      ]
+    ],
+    "examples": [
+      [
+        "/plan corrigir o bug de autenticação",
+        "Entra no modo plano já com essa tarefa."
+      ],
+      [
+        "/plan",
+        "Liga o modo plano sem começar uma tarefa ainda."
+      ],
+      [
+        "/plan migrar a tabela de usuários para o novo esquema",
+        "Começa pelo plano da migração antes da execução."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "plugin",
+    "h": 180,
+    "icon": "puzzle",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/plugins",
+      "/marketplace"
+    ],
+    "lote": 7,
+    "short": "Gerenciar plugins do Claude Code",
+    "what": "Gerencia os plugins do Claude Code. Sem argumento, abre o menu de plugins; com list, install, enable ou disable, executa a ação direto.",
+    "why": "Reúne num só lugar a instalação, a ativação e a listagem dos plugins.",
+    "how": "Rode <code>/plugin</code> para abrir o menu, ou <code>/plugin list</code> para ver os instalados. Se o resumo da instalação pedir, rode <code>/reload-plugins</code>.",
+    "note": "",
+    "params": [
+      [
+        "[subcommand]",
+        "Opcional. Por exemplo list, install, enable ou disable."
+      ]
+    ],
+    "examples": [
+      [
+        "/plugin list",
+        "Lista os plugins instalados."
+      ],
+      [
+        "/plugin install formatador",
+        "Instala o plugin formatador e informa se ele já está ativo."
+      ],
+      [
+        "/plugin disable formatador",
+        "Desativa o plugin com um comando direto."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "rewind",
+    "h": 246,
+    "icon": "refresh",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/checkpoint",
+      "/undo"
+    ],
+    "lote": 7,
+    "short": "Voltar a conversa ou o código a um ponto anterior",
+    "what": "Volta a conversa e/ou o código a um ponto anterior, ou faz um resumo a partir de uma mensagem escolhida. A documentação oficial descreve o recurso como checkpointing.",
+    "why": "Permite desfazer um caminho que não deu certo sem começar a sessão do zero. A conversa e o código voltam a um ponto conhecido.",
+    "how": "Rode <code>/rewind</code> para voltar a um ponto anterior. Os aliases <code>/undo</code> e <code>/checkpoint</code> executam o mesmo comando.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/rewind",
+        "Volta a conversa ou o código a um ponto anterior."
+      ],
+      [
+        "/undo",
+        "Alias de /rewind: a mesma ação com outro nome."
+      ],
+      [
+        "/checkpoint",
+        "Outro alias, útil se você lembrar do recurso pelo nome checkpoint."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "login",
+    "h": 143,
+    "icon": "lock",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Entrar na sua conta Anthropic",
+    "what": "Entra na sua conta Anthropic. Em algumas situações, o mesmo comando aparece como troca de conta.",
+    "why": "É o passo para conectar o Claude Code à sua conta antes de começar a trabalhar.",
+    "how": "Rode <code>/login</code> e siga as instruções na tela para entrar ou trocar de conta.",
+    "note": "Documentado na referência oficial.",
+    "examples": [
+      [
+        "/login",
+        "Abre o fluxo de entrada na conta Anthropic."
+      ],
+      [
+        "/login",
+        "Útil quando a sessão está com uma conta que não é a que você quer usar."
+      ],
+      [
+        "/login",
+        "Rode de novo se a sessão tiver perdido o acesso à conta."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "remote-control",
+    "h": 223,
+    "icon": "plug",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/rc"
+    ],
+    "lote": 7,
+    "short": "Deixar esta sessão disponível no claude.ai",
+    "what": "Torna esta sessão disponível para o Remote Control a partir do claude.ai. Se você executar o comando sem estar conectado, ele informa que o recurso exige assinatura do claude.ai e mostra como entrar.",
+    "why": "Permite usar esta sessão pelo claude.ai enquanto ela está aberta no terminal.",
+    "how": "Digite <code>/remote-control</code> ou o atalho <code>/rc</code>. Sem login, o comando mostra como entrar antes de continuar.",
+    "note": "Documentado na referência oficial. Requer assinatura do claude.ai.",
+    "examples": [
+      [
+        "/remote-control",
+        "Liga esta sessão ao Remote Control do claude.ai."
+      ],
+      [
+        "/rc",
+        "Mesmo comando, pelo atalho mais curto."
+      ],
+      [
+        "/remote-control",
+        "Sem login, mostra que é preciso assinatura do claude.ai e como entrar."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "design-consent",
+    "h": 72,
+    "icon": "shield",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Conceder ao Claude acesso ao Claude Design",
+    "what": "Concede ao Claude acesso ao Claude Design. Quando uma resposta do Claude pedir que você rode este comando, digite-o no prompt do Claude Code você mesmo.",
+    "why": "Mantém a decisão de dar acesso com você, já que o comando é digitado por você e não pelo Claude.",
+    "how": "Rode <code>/design consent</code> no prompt do Claude Code quando o Claude pedir. Para retirar o acesso depois, use <code>/design revoke</code>.",
+    "note": "",
+    "examples": [
+      [
+        "/design consent",
+        "Concede o acesso aos projetos do Claude Design."
+      ],
+      [
+        "/design consent",
+        "Digite você mesmo no prompt quando o Claude pedir."
+      ],
+      [
+        "/design consent",
+        "Para desfazer, use /design revoke."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "design-revoke",
+    "h": 78,
+    "icon": "stop",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Retirar o acesso do Claude ao Claude Design",
+    "what": "Retira o acesso que o Claude tem ao Claude Design. É o oposto do <code>/design consent</code>, que concede esse acesso.",
+    "why": "Permite cortar o acesso quando ele não for mais necessário.",
+    "how": "Rode <code>/design revoke</code> no prompt do Claude Code.",
+    "note": "",
+    "examples": [
+      [
+        "/design revoke",
+        "Retira o acesso do Claude aos projetos de design."
+      ],
+      [
+        "/design revoke",
+        "Use quando não quiser mais que o Claude acesse os projetos."
+      ],
+      [
+        "/design revoke",
+        "Para conceder de novo, rode /design consent."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "resume",
+    "h": 238,
+    "icon": "loop",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/continue"
+    ],
+    "lote": 7,
+    "short": "Retomar uma conversa por ID, nome ou seletor",
+    "what": "Retoma uma conversa anterior pelo ID ou pelo nome, ou abre o seletor de sessões, onde as que estão em segundo plano aparecem marcadas com bg. Se a sessão escolhida ainda estiver rodando, a conversa atual vai para o segundo plano e este terminal se conecta à que estava rodando.",
+    "why": "Retoma o trabalho do ponto em que parou, sem começar uma conversa nova do zero.",
+    "how": "Digite <code>/resume</code> para abrir o seletor, ou acrescente o ID ou o nome da sessão. Com o prompt vazio, a seta para a esquerda volta à visão de agentes, que também lista a conversa que você deixou.",
+    "note": "Documentado na referência oficial. A documentação do Desktop diz que digitar /resume lista as sessões iniciadas pela CLI neste computador, em sessões locais, não em SSH, WSL ou nuvem.",
+    "params": [
+      [
+        "[session]",
+        "Opcional. O ID ou o nome da conversa. Sem ele, abre o seletor de sessões."
+      ]
+    ],
+    "examples": [
+      [
+        "/resume",
+        "Abre o seletor com as sessões recentes e as que estão em segundo plano."
+      ],
+      [
+        "/resume refatoracao-login",
+        "Retoma a conversa cujo nome é refatoracao-login."
+      ],
+      [
+        "/continue 3f9a2c",
+        "Mesmo comando pelo alias, retomando a sessão de ID 3f9a2c."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "fork",
+    "h": 109,
+    "icon": "flow",
+    "kind": "Comando embutido",
+    "lote": 7,
+    "short": "Copiar a conversa para uma sessão em segundo plano",
+    "what": "Copia a conversa atual para uma nova sessão em segundo plano e deixa você continuar aqui. Com um prompt, a cópia começa a trabalhar nele logo de início; sem prompt, espera o primeiro na visão de agentes. Salvo quando a cópia edita no lugar, o Claude Code manda ela criar um worktree próprio antes de alterar código.",
+    "why": "Permite tentar outra abordagem ou deixar uma tarefa correndo sem perder o contexto já montado nesta conversa.",
+    "how": "Rode <code>/fork</code> seguido da tarefa para a cópia começar logo, ou só <code>/fork</code> para deixá-la esperando na visão de agentes.",
+    "note": "Documentado na referência oficial. Com a visão de agentes desligada, o <code>/fork</code> inicia um subagente bifurcado. Para entregar uma tarefa lateral a um subagente cujo resultado volta a esta conversa, a referência indica <code>/subtask</code>.",
+    "params": [
+      [
+        "[prompt]",
+        "Opcional. Tarefa que a cópia começa a executar assim que for criada."
+      ]
+    ],
+    "examples": [
+      [
+        "/fork revise o módulo de pagamentos sem mexer no restante",
+        "A cópia começa esse trabalho em segundo plano enquanto você segue aqui."
+      ],
+      [
+        "/fork",
+        "A cópia fica esperando o primeiro prompt na visão de agentes."
+      ],
+      [
+        "/fork teste a migração do banco num worktree separado",
+        "A cópia trabalha no teste enquanto a conversa atual continua."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: funcionou"
+    }
+  },
+  {
+    "id": "cost",
+    "h": 61,
+    "icon": "coins",
+    "kind": "Alias",
+    "lote": 7,
+    "short": "Nome antigo do /usage",
+    "what": "No app, <code>/cost</code> é enviado para <code>/usage</code>: o mesmo painel de custo e uso do plano.",
+    "why": "Quem conhece o nome antigo encontra o comando atual sem procurar.",
+    "how": "Use <code>/usage</code>, que é o nome atual. Veja o <a href=\"#usage\">cartão de /usage</a>.",
+    "note": "No app aparece como <code>/usage (cost)</code>.",
+    "examples": [
+      [
+        "/cost",
+        "Abre o painel de custo e uso, como o /usage."
+      ],
+      [
+        "/usage",
+        "Nome atual do mesmo comando."
+      ],
+      [
+        "/cost",
+        "No menu, aparece com o nome antigo entre parênteses."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: vai para /usage"
+    }
+  },
+  {
+    "id": "review",
+    "h": 240,
+    "icon": "lens",
+    "kind": "Alias",
+    "lote": 7,
+    "short": "Nome antigo do /code-review",
+    "what": "No app, <code>/review</code> é enviado para <code>/code-review</code>, que revisa o diff atual.",
+    "why": "Quem conhece o nome antigo encontra o comando atual sem procurar.",
+    "how": "Use <code>/code-review</code>, que é o nome atual. Veja o <a href=\"#code-review\">cartão de /code-review</a>.",
+    "note": "No app aparece como <code>/code-review (review)</code>.",
+    "examples": [
+      [
+        "/review",
+        "Revisa o diff atual, como o /code-review."
+      ],
+      [
+        "/code-review",
+        "Nome atual do mesmo comando."
+      ],
+      [
+        "/review 1234",
+        "Revisa um PR pelo número, como o /code-review com PR."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: vai para /code-review"
+    }
+  },
+  {
+    "id": "bug",
+    "h": 33,
+    "icon": "bug",
+    "kind": "Alias",
+    "lote": 7,
+    "short": "Nome antigo do /feedback",
+    "what": "No app, <code>/bug</code> é enviado para <code>/feedback</code>, que abre o mesmo diálogo de envio, com consentimento antes do envio.",
+    "why": "Quem conhece o nome antigo encontra o comando atual sem procurar.",
+    "how": "Use <code>/feedback</code>, que é o nome atual. Veja o <a href=\"#feedback\">cartão de /feedback</a>.",
+    "note": "No app aparece como <code>/feedback (bug)</code>.",
+    "examples": [
+      [
+        "/bug",
+        "Abre o diálogo de envio, como o /feedback."
+      ],
+      [
+        "/feedback",
+        "Nome atual do mesmo comando."
+      ],
+      [
+        "/bug a busca de arquivos demora muito",
+        "Relato direto, com o texto do problema."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: vai para /feedback"
+    }
+  }
+];
+
+const LOTE7_CONTEXTS = {
+  "btw": "Quando surge uma dúvida rápida no meio do trabalho e você não quer que a resposta entre no histórico da conversa.",
+  "heapdump": "Quando a sessão ou o Claude Code está usando memória demais e você precisa investigar antes de reportar.",
+  "design": "Quando você precisa de um rascunho visual de tela, landing page ou pôster antes de codar ou publicar.",
+  "ultrareview": "Quando uma alteração grande merece uma revisão mais profunda que a comum antes de um merge.",
+  "logout": "Quando o computador vai ser usado por outra pessoa e a conta precisa sair da sessão.",
+  "feedback": "Quando algo não funcionou como esperado no Claude Code e você quer deixar um relato para o fabricante.",
+  "status": "Quando algo parece errado e você quer conferir a versão, o modelo, a conta ou a conectividade, inclusive enquanto o Claude responde.",
+  "stats": "Quando você quer ver as estatísticas de uso direto na aba Stats.",
+  "skills": "Quando a lista de skills ficou longa e você quer filtrar, ordenar por tokens ou esconder algumas do Claude e do menu /.",
+  "diff": "Antes de aceitar o resultado de uma sessão, para conferir o que mudou na árvore de trabalho.",
+  "tasks": "Quando quer ver o que ainda roda em segundo plano na sessão, inclusive subagentes que já terminaram.",
+  "workflows": "Quando um workflow com vários agentes está rodando ou já terminou, e você quer ver em que ponto ele está.",
+  "artifact-capabilities": "Ao montar uma página publicada que precise chamar um conector ou oferecer um arquivo para download, e você quer saber o que a sua conta pode usar.",
+  "copy": "Quando você quer levar uma resposta do Claude para outro lugar sem selecionar o texto na tela, sobretudo se houver código.",
+  "focus": "Quando a conversa ficou longa demais e você quer enxergar só o pedido e o resultado final.",
+  "subtask": "Quando quer entender uma chamada antiga de subagente encontrada em material desatualizado; hoje o caminho indicado é o /fork.",
+  "slides": "Quando você precisa de um primeiro rascunho de apresentação a partir de um resumo, e a conta tem o recurso de artefatos.",
+  "theme": "Quando o contraste da interface não combina com o fundo do terminal, ou quando você precisa de cores mais fáceis de distinguir.",
+  "memory": "Quando o projeto ganha regras que devem valer em toda sessão, ou quando uma nota antiga do Claude começa a atrapalhar.",
+  "permissions": "Quando o Claude pede aprovação repetida para o mesmo tipo de ação, ou quando precisa liberar ou bloquear uma ferramenta de forma permanente.",
+  "sandbox": "Quando quer ligar ou desligar o modo sandbox numa plataforma que o suporta.",
+  "plan": "Antes de uma tarefa grande ou arriscada, quando vale montar o plano e revisá-lo antes de qualquer mudança.",
+  "plugin": "Quando você quer instalar, ativar ou listar extensões do Claude Code sem sair do terminal.",
+  "rewind": "Quando a conversa ou o código seguiu por um caminho que não deu certo, e você quer voltar a um ponto anterior ou resumir a partir de uma mensagem.",
+  "login": "Ao começar a usar o Claude Code numa máquina nova, ou quando a sessão precisa usar outra conta.",
+  "remote-control": "Quando quer acessar a sessão atual pelo claude.ai, e não apenas pelo terminal.",
+  "design-consent": "Quando uma resposta do Claude pedir que você conceda acesso ao Claude Design.",
+  "design-revoke": "Quando você quer retirar o acesso do Claude aos projetos do Claude Design.",
+  "resume": "Quando quer voltar a uma conversa anterior, ou entrar numa sessão que continua rodando em segundo plano.",
+  "fork": "Quando uma tarefa paralela pode rodar em segundo plano enquanto você segue com a conversa atual.",
+  "cost": "Quando você lembra do nome antigo e quer chegar ao comando atual.",
+  "review": "Quando você lembra do nome antigo e quer revisar o diff antes de entregar.",
+  "bug": "Quando você lembra do nome antigo e quer relatar um problema ao fabricante."
+};
+
+const LOTE7_CATEGORY = {
+  "btw": "contexto",
+  "heapdump": "diagnostico",
+  "design": "criacao",
+  "ultrareview": "revisao",
+  "logout": "ajustes",
+  "feedback": "diagnostico",
+  "status": "diagnostico",
+  "stats": "diagnostico",
+  "skills": "extensoes",
+  "diff": "revisao",
+  "tasks": "automacao",
+  "workflows": "automacao",
+  "artifact-capabilities": "extensoes",
+  "copy": "revisao",
+  "focus": "ajustes",
+  "subtask": "automacao",
+  "slides": "criacao",
+  "theme": "ajustes",
+  "memory": "contexto",
+  "permissions": "ajustes",
+  "sandbox": "ajustes",
+  "plan": "motor",
+  "plugin": "extensoes",
+  "rewind": "contexto",
+  "login": "ajustes",
+  "remote-control": "extensoes",
+  "design-consent": "extensoes",
+  "design-revoke": "extensoes",
+  "resume": "contexto",
+  "fork": "motor",
+  "cost": "diagnostico",
+  "review": "revisao",
+  "bug": "diagnostico"
+};
+
+const LOTE7_MOTION = {
+  "btw": "nod",
+  "heapdump": "shake",
+  "design": "hue",
+  "ultrareview": "beat",
+  "logout": "dash",
+  "feedback": "nod",
+  "status": "beat",
+  "stats": "rise",
+  "skills": "nod",
+  "diff": "rise",
+  "tasks": "beat",
+  "workflows": "hue",
+  "artifact-capabilities": "wipe",
+  "copy": "squeeze",
+  "focus": "dash",
+  "subtask": "dash",
+  "slides": "hue",
+  "theme": "hue",
+  "memory": "hue",
+  "permissions": "squeeze",
+  "sandbox": "squeeze",
+  "plan": "wipe",
+  "plugin": "spin",
+  "rewind": "spin",
+  "login": "beat",
+  "remote-control": "rise",
+  "design-consent": "nod",
+  "design-revoke": "shake",
+  "resume": "dash",
+  "fork": "spin",
+  "cost": "beat",
+  "review": "beat",
+  "bug": "shake"
+};
+
+const LOTE7_DOCS = {
+  "btw": {
+    "url": "https://code.claude.com/docs/en/interactive-mode#side-questions-with-%2Fbtw",
+    "note": "A referência oficial lista o comando."
+  },
+  "heapdump": {
+    "url": "https://code.claude.com/docs/en/troubleshooting#high-cpu-or-memory-usage",
+    "note": "Oculto na lista de comandos; é preciso digitar o nome completo."
+  },
+  "design": {
+    "url": "https://code.claude.com/docs/en/artifacts#draft-a-design-canvas",
+    "note": "Exige Claude Code 2.1.265 ou posterior e o template Design liberado na conta."
+  },
+  "ultrareview": {
+    "url": "https://code.claude.com/docs/en/ultrareview",
+    "note": "Forma preferida: /code-review ultra; /ultrareview é alias."
+  },
+  "logout": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Descrição da referência oficial."
+  },
+  "feedback": {
+    "url": "https://code.claude.com/docs/en/tools-reference#sendfeedback-tool-behavior",
+    "note": "Abre o mesmo diálogo do /bug, com o mesmo consentimento. Com rascunhos na sessão, sem argumento abre a fila."
+  },
+  "status": {
+    "url": "https://code.claude.com/docs/en/agent-view",
+    "note": "Doc oficial: aba Status das configurações, com a linha Session kind."
+  },
+  "stats": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Doc oficial: alias de /usage, abre na aba Stats."
+  },
+  "skills": {
+    "url": "https://code.claude.com/docs/en/skills",
+    "note": "Doc oficial: skills de plugin e certas skills não podem ter a visibilidade alterada."
+  },
+  "diff": {
+    "url": "https://code.claude.com/docs/en/interactive-mode#review-changes-with-%2Fdiff",
+    "note": "Na tabela oficial: revisa as mudanças na árvore de trabalho, incluindo as edições que o Claude já fez na sessão."
+  },
+  "tasks": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Também disponível como /bashes."
+  },
+  "workflows": {
+    "url": "https://code.claude.com/docs/en/workflows#watch-the-run",
+    "note": "A documentação descreve a visão de andamento na página de workflows."
+  },
+  "artifact-capabilities": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "A referência indica que o recurso existe onde os artifacts estão disponíveis."
+  },
+  "copy": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Com N, copia a N-ésima resposta mais recente; no seletor, w grava a escolha em arquivo."
+  },
+  "focus": {
+    "url": "https://code.claude.com/docs/en/settings-reference#viewmode",
+    "note": "Só com renderização em tela cheia. Pelo Remote Control, /focus on e /focus off valem só para a sessão, a partir da versão 2.1.281."
+  },
+  "subtask": {
+    "url": "https://code.claude.com/docs/en/sub-agents#fork-the-current-conversation",
+    "note": "Tabela oficial: /subtask <task> cria um subagente bifurcado em segundo plano que herda a conversa inteira."
+  },
+  "slides": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Doc oficial: exige Claude Code 2.1.265 ou mais novo; indisponível em algumas plataformas."
+  },
+  "theme": {
+    "url": "https://code.claude.com/docs/en/terminal-config#create-a-custom-theme",
+    "note": "Inclui temas personalizados em ~/.claude/themes/ e de plugins."
+  },
+  "memory": {
+    "url": "https://code.claude.com/docs/en/memory#auto-memory",
+    "note": "A referência cobre a memória automática e as entradas que ela registra."
+  },
+  "permissions": {
+    "url": "https://code.claude.com/docs/en/auto-mode-config#review-denials",
+    "note": "A referência também cobre o modo automático e as regras do classificador."
+  },
+  "sandbox": {
+    "url": "https://code.claude.com/docs/en/sandboxing",
+    "note": "Doc oficial: sandboxing. Só em plataformas compatíveis."
+  },
+  "plan": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Na tabela oficial: entra no modo de plano direto pelo prompt; com uma descrição, já começa essa tarefa."
+  },
+  "plugin": {
+    "url": "https://code.claude.com/docs/en/plugins/overview",
+    "note": "Gerenciamento de plugins documentado na página de plugins."
+  },
+  "rewind": {
+    "url": "https://code.claude.com/docs/en/checkpointing",
+    "note": "Doc oficial: checkpointing. Aliases /checkpoint e /undo."
+  },
+  "login": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Na tabela oficial: entra na sua conta Anthropic."
+  },
+  "remote-control": {
+    "url": "https://code.claude.com/docs/en/remote-control",
+    "note": "Requer assinatura do claude.ai."
+  },
+  "design-consent": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "A referência oficial descreve o comando."
+  },
+  "design-revoke": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "A referência oficial descreve o comando."
+  },
+  "resume": {
+    "url": "https://code.claude.com/docs/en/agent-view",
+    "note": "A documentação do Desktop descreve a lista de sessões da CLI; não vale para SSH, WSL ou nuvem."
+  },
+  "fork": {
+    "url": "https://code.claude.com/docs/en/agent-view#copy-the-session-with-%2Ffork",
+    "note": "Para um subagente cujo resultado volta a esta conversa, a referência indica /subtask. Para trocar de sessão, indica /branch."
+  },
+  "cost": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Alias de /usage na referência oficial."
+  },
+  "review": {
+    "url": "https://code.claude.com/docs/en/code-review-local",
+    "note": "Alias de /code-review; as regras de nível e flags estão na página de revisão local."
+  },
+  "bug": {
+    "url": "https://code.claude.com/docs/en/data-usage#telemetry-services",
+    "note": "A referência indica /share como alias e a v2.1.229 como versão mínima para o diálogo no VS Code."
+  }
+};
+
+Object.assign(ICONS, LOTE7_ICONS);
+COMMANDS.push(...LOTE7_COMMANDS);
+Object.assign(CONTEXTS, LOTE7_CONTEXTS);
+for (const [id, cat] of Object.entries(LOTE7_CATEGORY)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
+for (const [id, a] of Object.entries(LOTE7_MOTION)) MOTION[a].push(id);
+Object.assign(DOCS, LOTE7_DOCS);
+
+/* Lote 8 (22/11/2026). Two commands seen in the app's "/" menu in a video of 22/11/2026; not tested in the app yet. Cards keep only what their official docs rows say. */
+const LOTE8_ICONS = {};
+
+const LOTE8_COMMANDS = [
+  {
+    "id": "deep-research",
+    "h": 64,
+    "icon": "lens",
+    "kind": "Workflow embutido",
+    "lote": 8,
+    "short": "Pesquisar na web e entregar relatório com fontes",
+    "what": "Um workflow que abre várias buscas na web sobre uma pergunta, busca as fontes, cruza as informações entre elas e sintetiza um relatório com citações.",
+    "why": "Entrega um relatório com citações, em vez de uma resposta sem referência.",
+    "how": "Digite <code>/deep-research</code> seguido da pergunta.",
+    "note": "Aparece no menu do app (vídeo de 22/11/2026); ainda não testado.",
+    "params": [
+      [
+        "<question>",
+        "Obrigatório. A pergunta que a pesquisa deve responder."
+      ]
+    ],
+    "examples": [
+      [
+        "/deep-research quais mudanças importantes saíram na última versão do SDK de Python?",
+        "Busca as fontes, cruza as informações e entrega o relatório com citações."
+      ],
+      [
+        "/deep-research comparação de preços dos planos de banco de dados gerenciado",
+        "Relatório que compara as fontes encontradas, com as referências."
+      ],
+      [
+        "/deep-research o que a documentação oficial diz sobre limites de taxa de uma API",
+        "Relatório sintetizado, com as páginas consultadas citadas."
+      ]
+    ]
+  },
+  {
+    "id": "verify",
+    "h": 337,
+    "icon": "lens",
+    "kind": "Skill embutida",
+    "lote": 8,
+    "short": "Confirmar a mudança rodando o app de verdade",
+    "what": "Confere se uma mudança no código faz o que deveria: constrói o app, roda e observa o resultado.",
+    "why": "Confirma a mudança construindo e rodando o app, em vez de depender só de testes ou checagens de tipo.",
+    "how": "Digite <code>/verify</code> depois da mudança. A skill constrói e roda o app e descreve o que observou.",
+    "note": "Aparece no menu do app (vídeo de 22/11/2026); ainda não testado.",
+    "examples": [
+      [
+        "/verify",
+        "Depois de ajustar um formulário, confirma que ele envia os dados como deveria."
+      ],
+      [
+        "/verify",
+        "Depois de corrigir um erro de inicialização, sobe o app e vê se ele abre."
+      ],
+      [
+        "/verify",
+        "Antes de dar uma tarefa por pronta, checa o resultado rodando o app."
+      ]
+    ]
+  }
+];
+
+const LOTE8_CONTEXTS = {
+  "deep-research": "Quando a pergunta pede várias fontes da web e você precisa de um texto com citações para conferir.",
+  "verify": "Depois de mudar o código, quando os testes e as checagens de tipo passam, mas você ainda não viu o app funcionando."
+};
+
+const LOTE8_CATEGORY = {
+  "deep-research": "automacao",
+  "verify": "revisao"
+};
+
+const LOTE8_MOTION = {
+  "deep-research": "spin",
+  "verify": "beat"
+};
+
+const LOTE8_DOCS = {
+  "deep-research": {
+    "url": "https://code.claude.com/docs/en/workflows#bundled-workflows",
+    "note": "Workflow embutido listado na referência oficial de workflows."
+  },
+  "verify": {
+    "url": "https://code.claude.com/docs/en/skills#run-and-verify-your-app",
+    "note": "Tabela oficial: confirma a mudança construindo e rodando o app, em vez de depender só de testes ou checagens de tipo."
+  }
+};
+
+Object.assign(ICONS, LOTE8_ICONS);
+COMMANDS.push(...LOTE8_COMMANDS);
+Object.assign(CONTEXTS, LOTE8_CONTEXTS);
+for (const [id, cat] of Object.entries(LOTE8_CATEGORY)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
+for (const [id, a] of Object.entries(LOTE8_MOTION)) MOTION[a].push(id);
+Object.assign(DOCS, LOTE8_DOCS);
+
+const ANIM_OF = Object.fromEntries(Object.entries(MOTION).flatMap(([a, ids]) => ids.map((id) => [id, a])));
+
+const STORE = "native-commands-tested-v1";
+function loadTested() { try { return JSON.parse(localStorage.getItem(STORE) || "{}"); } catch { return {}; } }
+function saveTested(v) { try { localStorage.setItem(STORE, JSON.stringify(v)); } catch {} }
+const tested = loadTested();
+
+function docLink(d, cls) {
+  const label = d.url.includes("/commands#") ? "Tabela de comandos" : "Documentação";
+  return `<a class="${cls}" href="${d.url}" target="_blank" rel="noopener"><b>↗</b> ${label}</a>`;
+}
+
+function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function codeHtml(s) { return esc(s).replace(/(^|\n)(\/[\w-]+)/g, '$1<span class="sl">$2</span>'); }
+
+const deck = document.getElementById("cats");
+const filters = document.getElementById("filters");
+const menu = document.getElementById("menu");
+const rainbow = document.getElementById("rainbow");
+const BY_ID = Object.fromEntries(COMMANDS.map((c) => [c.id, c]));
+
+/* INFOGRAPHICS:BEGIN (generated by register_and_check.py; do not edit by hand) */
+const INFOGRAPHICS = {
+  "autocompact": {
+    "command": "/autocompact",
+    "formats": {
+      "download": "assets/infographics/autocompact/infographic-1920.png",
+      "image": "assets/infographics/autocompact/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T15:34:52Z"
+  },
+  "btw": {
+    "command": "/btw",
+    "formats": {
+      "download": "assets/infographics/btw/infographic-1920.png",
+      "image": "assets/infographics/btw/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T15:54:29Z"
+  },
+  "clear": {
+    "command": "/clear",
+    "formats": {
+      "download": "assets/infographics/clear/infographic-1920.png",
+      "image": "assets/infographics/clear/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T15:32:36Z"
+  },
+  "code-review": {
+    "command": "/code-review",
+    "formats": {
+      "download": "assets/infographics/code-review/infographic-1920.png",
+      "image": "assets/infographics/code-review/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T13:42:48Z"
+  },
+  "compact": {
+    "command": "/compact",
+    "formats": {
+      "download": "assets/infographics/compact/infographic-1920.png",
+      "image": "assets/infographics/compact/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T11:12:53Z"
+  },
+  "context": {
+    "command": "/context",
+    "formats": {
+      "download": "assets/infographics/context/infographic-1920.png",
+      "image": "assets/infographics/context/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T16:01:20Z"
+  },
+  "logout": {
+    "command": "/logout",
+    "formats": {
+      "download": "assets/infographics/logout/infographic-1920.png",
+      "image": "assets/infographics/logout/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T11:42:40Z"
+  },
+  "loop": {
+    "command": "/loop",
+    "formats": {
+      "download": "assets/infographics/loop/infographic-1920.png",
+      "image": "assets/infographics/loop/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T13:54:51Z"
+  },
+  "memory": {
+    "command": "/memory",
+    "formats": {
+      "download": "assets/infographics/memory/infographic-1920.png",
+      "image": "assets/infographics/memory/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T16:06:45Z"
+  },
+  "recap": {
+    "command": "/recap",
+    "formats": {
+      "download": "assets/infographics/recap/infographic-1920.png",
+      "image": "assets/infographics/recap/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T15:49:11Z"
+  },
+  "review": {
+    "command": "/review",
+    "formats": {
+      "download": "assets/infographics/review/infographic-1920.png",
+      "image": "assets/infographics/review/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T11:35:43Z"
+  },
+  "rewind": {
+    "command": "/rewind",
+    "formats": {
+      "download": "assets/infographics/rewind/infographic-1920.png",
+      "image": "assets/infographics/rewind/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T16:11:30Z"
+  },
+  "status": {
+    "command": "/status",
+    "formats": {
+      "download": "assets/infographics/status/infographic-1920.png",
+      "image": "assets/infographics/status/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-23T11:29:58Z"
+  }
+};
+/* INFOGRAPHICS:END */
+
+/* ---------- infographics: preview modal and downloads, shown only for ids in INFOGRAPHICS ---------- */
+const INFOGRAPHIC_VIEWS = [["vector", "Vetorial interativo"], ["image", "Imagem pôster"]];
+const INFOGRAPHIC_FILES = [["download", "Baixar PNG", "png"], ["pdf", "Baixar PDF", "pdf"]];
+let infographicDialog = null;
+let infographicOpener = null;
+let downloadsNamespace = null;
+
+/* claude.ai artifact only: the namespace resolves later or to null; rendering never waits for it. */
+if (Object.keys(INFOGRAPHICS).length && window.claude && typeof window.claude.use === "function") {
+  new Promise((resolve) => resolve(window.claude.use("downloads")))
+    .then((namespace) => { downloadsNamespace = namespace || null; }, () => {});
+}
+
+function escAttr(s) { return esc(String(s)).replace(/"/g, "&quot;"); }
+
+function infographicRowHtml(slug) {
+  const item = INFOGRAPHICS[slug];
+  if (!item) return "";
+  const { formats } = item;
+  const open = formats.vector || formats.image
+    ? `<button class="ev infographic-action infographic-open" type="button" data-slug="${escAttr(slug)}" aria-haspopup="dialog" data-testid="infographic-open">Ver infográfico</button>`
+    : "";
+  const files = INFOGRAPHIC_FILES
+    .filter(([key]) => formats[key])
+    .map(([key, label, ext]) => `<a class="ev infographic-action infographic-download" href="${escAttr(formats[key])}" download="${escAttr(`${slug}-infografico.${ext}`)}" data-testid="infographic-download-${ext}">${label}</a>`)
+    .join("");
+  const vector = formats.vector
+    ? `<a class="ev infographic-action" href="${escAttr(formats.vector)}" target="_blank" rel="noopener" data-testid="infographic-vector">Abrir vetorial</a>`
+    : "";
+  return `<span class="infographic-row">${open}${files}${vector}</span>`;
+}
+
+function ensureInfographicDialog() {
+  if (infographicDialog) return infographicDialog;
+  const dialog = document.createElement("dialog");
+  dialog.className = "infographic-dialog";
+  dialog.setAttribute("aria-labelledby", "infographic-title");
+  dialog.dataset.testid = "infographic-dialog";
+  dialog.innerHTML = `
+    <header class="infographic-dialog-head">
+      <h2 id="infographic-title"></h2>
+      <div class="infographic-views">
+        <button class="infographic-view" type="button" data-view="vector" aria-pressed="false" data-testid="infographic-view-vector">Vetorial interativo</button>
+        <button class="infographic-view" type="button" data-view="image" aria-pressed="false" data-testid="infographic-view-image">Imagem pôster</button>
+      </div>
+      <button class="infographic-close" type="button" data-testid="infographic-close">Fechar</button>
+    </header>
+    <div class="infographic-dialog-body">
+      <iframe class="infographic-frame" sandbox="allow-scripts" referrerpolicy="no-referrer" data-testid="infographic-frame"></iframe>
+      <img class="infographic-image" data-testid="infographic-image">
+    </div>`;
+  dialog.querySelector(".infographic-close").addEventListener("click", () => dialog.close());
+  dialog.querySelector(".infographic-views").addEventListener("click", (e) => {
+    const button = e.target.closest(".infographic-view");
+    if (button) showInfographicView(button.dataset.view);
+  });
+  dialog.addEventListener("close", () => {
+    dialog.querySelector(".infographic-frame").removeAttribute("src");
+    const opener = infographicOpener;
+    infographicOpener = null;
+    if (opener) opener.focus();
+  });
+  document.body.append(dialog);
+  infographicDialog = dialog;
+  return dialog;
+}
+
+function showInfographicView(view) {
+  const dialog = ensureInfographicDialog();
+  dialog.querySelectorAll(".infographic-view").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.view === view));
+  });
+  dialog.querySelector(".infographic-frame").hidden = view !== "vector";
+  dialog.querySelector(".infographic-image").hidden = view !== "image";
+}
+
+function openInfographic(slug, opener) {
+  const formats = INFOGRAPHICS[slug] && INFOGRAPHICS[slug].formats;
+  if (!formats) return;
+  const views = INFOGRAPHIC_VIEWS.filter(([key]) => formats[key]).map(([key]) => key);
+  if (!views.length) return;
+  const dialog = ensureInfographicDialog();
+  dialog.querySelector("h2").textContent = `Infográfico de /${slug}`;
+  const frame = dialog.querySelector(".infographic-frame");
+  const image = dialog.querySelector(".infographic-image");
+  frame.setAttribute("title", `Infográfico vetorial de /${slug}`);
+  if (formats.vector) frame.setAttribute("src", formats.vector);
+  else frame.removeAttribute("src");
+  if (formats.image) image.setAttribute("src", formats.image);
+  else image.removeAttribute("src");
+  image.setAttribute("alt", `Infográfico do comando /${slug}`);
+  dialog.querySelector(".infographic-views").hidden = views.length < 2;
+  showInfographicView(formats.vector ? "vector" : "image");
+  infographicOpener = opener;
+  dialog.showModal();
+}
+
+async function saveInfographicDownload(link, namespace) {
+  const href = link.getAttribute("href");
+  const filename = link.getAttribute("download");
+  const openInTab = () => window.open(href, "_blank", "noopener");
+  let blob;
+  try {
+    const response = await fetch(href);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    blob = await response.blob();
+  } catch {
+    openInTab();
+    return;
+  }
+  try {
+    await namespace.save({ filename, data: blob });
+  } catch (error) {
+    if (error && error.code === "declined") return;
+    openInTab();
+  }
+}
+
+deck.addEventListener("click", (e) => {
+  const opener = e.target.closest(".infographic-open");
+  if (opener) { openInfographic(opener.dataset.slug, opener); return; }
+  const link = e.target.closest(".infographic-download");
+  if (link && downloadsNamespace) {
+    e.preventDefault();
+    saveInfographicDownload(link, downloadsNamespace);
+  }
+});
+
+function chip(id, label, h, extra) {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.dataset.cat = id;
+  b.setAttribute("aria-pressed", id === "todas" ? "true" : "false");
+  if (h !== null) b.style.setProperty("--ch", h);
+  b.innerHTML = `<i></i>${label}${extra}`;
+  filters.appendChild(b);
+}
+chip("todas", "Todas", null, ' <small id="f-todas"></small>');
+
+CATEGORIES.forEach((cat) => {
+  const sec = document.createElement("section");
+  sec.className = "cat"; sec.id = `cat-${cat.id}`; sec.dataset.cat = cat.id;
+  sec.style.setProperty("--ch", cat.h);
+  sec.innerHTML = `
+    <header class="cat-head">
+      <div class="cat-glyph" aria-hidden="true">${ICONS[cat.icon]}</div>
+      <div class="cat-copy"><h3>${cat.name}</h3><p class="hint">${cat.hint}</p><p class="cat-desc">${cat.desc}</p></div>
+      <span class="cat-count" id="n-${cat.id}"></span>
+    </header>
+    <div class="deck"></div>`;
+  const grid = sec.querySelector(".deck");
+  chip(cat.id, cat.name, cat.h, ` <small id="f-${cat.id}"></small>`);
+  cat.ids.forEach((id) => renderCard(BY_ID[id], cat, grid));
+  deck.appendChild(sec);
+});
+
+function renderCard(c, cat, grid) {
+  const dot = document.createElement("span");
+  dot.style.setProperty("--h", c.h);
+  rainbow.appendChild(dot);
+
+  const li = document.createElement("li");
+  li.style.setProperty("--h", c.h);
+  li.innerHTML = `<a href="#${c.id}"><span class="dot"></span><span class="nm">/${c.id}</span><span class="ds">${c.short}</span></a>`;
+  menu.appendChild(li);
+
+  const card = document.createElement("article");
+  card.className = "cmd";
+  card.id = c.id;
+  card.style.setProperty("--h", c.h);
+  card.style.setProperty("--ch", cat.h);
+  const aliases = (c.aliases || []).map((a) => `<span class="tag alias">${a}</span>`).join("");
+  const desk = c.id === "doctor"
+    ? '<span class="ev warn"><b>!</b> Modo Desktop: marcado como terminal</span>'
+    : '<span class="ev"><b>✓</b> Modo Desktop</span>';
+  const app = c.app
+    ? `<span class="ev app ${c.app.ok ? "" : "fail"}"><b>${c.app.ok ? "▶" : "✗"}</b> ${c.app.text}</span>`
+    : "";
+  const params = c.params
+    ? `<div class="params"><span class="eyebrow">Parâmetros</span><dl>${c.params.map(([p, d]) => `<div><dt>${esc(p)}</dt><dd>${d}</dd></div>`).join("")}</dl></div>`
+    : "";
+  card.innerHTML = `
+    <header class="cmd-head">
+      <div class="glyph a-${ANIM_OF[c.id]}" aria-hidden="true">${ICONS[c.icon]}</div>
+      <div class="cmd-title">
+        <h3><span class="nm">/${c.id}</span><span class="mask" aria-hidden="true">/ ? ? ?</span></h3>
+        <p class="short">${c.short}</p>
+        <button class="reveal" type="button">Mostrar o comando</button>
+        <div class="tags"><span class="tag">${cat.name}</span><span class="tag">${c.kind}</span>${c.bonus ? '<span class="tag">Bônus</span>' : ""}${c.lote ? `<span class="tag">Lote ${c.lote}</span>` : ""}${aliases}</div>
+      </div>
+    </header>
+    <div class="evidence">
+      <span class="ev"><b>✓</b> Binário 2.1.325</span>
+      ${DOCS[c.id] ? docLink(DOCS[c.id], "ev doc") : ""}
+      ${infographicRowHtml(c.id)}
+      ${desk}${app}
+      <label class="ev me"><input type="checkbox" id="t-${c.id}" ${tested[c.id] ? "checked" : ""}> Testei</label>
+    </div>
+    <div class="body">
+      <dl class="trio">
+        <div><dt>O quê</dt><dd>${c.what}</dd></div>
+        <div><dt>Por quê</dt><dd>${c.why}</dd></div>
+        <div class="ctx"><dt>Contexto</dt><dd>${CONTEXTS[c.id]}</dd></div>
+        <div><dt>Como</dt><dd>${c.how}</dd></div>
+      </dl>
+      ${params}
+      ${c.note ? `<p class="note">${c.note}</p>` : ""}
+      ${DOCS[c.id] && DOCS[c.id].note ? `<p class="note doc-note"><b>Na documentação:</b> ${DOCS[c.id].note}</p>` : ""}
+      <div class="examples">
+        <span class="eyebrow">Três exemplos</span>
+        ${c.examples.map(([code, cap], i) => `
+          <div class="ex">
+            <div class="ex-code"><pre>${codeHtml(code)}</pre><button class="copy" type="button" id="c-${c.id}-${i}" data-code="${esc(code)}">Copiar</button></div>
+            <small>${cap}</small>
+          </div>`).join("")}
+      </div>
+    </div>`;
+  grid.appendChild(card);
+}
+
+document.getElementById("total").textContent = COMMANDS.length;
+
+
+function updateProgress() {
+  const n = COMMANDS.filter((c) => tested[c.id]).length;
+  document.getElementById("count").textContent = `${n} de ${COMMANDS.length} testados`;
+  document.getElementById("f-todas").textContent = `${n}/${COMMANDS.length}`;
+  document.getElementById("bar").style.width = `${(n / COMMANDS.length) * 100}%`;
+  CATEGORIES.forEach((cat) => {
+    const k = cat.ids.filter((id) => tested[id]).length;
+    document.getElementById(`n-${cat.id}`).textContent = `${k} de ${cat.ids.length} testados`;
+    document.getElementById(`f-${cat.id}`).textContent = `${k}/${cat.ids.length}`;
+    document.querySelectorAll(`.nav-cat[data-cat="${cat.id}"] .nav-n`).forEach((el) => { el.textContent = `${k}/${cat.ids.length}`; });
+  });
+}
+
+/* ---------- side navigation: one list generated from the data, rendered in the rail and in the drawer ---------- */
+const navLists = [document.getElementById("rail-list"), document.getElementById("drawer-list")];
+const navHtml = CATEGORIES.map((cat) => `
+  <li class="nav-cat" data-cat="${cat.id}" style="--ch:${cat.h}">
+    <a href="#cat-${cat.id}" data-target="cat-${cat.id}"><i></i><span>${cat.name}</span><small class="nav-n"></small></a>
+    <ul class="nav-cmds">${cat.ids.map((id) => `<li><a href="#${id}" data-target="${id}" data-cmd="${id}" style="--h:${BY_ID[id].h}"></a></li>`).join("")}</ul>
+  </li>`).join("");
+navLists.forEach((ul) => { ul.innerHTML = navHtml; });
+
+/* Memory mode shows each short description instead of the name, so the index does not spoil it. */
+function syncNav() {
+  const quiz = deck.classList.contains("quiz");
+  navLists.forEach((ul) => ul.classList.toggle("quiz", quiz));
+  document.querySelectorAll(".nav-cmds a[data-cmd]").forEach((a) => {
+    const id = a.dataset.cmd;
+    const hide = quiz && !document.getElementById(id).classList.contains("shown");
+    a.textContent = hide ? BY_ID[id].short : `/${id}`;
+    a.title = a.textContent;
+  });
+}
+syncNav();
+updateProgress();
+
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function setFilter(pick, animate = true) {
+  const apply = () => {
+    filters.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.cat === pick)));
+    deck.querySelectorAll(".cat").forEach((s) => { s.hidden = pick !== "todas" && s.dataset.cat !== pick; });
+    document.querySelectorAll(".nav-cat").forEach((li) => li.classList.toggle("off", pick !== "todas" && li.dataset.cat !== pick));
+  };
+  if (animate && document.startViewTransition && !REDUCE) document.startViewTransition(apply); else apply();
+}
+filters.addEventListener("click", (e) => {
+  const b = e.target.closest(".chip");
+  if (b) setFilter(b.dataset.cat);
+});
+
+/* Icon gesture: restart the animation on hover, tap, Testei and reveal. Works on touch, where :hover does not. */
+function play(card) {
+  card.classList.remove("play");
+  void card.offsetWidth;
+  card.classList.add("play");
+}
+deck.addEventListener("mouseover", (e) => {
+  const card = e.target.closest(".cmd");
+  if (card && !card.contains(e.relatedTarget)) play(card);
+});
+deck.addEventListener("click", (e) => {
+  const head = e.target.closest(".cmd-head");
+  if (head) play(head.closest(".cmd"));
+});
+
+/* Jump to a card or category. A target in a filtered-out category is unhidden synchronously, before scrolling. */
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const sec = el.closest(".cat") || el;
+  if (sec.hidden) {
+    setFilter("todas", false);
+    if (el.classList.contains("cmd") && deck.classList.contains("quiz")) el.classList.add("shown");
+    syncNav();
+  }
+  el.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth", block: "start" });
+  try { history.replaceState(null, "", `#${id}`); } catch {}
+}
+
+const quizBtn = document.getElementById("quiz");
+quizBtn.addEventListener("click", () => {
+  const on = !deck.classList.contains("quiz");
+  deck.classList.toggle("quiz", on);
+  quizBtn.setAttribute("aria-pressed", String(on));
+  deck.querySelectorAll(".cmd.shown").forEach((c) => c.classList.remove("shown"));
+  syncNav();
+});
+deck.addEventListener("click", (e) => {
+  const r = e.target.closest(".reveal");
+  if (!r) return;
+  const card = r.closest(".cmd");
+  card.classList.add("shown");
+  syncNav();
+  play(card);
+});
+
+/* Hero prompt types one command at a time and lights it in the menu. */
+const typed = document.getElementById("typed");
+const typedHint = document.getElementById("typed-hint");
+const HINT = typedHint.textContent;
+function markMenu(id) {
+  menu.querySelectorAll("a.on").forEach((a) => a.classList.remove("on"));
+  if (!id) return;
+  const a = menu.querySelector(`a[href="#${id}"]`);
+  a.classList.add("on");
+  menu.scrollTo({ top: a.parentElement.offsetTop - menu.clientHeight / 2 + 16, behavior: "smooth" });
+}
+if (!REDUCE) {
+  const prompt = document.querySelector(".prompt");
+  const order = [...COMMANDS].sort(() => Math.random() - 0.5);
+  let paused = false, live = true, i = 0;
+  prompt.addEventListener("mouseenter", () => { paused = true; });
+  prompt.addEventListener("mouseleave", () => { paused = false; });
+  if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => { live = en.isIntersecting; }).observe(prompt);
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  (async () => {
+    await wait(1200);
+    for (;;) {
+      if (paused || !live || document.hidden) { await wait(500); continue; }
+      const c = order[i++ % order.length];
+      const word = `/${c.id}`;
+      for (let k = 2; k <= word.length; k++) { typed.textContent = word.slice(0, k); await wait(70); }
+      typedHint.textContent = c.short;
+      markMenu(c.id);
+      await wait(2600);
+      for (let k = word.length - 1; k >= 1; k--) { typed.textContent = word.slice(0, k); await wait(28); }
+      typedHint.textContent = HINT;
+      markMenu(null);
+      await wait(450);
+    }
+  })();
+}
+
+deck.addEventListener("change", (e) => {
+  const box = e.target.closest('input[type="checkbox"]');
+  if (!box) return;
+  tested[box.id.slice(2)] = box.checked;
+  saveTested(tested);
+  updateProgress();
+  const lab = box.closest(".ev.me");
+  lab.classList.remove("pop");
+  if (box.checked) { void lab.offsetWidth; lab.classList.add("pop"); play(box.closest(".cmd")); }
+});
+
+deck.addEventListener("click", (e) => {
+  const btn = e.target.closest(".copy");
+  if (!btn) return;
+  const text = btn.dataset.code;
+  const done = () => {
+    btn.textContent = "Copiado ✓"; btn.classList.add("done");
+    setTimeout(() => { btn.textContent = "Copiar"; btn.classList.remove("done"); }, 1400);
+  };
+  const fallback = () => {
+    const sel = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(btn.previousElementSibling);
+    sel.removeAllRanges(); sel.addRange(range);
+    btn.textContent = "Selecionado";
+    setTimeout(() => (btn.textContent = "Copiar"), 1400);
+  };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch { fallback(); }
+});
+
+/* Scroll-spy: the categories and cards that cross a band near the top of the viewport are the current ones. */
+const inBand = new Set();
+let curCat = null, curCmds = [];
+function paintNav() {
+  document.querySelectorAll(".nav-cat > a").forEach((a) => {
+    const on = a.parentElement.dataset.cat === curCat;
+    if (on) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+  });
+  document.querySelectorAll(".nav-cmds a").forEach((a) => {
+    if (curCmds.includes(a.dataset.cmd)) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+  });
+  keepVisible(document.getElementById("rail"));
+  if (!document.getElementById("drawer").hidden) keepVisible(document.getElementById("drawer-list"));
+}
+/* Scrolls the list itself, never the page, so the current item stays in view. */
+function keepVisible(box, center) {
+  const a = box.querySelector(".nav-cmds a[aria-current]") || box.querySelector(".nav-cat > a[aria-current]");
+  if (!a || box.offsetParent === null) return;
+  const b = box.getBoundingClientRect(), r = a.getBoundingClientRect(), pad = 48;
+  if (center) box.scrollTop += r.top - b.top - (b.height - r.height) / 2;
+  else if (r.top < b.top + pad) box.scrollTop += r.top - b.top - pad;
+  else if (r.bottom > b.bottom - pad) box.scrollTop += r.bottom - b.bottom + pad;
+}
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) inBand.add(en.target); else inBand.delete(en.target); });
+    const cats = [...deck.querySelectorAll(".cat")].filter((x) => inBand.has(x));
+    const cmds = [...deck.querySelectorAll(".cmd")].filter((x) => inBand.has(x));
+    if (!cats.length && !cmds.length) return;
+    curCat = cats.length ? cats[0].dataset.cat : curCat;
+    curCmds = cmds.map((x) => x.id);
+    paintNav();
+  }, { rootMargin: "-10% 0px -80% 0px" });
+  deck.querySelectorAll(".cat, .cmd").forEach((x) => io.observe(x));
+}
+
+/* Drawer (narrow screens): closes on pick, Escape and backdrop; keeps focus inside while open. */
+const drawer = document.getElementById("drawer");
+const sheet = drawer.querySelector(".sheet");
+const openBtn = document.getElementById("nav-open");
+function openDrawer() {
+  drawer.hidden = false;
+  openBtn.setAttribute("aria-expanded", "true");
+  document.body.style.overflow = "hidden";
+  keepVisible(document.getElementById("drawer-list"), true);
+  document.getElementById("nav-close").focus();
+}
+function closeDrawer(restore = true) {
+  if (drawer.hidden) return;
+  drawer.hidden = true;
+  openBtn.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+  if (restore) openBtn.focus();
+}
+openBtn.addEventListener("click", openDrawer);
+document.getElementById("nav-close").addEventListener("click", () => closeDrawer());
+drawer.querySelector(".drawer-back").addEventListener("click", () => closeDrawer());
+drawer.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { e.preventDefault(); closeDrawer(); return; }
+  if (e.key !== "Tab") return;
+  const f = [...sheet.querySelectorAll("button, a[href]")].filter((x) => x.offsetParent !== null);
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && (document.activeElement === first || document.activeElement === sheet)) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+matchMedia("(min-width: 1100px)").addEventListener("change", (e) => { if (e.matches) closeDrawer(false); });
+
+/* Hero menu, rail and drawer links all go through goTo. */
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("#menu a, .nav-list a");
+  if (!a || !a.getAttribute("href").startsWith("#")) return;
+  e.preventDefault();
+  closeDrawer(false);
+  goTo(a.getAttribute("href").slice(1));
+});
+</script>

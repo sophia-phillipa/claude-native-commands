@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "slug": "compact",
+  "command": "/compact",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Resume a conversa e libera contexto."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "A conversa enche a janela"
+      },
+      {
+        "id": "s2",
+        "layer": "input",
+        "label": "Você digita o comando agora"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "O motor lê o histórico"
+      },
+      {
+        "id": "s4",
+        "layer": "processing",
+        "label": "O motor escreve resumo fiel"
+      },
+      {
+        "id": "s5",
+        "layer": "result",
+        "label": "A sessão segue bem leve"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "motiva"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "executa"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "gera"
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "verb": "reduz"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [
+      {
+        "text": "[instruções]",
+        "label": "Diz o que o resumo preserva"
+      }
+    ],
+    "files": [
+      {
+        "text": "CLAUDE.md",
+        "label": "Guarda regras que sobrevivem ao resumo"
+      }
+    ],
+    "related": [
+      {
+        "command": "/context",
+        "label": "Mede quanto contexto sobrou"
+      },
+      {
+        "command": "/autocompact",
+        "label": "Ajusta a compactação automática"
+      },
+      {
+        "command": "/clear",
+        "label": "Recomeça com contexto vazio"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Perto do limite da sessão",
+      "Antes da compactação automática",
+      "Depois de uma tarefa longa"
+    ],
+    "pitfalls": [
+      "Sem instruções, detalhes podem sumir",
+      "Mensagens exatas viram resumo",
+      "Decisões antigas ficam menos nítidas"
+    ],
+    "example": "/compact mantenha testes e decisões"
+  }
+}

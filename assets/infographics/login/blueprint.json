@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "login",
+  "command": "/login",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Conecta o Claude Code à sua conta Anthropic" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /login" },
+      { "id": "s2", "layer": "processing", "label": "Abre o fluxo de entrada" },
+      { "id": "s3", "layer": "processing", "label": "Você entra na conta Anthropic" },
+      { "id": "s4", "layer": "result", "label": "Sessão fica ligada à conta" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "pede" },
+      { "from": "s3", "to": "s4", "verb": "conecta" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/logout", "label": "Para entrar de novo depois de sair" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Primeiro uso numa máquina nova", "Sessão precisa usar outra conta" ],
+    "pitfalls": [ "Depois de sair, precisa de /login" ],
+    "example": "/login"
+  }
+}

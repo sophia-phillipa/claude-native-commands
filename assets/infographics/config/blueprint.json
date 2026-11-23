@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "slug": "config",
+  "command": "/config",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Muda uma configuração do Claude Code pelo nome." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /config chave=valor" },
+      { "id": "s2", "layer": "processing", "label": "O motor grava o valor" },
+      { "id": "s3", "layer": "result", "label": "Ajuste fica salvo nas configurações" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "salva" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "chave=valor", "label": "Uma configuração por vez" },
+      { "text": "[chave=valor …]", "label": "Vários pares aplicados juntos" }
+    ],
+    "files": [
+      { "text": "~/.claude/settings.json", "label": "Guarda a maioria dos ajustes" }
+    ],
+    "related": [
+      { "command": "/update-config", "label": "Edita o settings.json por você" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Dicas que se repetem incomodam", "Ajustar na hora sem abrir arquivo" ],
+    "pitfalls": [ "Mudança fica salva, não só nesta sessão", "Confira antes de mudar valores globais" ],
+    "example": "/config verbose=true"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slug": "rewind",
+  "command": "/rewind",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Volta a conversa ou o código a um ponto anterior."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /rewind" },
+      { "id": "s2", "layer": "processing", "label": "Menu lista os prompts enviados" },
+      { "id": "s3", "layer": "processing", "label": "Restaura código ou conversa" },
+      { "id": "s4", "layer": "result", "label": "Sessão volta ao ponto escolhido" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "aplica" },
+      { "from": "s3", "to": "s4", "verb": "leva" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Resumir a conversa e liberar contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Caminho que não deu certo",
+      "Resumir a partir de uma mensagem"
+    ],
+    "pitfalls": [
+      "Arquivos mudados só pelo Bash não voltam",
+      "Mudanças externas não são rastreadas"
+    ],
+    "example": "/rewind"
+  }
+}

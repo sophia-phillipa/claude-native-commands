@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "feedback",
+  "command": "/feedback",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Envia um relato sobre o Claude Code ao fabricante." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Algo não funcionou como esperado" },
+      { "id": "s2", "layer": "input", "label": "Você digita /feedback com relato" },
+      { "id": "s3", "layer": "processing", "label": "Abre o diálogo de envio" },
+      { "id": "s4", "layer": "processing", "label": "Consentimento antes do envio" },
+      { "id": "s5", "layer": "result", "label": "Relato enviado ao fabricante" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "mostra" },
+      { "from": "s4", "to": "s5", "verb": "libera" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[report]", "label": "Texto do relato, abre o diálogo" } ],
+    "files": [],
+    "related": [ { "command": "/bug", "label": "Abre o diálogo de envio direto" } ]
+  },
+  "contrast": {
+    "when": [ "Algo não funcionou como esperado", "Quer deixar relato para o fabricante" ],
+    "pitfalls": [ "Sem texto, abre a fila de rascunhos", "Nada sai sem sua confirmação" ],
+    "example": "/feedback a busca de arquivos demora muito em pastas com milhares de itens"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "output-style",
+  "command": "/output-style",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Troca o jeito de escrever das respostas." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /output-style com estilo" },
+      { "id": "s2", "layer": "processing", "label": "O motor grava o estilo" },
+      { "id": "s3", "layer": "result", "label": "Próxima mensagem usa o estilo" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "aplica" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[estilo]", "label": "Nome do estilo da lista" } ],
+    "files": [
+      { "text": ".claude/settings.local.json", "label": "Guarda a escolha neste projeto" }
+    ],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Quer outro jeito de resposta", "Mais explicação ao aprender algo novo" ],
+    "pitfalls": [ "Não obriga a seguir, é só instrução", "Explanatory e Learning ficam mais longos" ],
+    "example": "/output-style Concise"
+  }
+}

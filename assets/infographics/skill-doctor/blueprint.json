@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "slug": "skill-doctor",
+  "command": "/skill-doctor",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Aponta skills carregadas que só gastam contexto." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /skill-doctor" },
+      { "id": "s2", "layer": "processing", "label": "O motor lista skills carregadas" },
+      { "id": "s3", "layer": "processing", "label": "Mede contexto de cada skill" },
+      { "id": "s4", "layer": "processing", "label": "Marca skills nunca usadas" },
+      { "id": "s5", "layer": "result", "label": "Relatório aponta o que desligar" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "calcula" },
+      { "from": "s3", "to": "s4", "verb": "filtra" },
+      { "from": "s4", "to": "s5", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/context", "label": "Mostra a parte Skills do contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Sessão começa pesada antes da primeira mensagem", "Depois de instalar um plugin" ],
+    "pitfalls": [ "Não funciona no app Desktop" ],
+    "example": "/skill-doctor"
+  }
+}

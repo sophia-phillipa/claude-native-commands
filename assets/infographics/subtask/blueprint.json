@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "subtask",
+  "command": "/subtask",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Entrega uma tarefa lateral com todo o contexto."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /subtask" },
+      { "id": "s2", "layer": "processing", "label": "Subagente herda a conversa inteira" },
+      { "id": "s3", "layer": "processing", "label": "Trabalha em segundo plano" },
+      { "id": "s4", "layer": "result", "label": "Resultado volta à conversa" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "cria" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "devolve" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<task>", "label": "Tarefa que o subagente deve executar" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/fork", "label": "Copia a conversa numa sessão separada" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Tarefa lateral que precisa do contexto",
+      "Trabalho paralelo sem parar a conversa"
+    ],
+    "pitfalls": [
+      "Sem visão de agentes, o comando some",
+      "Só o resultado final volta à conversa"
+    ],
+    "example": "/subtask revisar os testes do módulo de pagamento"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "slug": "team-onboarding",
+  "command": "/team-onboarding",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Gera um guia para colegas, feito do seu uso recente." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /team-onboarding" },
+      { "id": "s2", "layer": "processing", "label": "O motor lê seu histórico" },
+      { "id": "s3", "layer": "processing", "label": "O motor escreve o roteiro" },
+      { "id": "s4", "layer": "result", "label": "Guia pronto para os colegas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "alimenta" },
+      { "from": "s3", "to": "s4", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [ { "text": "ONBOARDING.md", "label": "Arquivo que o comando pode editar" } ],
+    "related": [ { "command": "/doctor", "label": "Check-up da instalação" } ]
+  },
+  "contrast": {
+    "when": [ "Entra gente nova no time", "Quer registrar hábitos que funcionam" ],
+    "pitfalls": [ "Compartilhar sem revisar o texto", "Só enxerga o uso recente" ],
+    "example": "/team-onboarding"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "slug": "add-dir",
+  "command": "/add-dir",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Deixa o Claude ler e editar fora da pasta aberta"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /add-dir" },
+      { "id": "s2", "layer": "processing", "label": "A sessão ganha a pasta" },
+      { "id": "s3", "layer": "result", "label": "Claude lê e edita nela" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "libera" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<path>", "label": "Pasta a incluir na sessão" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Tarefa atravessa app e biblioteca vizinha",
+      "Ler ou editar em duas pastas"
+    ],
+    "pitfalls": [
+      "Maior parte de .claude/ não é carregada"
+    ],
+    "example": "/add-dir ../minha-biblioteca"
+  }
+}

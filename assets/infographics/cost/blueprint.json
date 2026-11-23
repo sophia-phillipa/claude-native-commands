@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "cost",
+  "command": "/cost",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Encaminha o nome antigo ao /usage, que mostra custo e uso."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /cost" },
+      { "id": "s2", "layer": "processing", "label": "O app envia para /usage" },
+      { "id": "s3", "layer": "result", "label": "Painel de custo e uso" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "redireciona" },
+      { "from": "s2", "to": "s3", "verb": "executa" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/usage", "label": "Painel de custo e uso do plano" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Lembra do nome antigo do comando", "Quer ver o painel de custo" ],
+    "pitfalls": [ "No app, aparece como /usage (cost)" ],
+    "example": "/cost"
+  }
+}

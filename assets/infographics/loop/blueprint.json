@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "slug": "loop",
+  "command": "/loop",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Repete um pedido em intervalo fixo ou no ritmo do Claude"
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /loop com prompt"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "O Claude roda o prompt"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Espera o intervalo ou decide"
+      },
+      {
+        "id": "s4",
+        "layer": "processing",
+        "label": "Repete até você encerrar"
+      },
+      {
+        "id": "s5",
+        "layer": "result",
+        "label": "Acompanha sem novo pedido"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "executa"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "aguarda"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "repete"
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "verb": "poupa"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [
+      {
+        "text": "[intervalo]",
+        "label": "Tempo entre as voltas"
+      },
+      {
+        "text": "[prompt]",
+        "label": "O pedido ou comando que repete"
+      }
+    ],
+    "files": [],
+    "related": [
+      {
+        "command": "/usage",
+        "label": "Acompanha o consumo do plano"
+      },
+      {
+        "command": "/recap",
+        "label": "Repete o resumo sem intervalo"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Acompanhar um deploy ou uma fila",
+      "Algo que demora sem novo pedido"
+    ],
+    "pitfalls": [
+      "Não serve para tarefa única",
+      "Para parar, peça na conversa"
+    ],
+    "example": "/loop 10m confira se o deploy de staging terminou"
+  }
+}

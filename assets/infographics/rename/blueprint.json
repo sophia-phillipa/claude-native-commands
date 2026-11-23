@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slug": "rename",
+  "command": "/rename",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Dá um nome à conversa para achá-la depois na lista"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /rename" },
+      { "id": "s2", "layer": "processing", "label": "Nome digitado ou gerado" },
+      { "id": "s3", "layer": "processing", "label": "Sessão ganha o novo nome" },
+      { "id": "s4", "layer": "result", "label": "Nome aparece na barra" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "aplica" },
+      { "from": "s3", "to": "s4", "verb": "mostra" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[name]", "label": "Sem ele, o nome é gerado" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Assim que a sessão tem assunto claro",
+      "Várias conversas abertas ao mesmo tempo"
+    ],
+    "pitfalls": [
+      "Nome só com caracteres invisíveis é recusado"
+    ],
+    "example": "/rename [name]"
+  }
+}

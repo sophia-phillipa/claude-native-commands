@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "batch",
+  "command": "/batch",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Divide uma mudança grande em partes, um PR cada" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /batch com instrução" },
+      { "id": "s2", "layer": "processing", "label": "Claude pesquisa e planeja" },
+      { "id": "s3", "layer": "processing", "label": "Você aprova o plano" },
+      { "id": "s4", "layer": "processing", "label": "Agentes em worktrees isolados" },
+      { "id": "s5", "layer": "result", "label": "Agentes abrem PR ou relatam" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "apresenta" },
+      { "from": "s3", "to": "s4", "verb": "dispara" },
+      { "from": "s4", "to": "s5", "verb": "entrega" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<instrução>", "label": "A mudança completa e seu critério" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/usage", "label": "Custo da sessão e uso do plano" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Migração mecânica em muitos arquivos",
+      "Partes independentes entre si"
+    ],
+    "pitfalls": [
+      "Muitos agentes e PRs de uma vez",
+      "Custo alto sem conferir o plano"
+    ],
+    "example": "/batch troque todos os print() por logging no pacote src/"
+  }
+}

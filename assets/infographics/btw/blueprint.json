@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "btw",
+  "command": "/btw",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Tira dúvida rápida sem entrar no histórico."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /btw e pergunta" },
+      { "id": "s2", "layer": "processing", "label": "Motor lê o contexto atual" },
+      { "id": "s3", "layer": "processing", "label": "Motor gera resposta lateral" },
+      { "id": "s4", "layer": "result", "label": "Histórico principal segue intacto" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "envia" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "mantém" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[question]", "label": "Sem ela, mostra a última pergunta" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Resumir a conversa e liberar contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Dúvida rápida no meio do trabalho",
+      "Pergunta que não deve poluir o histórico"
+    ],
+    "pitfalls": [
+      "Não lê arquivos nem executa comandos",
+      "Resposta única, sem turnos seguintes"
+    ],
+    "example": "/btw qual a diferença entre fork e branch?"
+  }
+}

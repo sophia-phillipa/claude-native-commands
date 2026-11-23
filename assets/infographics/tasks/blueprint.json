@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "slug": "tasks",
+  "command": "/tasks",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Mostra e gerencia o trabalho em segundo plano da sessão" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /tasks" },
+      { "id": "s2", "layer": "processing", "label": "Reúne trabalho em segundo plano" },
+      { "id": "s3", "layer": "processing", "label": "Inclui subagentes já terminados" },
+      { "id": "s4", "layer": "result", "label": "Você confere o que roda" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "junta" },
+      { "from": "s3", "to": "s4", "verb": "mostra" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/goal", "label": "Trabalhar até a meta ser cumprida" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Ver o que ainda roda",
+      "Conferir subagentes que já terminaram"
+    ],
+    "pitfalls": [
+      "Mostra só o trabalho desta sessão"
+    ],
+    "example": "/tasks"
+  }
+}

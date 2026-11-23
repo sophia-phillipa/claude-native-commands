@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "run",
+  "command": "/run",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Sobe o app e mostra a mudança funcionando" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /run com pedido" },
+      { "id": "s2", "layer": "processing", "label": "Claude descobre como subir" },
+      { "id": "s3", "layer": "processing", "label": "Sobe e conduz o app" },
+      { "id": "s4", "layer": "processing", "label": "Confere a mudança no app" },
+      { "id": "s5", "layer": "result", "label": "Você vê a mudança funcionando" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "verifica" },
+      { "from": "s4", "to": "s5", "verb": "mostra" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[pedido]", "label": "Diz o que abrir, clicar ou conferir" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/run-skill-generator", "label": "Cria ou melhora uma skill por projeto" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Mudou uma tela ou um painel",
+      "Teste verde não basta"
+    ],
+    "pitfalls": [
+      "Projeto com banco ou build em etapas",
+      "Inferência pouco confiável em projetos especiais"
+    ],
+    "example": "/run confirme que o botão Salvar aparece no formulário de cadastro"
+  }
+}

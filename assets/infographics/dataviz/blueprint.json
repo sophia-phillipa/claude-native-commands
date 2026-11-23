@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "dataviz",
+  "command": "/dataviz",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Guia tipo, cores e layout de gráficos e painéis."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /dataviz" },
+      { "id": "s2", "layer": "processing", "label": "A skill é lida primeiro" },
+      { "id": "s3", "layer": "processing", "label": "Guia tipo, cores e layout" },
+      { "id": "s4", "layer": "processing", "label": "Escreve o código do gráfico" },
+      { "id": "s5", "layer": "result", "label": "Saída com cores coerentes" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "orienta" },
+      { "from": "s3", "to": "s4", "verb": "gera" },
+      { "from": "s4", "to": "s5", "verb": "entrega" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Antes de montar um gráfico ou painel",
+      "Quando cores e legendas precisam ficar coerentes"
+    ],
+    "pitfalls": [
+      "Cores sem relação entre si",
+      "Legendas confusas e contraste ruim"
+    ],
+    "example": "/dataviz refaça esse gráfico do matplotlib com cores acessíveis"
+  }
+}

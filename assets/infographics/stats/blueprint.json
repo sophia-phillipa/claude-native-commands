@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "slug": "stats",
+  "command": "/stats",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Abre as estatísticas de uso direto na aba Stats."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /stats" },
+      { "id": "s2", "layer": "processing", "label": "Abre o painel de uso" },
+      { "id": "s3", "layer": "processing", "label": "Seleciona a aba Stats" },
+      { "id": "s4", "layer": "result", "label": "Mostra as estatísticas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "posiciona" },
+      { "from": "s3", "to": "s4", "verb": "exibe" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/usage", "label": "Painel de custo e uso do plano" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Quer ver as estatísticas de uso direto" ],
+    "pitfalls": [ "No app, o menu mostra só stats" ],
+    "example": "/stats"
+  }
+}

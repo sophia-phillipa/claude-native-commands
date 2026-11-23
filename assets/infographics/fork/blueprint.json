@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "fork",
+  "command": "/fork",
+  "category": "Modelo e potência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Deixa uma tarefa correndo sem perder o contexto." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /fork" },
+      { "id": "s2", "layer": "processing", "label": "O motor copia a conversa" },
+      { "id": "s3", "layer": "processing", "label": "Cópia roda em segundo plano" },
+      { "id": "s4", "layer": "result", "label": "Você segue na conversa atual" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "deixa" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[prompt]", "label": "Tarefa que a cópia começa" } ],
+    "files": [],
+    "related": [
+      { "command": "/subtask", "label": "Entrega tarefa lateral com retorno" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Tarefa paralela pode rodar em segundo plano", "Quando quer tentar outra abordagem" ],
+    "pitfalls": [ "Sem visão de agentes, vira subagente", "Nada da cópia volta sozinho" ],
+    "example": "/fork revise o módulo de pagamentos sem mexer no restante"
+  }
+}

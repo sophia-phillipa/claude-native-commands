@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slug": "clear",
+  "command": "/clear",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Começa uma sessão nova com contexto vazio"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /clear" },
+      { "id": "s2", "layer": "processing", "label": "Salva a sessão anterior" },
+      { "id": "s3", "layer": "processing", "label": "Abre sessão nova, contexto vazio" },
+      { "id": "s4", "layer": "result", "label": "Próxima tarefa sem restos antigos" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "separa" },
+      { "from": "s3", "to": "s4", "verb": "evita" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[nome]", "label": "Nome para identificar a conversa" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Segue com resumo da conversa" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Terminou uma tarefa e começa outra",
+      "Assunto novo, mesma pasta"
+    ],
+    "pitfalls": [
+      "Para seguir a conversa, use /compact"
+    ],
+    "example": "/clear"
+  }
+}

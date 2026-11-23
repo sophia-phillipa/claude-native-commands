@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "slug": "advisor",
+  "command": "/advisor",
+  "category": "Modelo e potência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Um revisor mais forte checa o trabalho" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /advisor com revisor" },
+      { "id": "s2", "layer": "processing", "label": "Revisor fica ativo na sessão" },
+      { "id": "s3", "layer": "processing", "label": "Claude consulta em momentos-chave" },
+      { "id": "s4", "layer": "result", "label": "Claude aplica a orientação" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "ativa" },
+      { "from": "s2", "to": "s3", "verb": "acompanha" },
+      { "from": "s3", "to": "s4", "verb": "devolve" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<modelo>", "label": "Modelo que vai revisar" },
+      { "text": "off", "label": "Desliga o revisor" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/model", "label": "Trocar o modelo da sessão" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Tarefa de várias etapas", "Refatoração ou decisão de arquitetura" ],
+    "pitfalls": [ "Pode não aparecer na sua conta", "Tarefa curta paga consultas à toa" ],
+    "example": "/advisor off"
+  }
+}

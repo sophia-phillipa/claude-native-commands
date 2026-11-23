@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slug": "resume",
+  "command": "/resume",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Retoma uma conversa anterior para continuar o trabalho."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /resume" },
+      { "id": "s2", "layer": "processing", "label": "Lista as sessões recentes" },
+      { "id": "s3", "layer": "processing", "label": "Motor carrega a conversa escolhida" },
+      { "id": "s4", "layer": "result", "label": "Trabalho continua do ponto parado" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "seleciona" },
+      { "from": "s3", "to": "s4", "verb": "retoma" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[session]", "label": "Conversa a retomar; sem ela, o seletor" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Resumir a conversa e liberar contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Voltar a uma conversa anterior",
+      "Sessão que segue rodando em segundo plano"
+    ],
+    "pitfalls": [
+      "SSH, WSL e nuvem ficam de fora"
+    ],
+    "example": "/resume refatoracao-login"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "permissions",
+  "command": "/permissions",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Define o que roda sem pedir aprovação" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /permissions" },
+      { "id": "s2", "layer": "processing", "label": "Abre o diálogo de regras" },
+      { "id": "s3", "layer": "processing", "label": "Você ajusta regras por escopo" },
+      { "id": "s4", "layer": "result", "label": "Aprovações repetidas diminuem" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "aceita" },
+      { "from": "s3", "to": "s4", "verb": "reduz" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Claude pede aprovação repetida do mesmo tipo", "Liberar ou bloquear ferramenta permanentemente" ],
+    "pitfalls": [ "Aprovar uma ação não cria regra", "Ação aprovada pode ser bloqueada de novo" ],
+    "example": "/permissions"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "items": {
+    "autocompact": {
+      "command": "/autocompact",
+      "formats": {
+        "download": "assets/infographics/autocompact/infographic-1920.png",
+        "image": "assets/infographics/autocompact/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "autocompact",
+      "updated_at": "2026-11-23T15:34:52Z"
+    },
+    "btw": {
+      "command": "/btw",
+      "formats": {
+        "download": "assets/infographics/btw/infographic-1920.png",
+        "image": "assets/infographics/btw/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "btw",
+      "updated_at": "2026-11-23T15:54:29Z"
+    },
+    "clear": {
+      "command": "/clear",
+      "formats": {
+        "download": "assets/infographics/clear/infographic-1920.png",
+        "image": "assets/infographics/clear/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "clear",
+      "updated_at": "2026-11-23T15:32:36Z"
+    },
+    "code-review": {
+      "command": "/code-review",
+      "formats": {
+        "download": "assets/infographics/code-review/infographic-1920.png",
+        "image": "assets/infographics/code-review/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "code-review",
+      "updated_at": "2026-11-23T13:42:48Z"
+    },
+    "compact": {
+      "command": "/compact",
+      "formats": {
+        "download": "assets/infographics/compact/infographic-1920.png",
+        "image": "assets/infographics/compact/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "compact",
+      "updated_at": "2026-11-23T11:12:53Z"
+    },
+    "context": {
+      "command": "/context",
+      "formats": {
+        "download": "assets/infographics/context/infographic-1920.png",
+        "image": "assets/infographics/context/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "context",
+      "updated_at": "2026-11-23T16:01:20Z"
+    },
+    "logout": {
+      "command": "/logout",
+      "formats": {
+        "download": "assets/infographics/logout/infographic-1920.png",
+        "image": "assets/infographics/logout/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "logout",
+      "updated_at": "2026-11-23T11:42:40Z"
+    },
+    "loop": {
+      "command": "/loop",
+      "formats": {
+        "download": "assets/infographics/loop/infographic-1920.png",
+        "image": "assets/infographics/loop/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "loop",
+      "updated_at": "2026-11-23T13:54:51Z"
+    },
+    "memory": {
+      "command": "/memory",
+      "formats": {
+        "download": "assets/infographics/memory/infographic-1920.png",
+        "image": "assets/infographics/memory/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "memory",
+      "updated_at": "2026-11-23T16:06:45Z"
+    },
+    "recap": {
+      "command": "/recap",
+      "formats": {
+        "download": "assets/infographics/recap/infographic-1920.png",
+        "image": "assets/infographics/recap/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "recap",
+      "updated_at": "2026-11-23T15:49:11Z"
+    },
+    "review": {
+      "command": "/review",
+      "formats": {
+        "download": "assets/infographics/review/infographic-1920.png",
+        "image": "assets/infographics/review/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "review",
+      "updated_at": "2026-11-23T11:35:43Z"
+    },
+    "rewind": {
+      "command": "/rewind",
+      "formats": {
+        "download": "assets/infographics/rewind/infographic-1920.png",
+        "image": "assets/infographics/rewind/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "rewind",
+      "updated_at": "2026-11-23T16:11:30Z"
+    },
+    "status": {
+      "command": "/status",
+      "formats": {
+        "download": "assets/infographics/status/infographic-1920.png",
+        "image": "assets/infographics/status/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "status",
+      "updated_at": "2026-11-23T11:29:58Z"
+    }
+  },
+  "version": 1
+}

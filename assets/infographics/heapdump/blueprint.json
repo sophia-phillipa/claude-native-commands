@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "slug": "heapdump",
+  "command": "/heapdump",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Grava o snapshot de memória para investigar." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "A sessão usa memória demais" },
+      { "id": "s2", "layer": "input", "label": "Você digita /heapdump por inteiro" },
+      { "id": "s3", "layer": "processing", "label": "O motor grava o snapshot" },
+      { "id": "s4", "layer": "processing", "label": "O motor imprime o resumo" },
+      { "id": "s5", "layer": "result", "label": "Arquivo -diagnostics.json para relatar" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "gera" },
+      { "from": "s4", "to": "s5", "verb": "orienta" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": ".heapsnapshot", "label": "Snapshot do heap, não compartilhe" },
+      { "text": "-diagnostics.json", "label": "Resumo de memória para anexar" }
+    ],
+    "related": [ { "command": "/doctor", "label": "Check-up da instalação" } ]
+  },
+  "contrast": {
+    "when": [ "Sessão usa memória demais", "Antes de reportar um problema de memória" ],
+    "pitfalls": [ "Contém a conversa e credenciais", "Não compartilhe o .heapsnapshot" ],
+    "example": "/heapdump"
+  }
+}

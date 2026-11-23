@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "slug": "debug",
+  "command": "/debug",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Investiga um problema da sessão com registro detalhado." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /debug" },
+      { "id": "s2", "layer": "processing", "label": "O motor liga registro detalhado" },
+      { "id": "s3", "layer": "processing", "label": "O motor lê o registro" },
+      { "id": "s4", "layer": "processing", "label": "O motor analisa a falha" },
+      { "id": "s5", "layer": "result", "label": "Mostra o que falhou" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "grava" },
+      { "from": "s3", "to": "s4", "verb": "examina" },
+      { "from": "s4", "to": "s5", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[descrição]", "label": "Descreve o problema para a análise" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/skill-doctor", "label": "Mostra as skills que pesam no contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Um hook deixa cada comando mais lento", "Um MCP não conecta na sessão" ],
+    "pitfalls": [ "Falhas anteriores não ficam gravadas" ],
+    "example": "/debug um hook está deixando cada comando mais lento"
+  }
+}

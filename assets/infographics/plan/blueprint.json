@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "plan",
+  "command": "/plan",
+  "category": "Modelo e potência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Entra no modo plano antes de tarefa grande." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /plan" },
+      { "id": "s2", "layer": "processing", "label": "O motor ativa modo plano" },
+      { "id": "s3", "layer": "processing", "label": "Com descrição, começa a tarefa" },
+      { "id": "s4", "layer": "result", "label": "Sessão fica em modo plano" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "inicia" },
+      { "from": "s3", "to": "s4", "verb": "mantém" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[description]", "label": "Tarefa a planejar, se houver" } ],
+    "files": [],
+    "related": [
+      { "command": "/model", "label": "Trocar o modelo da sessão" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Antes de tarefa grande ou arriscada", "Para evitar mudanças no escopo errado" ],
+    "pitfalls": [ "Sem descrição, só o modo é ativado" ],
+    "example": "/plan corrigir o bug de autenticação"
+  }
+}

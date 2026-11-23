@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "slug": "remote-control",
+  "command": "/remote-control",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Deixa esta sessão acessível fora do terminal." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /remote-control" },
+      { "id": "s2", "layer": "processing", "label": "O motor verifica o login" },
+      { "id": "s3", "layer": "processing", "label": "O motor liga esta sessão" },
+      { "id": "s4", "layer": "result", "label": "Sessão acessível de outro aparelho" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "libera" },
+      { "from": "s3", "to": "s4", "verb": "permite" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/mcp", "label": "Gerenciar servidores MCP" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quer continuar a sessão em outro aparelho",
+      "Sessão precisa seguir aberta no terminal"
+    ],
+    "pitfalls": [
+      "Requer assinatura do Claude",
+      "Sem login, mostra como entrar"
+    ],
+    "example": "/remote-control"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "slug": "usage-credits",
+  "command": "/usage-credits",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Configura créditos de uso ou pede ao administrador." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você bate no limite" },
+      { "id": "s2", "layer": "input", "label": "Você digita /usage-credits" },
+      { "id": "s3", "layer": "processing", "label": "Comando abre as opções" },
+      { "id": "s4", "layer": "result", "label": "Créditos ligados ou pedidos" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "leva" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [ { "command": "/usage", "label": "Mostra quanto do plano já foi usado" } ]
+  },
+  "contrast": {
+    "when": [ "Limite do plano interrompe o trabalho", "Trabalho precisa continuar hoje" ],
+    "pitfalls": [ "Não aparece com chave de API", "Depende do tipo de conta" ],
+    "example": "/usage-credits"
+  }
+}

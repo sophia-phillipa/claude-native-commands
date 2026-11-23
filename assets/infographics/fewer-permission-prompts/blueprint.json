@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "slug": "fewer-permission-prompts",
+  "command": "/fewer-permission-prompts",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Reduz os pedidos de permissão para comandos de leitura" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você roda /fewer-permission-prompts" },
+      { "id": "s2", "layer": "processing", "label": "O Claude lê as transcrições" },
+      { "id": "s3", "layer": "processing", "label": "Acha os comandos de leitura" },
+      { "id": "s4", "layer": "processing", "label": "Grava a allowlist priorizada" },
+      { "id": "s5", "layer": "result", "label": "Menos pedidos de permissão" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "analisa" },
+      { "from": "s3", "to": "s4", "verb": "monta" },
+      { "from": "s4", "to": "s5", "verb": "reduz" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[instruções]", "label": "Instrução extra para a análise" }
+    ],
+    "files": [
+      { "text": ".claude/settings.json", "label": "Recebe a allowlist do projeto" }
+    ],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Mesmos comandos de leitura aprovados toda hora",
+      "Projeto que você usa sempre"
+    ],
+    "pitfalls": [
+      "Só comandos de leitura entram na lista",
+      "Vale só para o projeto atual"
+    ],
+    "example": "/fewer-permission-prompts considere só git, rg e jq"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "slug": "bug",
+  "command": "/bug",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Encaminha o nome antigo ao /feedback, que abre o diálogo de envio."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /bug" },
+      { "id": "s2", "layer": "processing", "label": "O app envia para /feedback" },
+      { "id": "s3", "layer": "processing", "label": "Abre o diálogo de envio" },
+      { "id": "s4", "layer": "result", "label": "Você confirma antes do envio" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "redireciona" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "pede" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/feedback", "label": "Envia relato ao fabricante" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Lembra do nome antigo do comando", "Quer relatar um problema ao fabricante" ],
+    "pitfalls": [ "No app, aparece como /feedback (bug)" ],
+    "example": "/bug a busca de arquivos demora muito"
+  }
+}

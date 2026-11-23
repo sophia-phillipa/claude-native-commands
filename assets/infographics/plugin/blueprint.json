@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "slug": "plugin",
+  "command": "/plugin",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Instala, ativa e lista plugins sem sair do terminal." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /plugin com ação" },
+      { "id": "s2", "layer": "processing", "label": "O motor executa a ação" },
+      { "id": "s3", "layer": "processing", "label": "O motor informa o estado" },
+      { "id": "s4", "layer": "result", "label": "Plugin fica no estado pedido" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "deixa" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[subcommand]", "label": "Ação direta, como list ou install" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/reload-plugins", "label": "Ativa plugins sem abrir outra sessão" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Instalar plugin sem sair do terminal",
+      "Ativar ou listar plugins instalados"
+    ],
+    "pitfalls": [
+      "Instalação pode pedir /reload-plugins"
+    ],
+    "example": "/plugin list"
+  }
+}

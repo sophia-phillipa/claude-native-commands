@@ -1,0 +1,21 @@
+# NotebookLM originals: the audited PNG is the local audit source; the WebP and the 1920 PNG ship (decisions E10, E11).
+assets/infographics/*/infographic.png
+work/notebooklm-tests/*.png
+
+# Python and tool caches
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+
+# Editor and OS
+.DS_Store
+*.swp
+
+# Local-only working notes and task state: they stay on disk, out of the public repo.
+/dossier/
+/work/*
+!/work/infographic-contracts.md
+
+# Local-only values, such as the private NotebookLM notebook URL.
+*.local.md

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slug": "update-config",
+  "command": "/update-config",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Edita o settings.json a partir do que você descreve"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você descreve a mudança" },
+      { "id": "s2", "layer": "processing", "label": "Claude acha o arquivo certo" },
+      { "id": "s3", "layer": "processing", "label": "Claude grava a configuração" },
+      { "id": "s4", "layer": "result", "label": "Mudança fica no settings.json" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "escreve" },
+      { "from": "s3", "to": "s4", "verb": "atualiza" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": "settings.json", "label": "Recebe regras, variáveis e hooks" }
+    ],
+    "related": [
+      { "command": "/config", "label": "Ajustes simples como tema e modelo" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quer que algo aconteça sempre",
+      "Quer parar de aprovar o mesmo comando"
+    ],
+    "pitfalls": [
+      "Tema e modelo vão no /config"
+    ],
+    "example": "/update-config permitir os comandos npm test e npm run lint sem perguntar"
+  }
+}

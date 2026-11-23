@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "slug": "goal",
+  "command": "/goal",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Mantém o trabalho até a condição de pronto ser cumprida" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você define a condição" },
+      { "id": "s2", "layer": "processing", "label": "Claude começa o turno" },
+      { "id": "s3", "layer": "processing", "label": "Modelo confere a condição" },
+      { "id": "s4", "layer": "processing", "label": "Segue até a condição valer" },
+      { "id": "s5", "layer": "result", "label": "Meta cumprida, Claude para" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "avalia" },
+      { "from": "s3", "to": "s4", "verb": "devolve" },
+      { "from": "s4", "to": "s5", "verb": "encerra" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<condição>", "label": "Critério que define o pronto" },
+      { "text": "clear", "label": "Remove a meta atual" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/loop", "label": "Repetir em intervalos" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Migração ou bateria de testes longa",
+      "Você sabe dizer o que é pronto",
+      "Tarefa que para com quase pronto"
+    ],
+    "pitfalls": [
+      "Condição que a conversa não mostra",
+      "Erro que exige correção apaga a meta"
+    ],
+    "example": "/goal todos os testes do pytest passam e o ruff não acusa nada"
+  }
+}

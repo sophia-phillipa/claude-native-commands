@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "slug": "code-review",
+  "command": "/code-review",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Revisa o diff e pega bugs de correção antes do commit." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /code-review com nível" },
+      { "id": "s2", "layer": "processing", "label": "Revisão lê o alvo" },
+      { "id": "s3", "layer": "processing", "label": "Revisão busca bugs de correção" },
+      { "id": "s4", "layer": "processing", "label": "Nível controla quantos achados vêm" },
+      { "id": "s5", "layer": "result", "label": "Achados chegam antes do commit" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "inicia" },
+      { "from": "s2", "to": "s3", "verb": "examina" },
+      { "from": "s3", "to": "s4", "verb": "filtra" },
+      { "from": "s4", "to": "s5", "verb": "entrega" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<nível>", "label": "Low traz poucos, high traz mais" },
+      { "text": "[alvo]", "label": "Número de PR, branch ou caminho" },
+      { "text": "--fix", "label": "Aplica as correções no working tree" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/security-review", "label": "Use junto em mudanças de segurança" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Antes do commit ou de abrir PR", "Revisar um PR, branch ou caminho" ],
+    "pitfalls": [ "Sem nível, repete o último usado", "max e ultra são os mais caros" ],
+    "example": "/code-review high"
+  }
+}

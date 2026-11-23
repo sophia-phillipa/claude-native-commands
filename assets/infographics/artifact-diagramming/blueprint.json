@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slug": "artifact-diagramming",
+  "command": "/artifact-diagramming",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra em SVG o caminho que um texto não deixa claro."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /artifact-diagramming" },
+      { "id": "s2", "layer": "processing", "label": "Confere se vale desenhar" },
+      { "id": "s3", "layer": "processing", "label": "Desenha o caminho dos dados" },
+      { "id": "s4", "layer": "result", "label": "Diagrama legível nos dois temas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "orienta" },
+      { "from": "s3", "to": "s4", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Texto de fluxo ficou difícil de seguir",
+      "Arquitetura ou estados pedem um desenho"
+    ],
+    "pitfalls": [
+      "Caixa só com o nome",
+      "Desenho onde uma frase explica mais rápido"
+    ],
+    "example": "/artifact-diagramming fluxo de login com token de sessão"
+  }
+}

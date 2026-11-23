@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "workflow-authoring",
+  "command": "/workflow-authoring",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Carrega a referência antes de escrever o script do workflow."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você decide usar um workflow" },
+      { "id": "s2", "layer": "input", "label": "Você digita /workflow-authoring" },
+      { "id": "s3", "layer": "processing", "label": "Ensina API, armadilhas e retomada" },
+      { "id": "s4", "layer": "processing", "label": "Você monta o script" },
+      { "id": "s5", "layer": "result", "label": "Script pronto, sem rodar nada" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "carrega" },
+      { "from": "s3", "to": "s4", "verb": "orienta" },
+      { "from": "s4", "to": "s5", "verb": "produz" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Tarefa pede vários agentes coordenados",
+      "Antes de escrever o primeiro script"
+    ],
+    "pitfalls": [
+      "Tarefa comum não pede workflow",
+      "Script pode disparar muitos agentes"
+    ],
+    "example": "/workflow-authoring"
+  }
+}

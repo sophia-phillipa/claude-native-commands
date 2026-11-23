@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "slug": "reload-plugins",
+  "command": "/reload-plugins",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Ativa plugins instalados ou alterados sem abrir outra sessão." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /reload-plugins" },
+      { "id": "s2", "layer": "processing", "label": "Motor aplica plugins pendentes" },
+      { "id": "s3", "layer": "result", "label": "Plugins valem na sessão atual" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "ativa" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "--force", "label": "Aplica mesmo com recarga de MCP" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/reload-skills", "label": "Recarrega skills soltas no disco" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Depois de instalar um plugin na sessão",
+      "Depois de ligar ou desligar um plugin"
+    ],
+    "pitfalls": [
+      "Mudança de MCP relê a conversa inteira",
+      "Aviso de releitura exige --force"
+    ],
+    "example": "/reload-plugins"
+  }
+}

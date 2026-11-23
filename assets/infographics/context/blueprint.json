@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slug": "context",
+  "command": "/context",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra o que pesa na janela e o que cortar"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /context" },
+      { "id": "s2", "layer": "processing", "label": "O motor soma por categoria" },
+      { "id": "s3", "layer": "processing", "label": "Aponta ferramentas que pesam" },
+      { "id": "s4", "layer": "result", "label": "Você vê o que cortar" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "detalha" },
+      { "from": "s3", "to": "s4", "verb": "sugere" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Mostra quanto foi liberado" },
+      { "command": "/mcp", "label": "Mostra a linha MCP diminuir" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Respostas lentas ou sessão pesada",
+      "Antes de colar um log grande"
+    ],
+    "pitfalls": [
+      "Servidores MCP ligados costumam pesar"
+    ],
+    "example": "/context"
+  }
+}

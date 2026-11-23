@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/compact</title>
+<style>
+/* Design tokens (contract section 10). Every visual value below goes through these. */
+:root {
+  --bg: #F7F8FC;
+  --ink: #1A1C29;
+  --muted: #4A4F66;
+  --line: #D5D9E6;
+  --identity: #3B2F8F;
+  --identity-ink: #FFFFFF;
+  --input-fill: #E3F0FF;
+  --input-stroke: #1F6FD1;
+  --input-ink: #0B3B75;
+  --processing-fill: #EEE7FF;
+  --processing-stroke: #6B46D9;
+  --processing-ink: #3A1F8F;
+  --result-fill: #E3F7EA;
+  --result-stroke: #1E8A4C;
+  --result-ink: #0E4D2A;
+  --flags-fill: #FFF1DB;
+  --flags-stroke: #C27A00;
+  --flags-ink: #6B4200;
+  --files-fill: #DDF5F5;
+  --files-stroke: #0F8A8A;
+  --files-ink: #0A4F4F;
+  --related-fill: #FDE6F1;
+  --related-stroke: #C2307A;
+  --related-ink: #6E1243;
+  --pitfalls-fill: #FDE4E1;
+  --pitfalls-stroke: #C0392B;
+  --pitfalls-ink: #6B1A12;
+
+  --font-body: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fs-title: 56px;
+  --fs-purpose: 24px;
+  --fs-heading: 18px;
+  --fs-label: 20px;
+  --fs-step-wide: 24px;
+  --fs-verb: 16px;
+  --fs-literal: 18px;
+  --lh-label: 1.25;
+  --tracking-heading: 0.08em;
+
+  --space-tight: 6px;
+  --stack-gap: 8px;
+  --body-pad-y: 16px;
+  --band-pad-y: 16px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-5: 48px;
+  --radius: 12px;
+  --radius-pill: 999px;
+  --stroke: 2px;
+
+  --edge-x: 128px;
+  --edge-y: 56px;
+  --arrow-head: 10px;
+  --arrow-half: 6px;
+
+  --zone-gap: 32px;
+  --step-min-wide: 170px;
+  --step-cap-tall: 120px;
+  --control-size: 40px;
+  --icon-size: 20px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --canvas-w: 1600px;
+  --canvas-h: 900px;
+  --scale: 1;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-body); }
+h1, h2, h3, p, ul, ol, li { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+
+/* Viewer chrome (outside the canvas; hidden in print). */
+.stage { position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--bg); }
+.toolbar { flex: 0 0 auto; display: flex; justify-content: flex-end; gap: var(--space-1); padding: var(--space-1) var(--space-2); }
+.viewport { flex: 1 1 auto; min-height: 0; overflow: auto; }
+.sheet { position: relative; margin: var(--space-2) auto; width: calc(var(--canvas-w) * var(--scale)); height: calc(var(--canvas-h) * var(--scale)); }
+.control { display: inline-flex; align-items: center; justify-content: center; width: var(--control-size); height: var(--control-size); padding: 0; border: var(--stroke) solid var(--muted); border-radius: var(--radius); background: var(--bg); color: var(--ink); cursor: pointer; }
+.control:disabled { color: var(--muted); cursor: default; }
+.control:focus-visible { outline: var(--focus-width) solid var(--identity); outline-offset: var(--focus-offset); }
+.control svg { width: var(--icon-size); height: var(--icon-size); fill: none; stroke: currentColor; stroke-width: var(--stroke); stroke-linecap: round; stroke-linejoin: round; }
+
+/* The canvas is a fixed-size sheet (1600x900 or 1080x1350) scaled to fit. */
+.canvas { position: absolute; top: 0; left: 0; display: flex; flex-direction: column; width: var(--canvas-w); height: var(--canvas-h); overflow: hidden; background: var(--bg); transform: scale(var(--scale)); transform-origin: 0 0; }
+
+/* Zone 1: identity band. */
+.band { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--band-pad-y) var(--space-5); background: var(--identity); color: var(--identity-ink); }
+.band__title { font-family: var(--font-mono); font-size: var(--fs-title); font-weight: var(--fw-bold); line-height: 1.2; overflow-wrap: break-word; }
+.band__purpose { font-size: var(--fs-purpose); font-weight: var(--fw-regular); line-height: 1.4; }
+.band__top { order: -1; display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
+.band__top .zone__heading { color: var(--identity-ink); margin: 0; }
+.band__category { font-size: var(--fs-heading); font-weight: var(--fw-semibold); text-align: right; }
+
+/* Zones 2-4 share one body column. */
+.body { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--zone-gap); padding: var(--body-pad-y) var(--space-5); min-height: 0; }
+.zone__heading { margin-bottom: var(--space-1); font-size: var(--fs-heading); font-weight: var(--fw-bold); line-height: 1.2; letter-spacing: var(--tracking-heading); text-transform: uppercase; color: var(--ink); }
+
+/* Zone 2: flow chain (left to right on 16:9). */
+.zone--flow { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.flow { flex: 1 1 auto; min-height: 0; margin-block: auto; display: flex; align-items: stretch; }
+.step { flex: 1 1 0; min-width: 0; display: flex; align-items: center; justify-content: center; padding: var(--space-1) var(--space-2); border: var(--stroke) solid; border-radius: var(--radius); font-size: var(--fs-label); font-weight: var(--fw-semibold); line-height: var(--lh-label); text-align: center; overflow-wrap: break-word; }
+.step--input { background: var(--input-fill); border-color: var(--input-stroke); color: var(--input-ink); }
+.step--processing { background: var(--processing-fill); border-color: var(--processing-stroke); color: var(--processing-ink); }
+.step--result { background: var(--result-fill); border-color: var(--result-stroke); color: var(--result-ink); }
+/* 16:9 only (the larger label size does not apply to 4:5): the row is --step-min-wide tall, shrinks
+   when the canvas is full, and spare height is shared evenly between the zones. */
+.canvas--16x9 .body { justify-content: space-evenly; }
+.canvas--16x9 .zone--flow { flex: 0 1 auto; }
+.canvas--16x9 .flow { flex: 0 1 var(--step-min-wide); margin-block: 0; }
+.canvas--16x9 .step { font-size: var(--fs-step-wide); overflow-wrap: anywhere; }
+
+.edge { position: relative; flex: 0 0 var(--edge-x); }
+.edge__line { position: absolute; top: 50%; left: 0; right: var(--arrow-head); height: var(--stroke); background: var(--muted); transform: translateY(-50%); }
+.edge__head { position: absolute; top: 50%; right: 0; width: 0; height: 0; border-top: var(--arrow-half) solid transparent; border-bottom: var(--arrow-half) solid transparent; border-left: var(--arrow-head) solid var(--muted); border-right: 0; transform: translateY(-50%); }
+.verb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: var(--space-tight) var(--space-1); border-radius: var(--radius-pill); background: var(--bg); color: var(--ink); font-size: var(--fs-verb); font-weight: var(--fw-semibold); line-height: 1.25; white-space: nowrap; }
+
+/* Zone 3: connection groups (flags, files, related). */
+.links { display: flex; align-items: flex-start; gap: var(--space-2); }
+.links__group { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--stack-gap); }
+.link { padding: var(--space-tight) var(--space-2); border: var(--stroke) solid; border-radius: var(--radius); font-size: var(--fs-label); font-weight: var(--fw-semibold); line-height: var(--lh-label); overflow-wrap: break-word; }
+.link__literal { font-family: var(--font-mono); font-size: var(--fs-literal); font-weight: var(--fw-semibold); }
+.link--flags { background: var(--flags-fill); border-color: var(--flags-stroke); color: var(--flags-ink); }
+.link--files { background: var(--files-fill); border-color: var(--files-stroke); color: var(--files-ink); }
+.link--related { background: var(--related-fill); border-color: var(--related-stroke); color: var(--related-ink); }
+
+/* Zone 4: when | pitfalls | example. */
+.notes { display: flex; align-items: flex-start; gap: var(--space-2); }
+.notes__part { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.notes__list { display: flex; flex-direction: column; gap: var(--stack-gap); }
+.box { padding: var(--space-tight) var(--space-2); border: var(--stroke) solid; border-radius: var(--radius); font-size: var(--fs-label); font-weight: var(--fw-semibold); line-height: var(--lh-label); overflow-wrap: break-word; }
+.box--result { background: var(--result-fill); border-color: var(--result-stroke); color: var(--result-ink); }
+.box--pitfalls { background: var(--pitfalls-fill); border-color: var(--pitfalls-stroke); color: var(--pitfalls-ink); }
+.notes__example { padding: var(--space-tight) var(--space-2); border: var(--stroke) solid var(--muted); border-radius: var(--radius); background: var(--bg); color: var(--ink); font-family: var(--font-mono); font-size: var(--fs-literal); font-weight: var(--fw-semibold); line-height: 1.4; overflow-wrap: break-word; }
+
+/* 4:5: the same zones stacked, the flow chain vertical. */
+.canvas--4x5 { --zone-gap: 24px; }
+.canvas--4x5 .flow { flex-direction: column; max-height: none; margin-block: 0; justify-content: center; }
+.canvas--4x5 .step { flex: 1 1 0; max-height: var(--step-cap-tall); }
+.canvas--4x5 .edge { flex: 0 0 var(--edge-y); width: 100%; }
+.canvas--4x5 .edge__line { top: 0; bottom: var(--arrow-head); left: 50%; right: auto; width: var(--stroke); height: auto; transform: translateX(-50%); }
+.canvas--4x5 .edge__head { top: auto; right: auto; bottom: 0; left: 50%; border-top: var(--arrow-head) solid var(--muted); border-bottom: 0; border-left: var(--arrow-half) solid transparent; border-right: var(--arrow-half) solid transparent; transform: translateX(-50%); }
+.canvas--4x5 .links { flex-direction: column; align-items: stretch; }
+.canvas--4x5 .links__group { flex: 0 0 auto; }
+
+/* Set by the render script when a step box or the flow zone overflows: step text drops to the
+   regular label size and secondary spacing tightens; no text goes below --fs-label. */
+.canvas--tight {
+  --fs-step-wide: var(--fs-label);
+  --zone-gap: 16px;
+  --stack-gap: 4px;
+  --body-pad-y: 8px;
+  --band-pad-y: 12px;
+  --space-tight: 4px;
+  --edge-x: 96px;
+  --edge-y: 40px;
+}
+
+/* Print: one page at the canvas size, controls hidden, colors kept. */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { height: auto; }
+  .stage { position: static; display: block; height: var(--canvas-h); overflow: hidden; }
+  .toolbar { display: none; }
+  .viewport { overflow: visible; }
+  .sheet { width: var(--canvas-w); height: var(--canvas-h); margin: 0; }
+  .canvas { transform: none; }
+  [data-testid="infographic-zoom-in"], [data-testid="infographic-zoom-out"], [data-testid="infographic-zoom-reset"] { display: none; }
+}
+
+/* Safety net: zoom controls stay out of an export even if the toolbar stops hiding them. */
+html[data-export] [data-testid="infographic-zoom-in"],
+html[data-export] [data-testid="infographic-zoom-out"],
+html[data-export] [data-testid="infographic-zoom-reset"] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="toolbar" role="toolbar" aria-label="Tamanho do infográfico">
+    <button class="control" type="button" data-action="in" data-testid="infographic-zoom-in" aria-label="Aumentar tamanho"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="control" type="button" data-action="out" data-testid="infographic-zoom-out" aria-label="Diminuir tamanho"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/></svg></button>
+    <button class="control" type="button" data-action="reset" data-testid="infographic-zoom-reset" aria-label="Redefinir tamanho"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4.5h4.5"/></svg></button>
+  </div>
+  <div class="viewport" id="viewport">
+    <div class="sheet" id="sheet"></div>
+  </div>
+</div>
+
+<script type="application/json" id="blueprint">{"version":1,"slug":"compact","command":"/compact","category":"Contexto e memória","aspect":"16:9","ui":{"zone1":"Identidade e gatilho","zone2":"Fluxo de execução","zone3":"Conexões e variações","when":"Quando usar","pitfalls":"Armadilhas comuns","example":"Exemplo"},"identity":{"purpose":"Resume a conversa e libera contexto."},"flow":{"steps":[{"id":"s1","layer":"input","label":"A conversa enche a janela"},{"id":"s2","layer":"input","label":"Você digita /compact com instruções"},{"id":"s3","layer":"processing","label":"O motor lê o histórico"},{"id":"s4","layer":"processing","label":"O motor escreve resumo fiel"},{"id":"s5","layer":"result","label":"Sessão segue mais leve"}],"edges":[{"from":"s1","to":"s2","verb":"motiva"},{"from":"s2","to":"s3","verb":"executa"},{"from":"s3","to":"s4","verb":"gera"},{"from":"s4","to":"s5","verb":"reduz"}]},"connections":{"flags":[{"text":"[instruções]","label":"Diz o que o resumo preserva"}],"files":[],"related":[{"command":"/context","label":"Mede quanto contexto sobrou"},{"command":"/autocompact","label":"Ajusta a compactação automática"},{"command":"/clear","label":"Recomeça com contexto vazio"}]},"contrast":{"when":["Perto do limite da sessão","Antes da compactação automática"],"pitfalls":["Sem instruções, detalhes podem sumir","Mensagens exatas viram resumo"],"example":"/compact mantenha testes e decisões"}}</script>
+
+<script>
+(function () {
+  "use strict";
+
+  const ZOOM_STEPS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+  const DEFAULT_ZOOM_INDEX = 2;
+  const FRAME_GAP_PX = 16;
+  const MIN_FIT_SCALE = 0.05;
+  const OVERFLOW_TOLERANCE_PX = 1;
+  const ASPECTS = new Map([
+    ["16:9", { width: 1600, height: 900, modifier: "canvas--16x9" }],
+    ["4:5", { width: 1080, height: 1350, modifier: "canvas--4x5" }]
+  ]);
+  const LAYER_MODIFIERS = new Map([
+    ["input", "step--input"],
+    ["processing", "step--processing"],
+    ["result", "step--result"]
+  ]);
+  const LINK_GROUPS = [
+    { key: "flags", literalField: "text", modifier: "flags", title: "Flags e argumentos" },
+    { key: "files", literalField: "text", modifier: "files", title: "Arquivos impactados" },
+    { key: "related", literalField: "command", modifier: "related", title: "Comandos relacionados" }
+  ];
+
+  function element(tagName, className, text) {
+    const node = document.createElement(tagName);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function decoration(className) {
+    const node = element("span", className);
+    node.setAttribute("aria-hidden", "true");
+    return node;
+  }
+
+  // One renderer per zone heading; the heading id is what the section names itself with.
+  function zoneHeading(headingTag, titleId, headingText) {
+    const heading = element(headingTag, "zone__heading", headingText);
+    heading.id = titleId;
+    return heading;
+  }
+
+  function zoneSection(className, titleId, headingTag, headingText) {
+    const section = element("section", className);
+    section.setAttribute("aria-labelledby", titleId);
+    section.append(zoneHeading(headingTag, titleId, headingText));
+    return section;
+  }
+
+  function readBlueprint() {
+    const source = document.getElementById("blueprint");
+    if (!source) throw new Error("Blueprint element is missing.");
+    return JSON.parse(source.textContent);
+  }
+
+  function layerModifier(layer) {
+    const modifier = LAYER_MODIFIERS.get(layer);
+    if (!modifier) throw new Error(`Unknown flow layer: ${layer}`);
+    return modifier;
+  }
+
+  function renderBand(blueprint) {
+    const band = element("header", "band");
+    const top = element("div", "band__top");
+    top.append(
+      zoneHeading("h2", "zone-identity-title", blueprint.ui.zone1),
+      element("p", "band__category", blueprint.category)
+    );
+    band.setAttribute("aria-labelledby", "zone-identity-title");
+    band.append(
+      element("h1", "band__title", blueprint.command),
+      element("p", "band__purpose", blueprint.identity.purpose),
+      top
+    );
+    return band;
+  }
+
+  function renderStep(step) {
+    return element("li", `step ${layerModifier(step.layer)}`, step.label);
+  }
+
+  function renderEdge(verb) {
+    const edge = element("li", "edge");
+    edge.append(decoration("edge__line"), decoration("edge__head"), element("span", "verb", verb));
+    return edge;
+  }
+
+  function renderFlowZone(ui, flow) {
+    const zone = zoneSection("zone zone--flow", "zone-flow-title", "h2", ui.zone2);
+    const list = element("ol", "flow");
+    const edgeFrom = new Map(flow.edges.map((edge) => [edge.from, edge]));
+    flow.steps.forEach((step, index) => {
+      list.append(renderStep(step));
+      const edge = edgeFrom.get(step.id);
+      if (edge && index < flow.steps.length - 1) list.append(renderEdge(edge.verb));
+    });
+    zone.append(list);
+    return zone;
+  }
+
+  function linkItems(connections, group) {
+    return (connections[group.key] || []).map((item) => ({
+      literal: item[group.literalField],
+      label: item.label
+    }));
+  }
+
+  function renderLink(modifier, item) {
+    const link = element("li", `link link--${modifier}`);
+    link.append(element("code", "link__literal", item.literal), " ", element("span", "link__label", item.label));
+    return link;
+  }
+
+  function renderLinkGroup(group, items) {
+    const list = element("ul", "links__group");
+    list.setAttribute("aria-label", group.title);
+    list.append(...items.map((item) => renderLink(group.modifier, item)));
+    return list;
+  }
+
+  // Empty groups are dropped; the zone heading stays (it is part of the closed text list),
+  // and the row is omitted when no group has items, so no empty box is drawn.
+  function renderLinksZone(ui, connections) {
+    const zone = zoneSection("zone zone--links", "zone-links-title", "h2", ui.zone3);
+    const groups = LINK_GROUPS
+      .map((group) => ({ group, items: linkItems(connections, group) }))
+      .filter((entry) => entry.items.length > 0);
+    if (groups.length > 0) {
+      const row = element("div", "links");
+      groups.forEach((entry) => row.append(renderLinkGroup(entry.group, entry.items)));
+      zone.append(row);
+    }
+    return zone;
+  }
+
+  function renderBoxPart(title, titleId, boxModifier, items) {
+    const part = zoneSection("notes__part", titleId, "h3", title);
+    const list = element("ul", "notes__list");
+    list.append(...items.map((text) => element("li", `box ${boxModifier}`, text)));
+    part.append(list);
+    return part;
+  }
+
+  function renderExamplePart(title, example) {
+    const part = zoneSection("notes__part", "notes-example-title", "h3", title);
+    part.append(element("p", "notes__example", example));
+    return part;
+  }
+
+  function renderNotesZone(ui, contrast) {
+    const zone = element("div", "zone zone--notes");
+    const row = element("div", "notes");
+    row.append(
+      renderBoxPart(ui.when, "notes-when-title", "box--result", contrast.when),
+      renderBoxPart(ui.pitfalls, "notes-pitfalls-title", "box--pitfalls", contrast.pitfalls),
+      renderExamplePart(ui.example, contrast.example)
+    );
+    zone.append(row);
+    return zone;
+  }
+
+  function renderCanvas(blueprint, aspect) {
+    const canvas = element("div", `canvas ${aspect.modifier}`);
+    const body = element("div", "body");
+    body.append(renderFlowZone(blueprint.ui, blueprint.flow));
+    body.append(renderLinksZone(blueprint.ui, blueprint.connections || {}));
+    body.append(renderNotesZone(blueprint.ui, blueprint.contrast));
+    canvas.append(renderBand(blueprint), body);
+    return canvas;
+  }
+
+  // One measurement, no search loop: a squeezed step box (or flow zone) switches the canvas to the tight class.
+  function fitSteps(canvas) {
+    const overflows = (node) =>
+      node.scrollHeight > node.clientHeight + OVERFLOW_TOLERANCE_PX ||
+      node.scrollWidth > node.clientWidth + OVERFLOW_TOLERANCE_PX;
+    const squeezed = canvas.querySelectorAll(".step, .flow, .zone--flow");
+    canvas.classList.toggle("canvas--tight", Array.from(squeezed).some(overflows));
+  }
+
+  function initViewer(aspect) {
+    const root = document.documentElement;
+    const viewport = document.getElementById("viewport");
+    const toolbar = document.querySelector(".toolbar");
+    const buttons = {
+      in: toolbar.querySelector('[data-action="in"]'),
+      out: toolbar.querySelector('[data-action="out"]'),
+      reset: toolbar.querySelector('[data-action="reset"]')
+    };
+    let zoomIndex = DEFAULT_ZOOM_INDEX;
+
+    root.style.setProperty("--canvas-w", `${aspect.width}px`);
+    root.style.setProperty("--canvas-h", `${aspect.height}px`);
+
+    const pageStyle = element("style", null, `@page { size: ${aspect.width}px ${aspect.height}px; margin: 0; }`);
+    document.head.append(pageStyle);
+
+    function updateControls() {
+      buttons.in.disabled = zoomIndex === ZOOM_STEPS.length - 1;
+      buttons.out.disabled = zoomIndex === 0;
+      buttons.reset.disabled = zoomIndex === DEFAULT_ZOOM_INDEX;
+    }
+
+    // Fit the canvas to the viewport, then apply the user zoom step.
+    function applyFit() {
+      const fit = Math.min(
+        (viewport.clientWidth - 2 * FRAME_GAP_PX) / aspect.width,
+        (viewport.clientHeight - 2 * FRAME_GAP_PX) / aspect.height
+      );
+      root.style.setProperty("--scale", String(Math.max(fit, MIN_FIT_SCALE) * ZOOM_STEPS[zoomIndex]));
+      updateControls();
+    }
+
+    const CONTROL_STEPS = new Map([
+      ["in", () => zoomIndex + 1],
+      ["out", () => zoomIndex - 1],
+      ["reset", () => DEFAULT_ZOOM_INDEX]
+    ]);
+
+    toolbar.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-action]");
+      if (!button || button.disabled) return;
+      const nextIndex = CONTROL_STEPS.get(button.dataset.action)();
+      zoomIndex = Math.min(Math.max(nextIndex, 0), ZOOM_STEPS.length - 1);
+      applyFit();
+    });
+
+    new ResizeObserver(applyFit).observe(viewport);
+    applyFit();
+  }
+
+  function main() {
+    const blueprint = readBlueprint();
+    const aspect = ASPECTS.get(blueprint.aspect);
+    if (!aspect) throw new Error(`Unsupported aspect: ${blueprint.aspect}`);
+    document.title = blueprint.command;
+    const canvas = renderCanvas(blueprint, aspect);
+    document.getElementById("sheet").replaceChildren(canvas);
+    initViewer(aspect);
+    // After initViewer: it sets the canvas size the measurement depends on.
+    fitSteps(canvas);
+  }
+
+  main();
+})();
+</script>
+</body>
+</html>

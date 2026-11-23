@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "slug": "doctor",
+  "command": "/doctor",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Diagnostica a instalação e propõe correções."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /doctor" },
+      { "id": "s2", "layer": "processing", "label": "O motor confere a instalação" },
+      { "id": "s3", "layer": "processing", "label": "Confere extensões, memória e permissões" },
+      { "id": "s4", "layer": "processing", "label": "Mostra achados e pede confirmação" },
+      { "id": "s5", "layer": "result", "label": "Aplica as correções confirmadas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "examina" },
+      { "from": "s3", "to": "s4", "verb": "reúne" },
+      { "from": "s4", "to": "s5", "verb": "aplica" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": "CLAUDE.md", "label": "Verifica memória duplicada ou inchada" }
+    ],
+    "related": [
+      { "command": "/color", "label": "Cor da barra de prompt da sessão" },
+      { "command": "/reload-plugins", "label": "Ativar plugins sem abrir outra sessão" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quando o app fica lento sem motivo",
+      "Quando um hook demora demais",
+      "Logo depois de atualizar o app"
+    ],
+    "pitfalls": [
+      "Pode não aparecer no menu do app",
+      "Modo Desktop o marca como terminal"
+    ],
+    "example": "/doctor"
+  }
+}

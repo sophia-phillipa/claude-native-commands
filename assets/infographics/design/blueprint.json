@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "slug": "design",
+  "command": "/design",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Rascunha telas e pôsteres como pranchetas no Claude Design." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /design com briefing" },
+      { "id": "s2", "layer": "processing", "label": "O Claude rascunha as pranchetas" },
+      { "id": "s3", "layer": "processing", "label": "Publica o canvas como artefato" },
+      { "id": "s4", "layer": "result", "label": "Pranchetas prontas para exportar" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "libera" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[brief]", "label": "Descrição do que desenhar" } ],
+    "files": [],
+    "related": [
+      { "command": "/design-consent", "label": "Concede ao Claude acesso ao Claude Design" },
+      { "command": "/design-revoke", "label": "Retira o acesso ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Rascunho de tela antes de codar", "Pôster antes de publicar" ],
+    "pitfalls": [ "Exige Claude Code mais novo", "Não funciona no Amazon Bedrock" ],
+    "example": "/design tela de configurações para um app de banco digital"
+  }
+}

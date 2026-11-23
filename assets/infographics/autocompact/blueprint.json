@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "autocompact",
+  "command": "/autocompact",
+  "category": "Contexto e memória",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Define em que tamanho a compactação automática entra"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /autocompact com valor" },
+      { "id": "s2", "layer": "processing", "label": "Claude Code define a janela" },
+      { "id": "s3", "layer": "processing", "label": "A compactação entra nesse tamanho" },
+      { "id": "s4", "layer": "result", "label": "Sessão compacta antes do fim" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "fixa" },
+      { "from": "s3", "to": "s4", "verb": "dispara" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<tokens>", "label": "Tamanho da janela em tokens" },
+      { "text": "auto", "label": "Volta ao ajuste automático" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/compact", "label": "Resumir a conversa e liberar contexto" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Compactação chega cedo ou tarde demais"
+    ],
+    "pitfalls": [
+      "Valor sem folga abaixo da janela",
+      "Tarde demais deixa a sessão cara"
+    ],
+    "example": "/autocompact 300000"
+  }
+}

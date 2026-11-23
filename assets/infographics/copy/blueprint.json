@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "slug": "copy",
+  "command": "/copy",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Leva uma resposta para fora sem selecionar."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Claude já respondeu" },
+      { "id": "s2", "layer": "input", "label": "Você digita /copy" },
+      { "id": "s3", "layer": "processing", "label": "Escolhe a N-ésima resposta" },
+      { "id": "s4", "layer": "processing", "label": "Abre seletor se houver código" },
+      { "id": "s5", "layer": "result", "label": "Texto na área de transferência" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "entrega" },
+      { "from": "s4", "to": "s5", "verb": "copia" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "[N]", "label": "Número contado a partir da última" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/code-review", "label": "Caçar bugs no diff atual" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Resposta longa que você quer levar",
+      "Resposta com código para outro lugar"
+    ],
+    "pitfalls": [
+      "Com código, o seletor aparece",
+      "N conta a partir da última"
+    ],
+    "example": "/copy 2"
+  }
+}

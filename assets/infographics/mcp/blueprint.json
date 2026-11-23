@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "slug": "mcp",
+  "command": "/mcp",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra os servidores MCP e reconecta ou desliga cada um."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /mcp" },
+      { "id": "s2", "layer": "processing", "label": "Painel lista os servidores" },
+      { "id": "s3", "layer": "processing", "label": "Reconecta ou desliga um servidor" },
+      { "id": "s4", "layer": "result", "label": "Ferramentas voltam ou param" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "permite" },
+      { "from": "s3", "to": "s4", "verb": "muda" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "reconnect", "label": "Reconecta um servidor que caiu" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/context", "label": "Mostra as ferramentas MCP e tokens" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Ferramenta MCP parou de responder", "Sessão nova sem alguns servidores" ],
+    "pitfalls": [ "No Desktop, conectores têm tela própria", "Liga e desliga valem por projeto" ],
+    "example": "/mcp"
+  }
+}

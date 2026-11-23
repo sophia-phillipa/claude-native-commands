@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slug": "workflows",
+  "command": "/workflows",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Acompanha, pausa e salva workflows em andamento."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /workflows" },
+      { "id": "s2", "layer": "processing", "label": "Lista execuções rodando e terminadas" },
+      { "id": "s3", "layer": "processing", "label": "Mostra fases e agentes" },
+      { "id": "s4", "layer": "result", "label": "Execução pausada, retomada ou salva" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "abre" },
+      { "from": "s3", "to": "s4", "verb": "permite" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/goal", "label": "Trabalhar até a meta ser cumprida" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Workflow com vários agentes rodando",
+      "Workflow terminado, para consultar"
+    ],
+    "pitfalls": [
+      "Sair da sessão não retoma sozinho",
+      "Muitos agentes gastam mais tokens"
+    ],
+    "example": "/workflows"
+  }
+}

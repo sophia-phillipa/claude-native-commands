@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "slug": "list-agents",
+  "command": "/list-agents",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Lista os subagentes e sessões que recebem mensagem." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /list-agents" },
+      { "id": "s2", "layer": "processing", "label": "Motor reúne subagentes e sessões" },
+      { "id": "s3", "layer": "result", "label": "Você vê quem recebe mensagem" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "mostra" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/mcp", "label": "Gerenciar servidores MCP" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Antes de enviar mensagem a outra sessão",
+      "Para conferir quem está disponível"
+    ],
+    "pitfalls": [
+      "Depende do recurso de mensagens ligado",
+      "Sessões na nuvem exigem Remote Control"
+    ],
+    "example": "/list-agents"
+  }
+}

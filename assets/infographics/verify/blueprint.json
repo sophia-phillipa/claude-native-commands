@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "slug": "verify",
+  "command": "/verify",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Confirma a mudança rodando o app."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você muda o código" },
+      { "id": "s2", "layer": "input", "label": "Você digita /verify" },
+      { "id": "s3", "layer": "processing", "label": "A skill constrói o app" },
+      { "id": "s4", "layer": "processing", "label": "A skill roda o app" },
+      { "id": "s5", "layer": "result", "label": "Você vê se funciona" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "leva a" },
+      { "from": "s4", "to": "s5", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": ".claude/skills/verify/SKILL.md", "label": "Guarda a receita que funcionou" }
+    ],
+    "related": [
+      { "command": "/code-review", "label": "Caçar bugs no diff atual" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Testes ok, app ainda não visto",
+      "Antes de dar a tarefa por pronta"
+    ],
+    "pitfalls": [
+      "Sem receita, grava em SKILL.md",
+      "Só testes e tipos não bastam"
+    ],
+    "example": "/verify"
+  }
+}

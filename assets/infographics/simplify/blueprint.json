@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "slug": "simplify",
+  "command": "/simplify",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Enxuga o código alterado sem mudar o comportamento." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /simplify" },
+      { "id": "s2", "layer": "processing", "label": "O motor lê o código" },
+      { "id": "s3", "layer": "processing", "label": "Quatro agentes revisam em paralelo" },
+      { "id": "s4", "layer": "processing", "label": "O motor aplica as correções" },
+      { "id": "s5", "layer": "result", "label": "Diff fica menor e legível" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "distribui" },
+      { "from": "s3", "to": "s4", "verb": "reúne" },
+      { "from": "s4", "to": "s5", "verb": "reduz" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/code-review", "label": "Caça bugs que ele não procura" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Depois que os testes passam", "Antes do commit, para enxugar o diff" ],
+    "pitfalls": [ "Não procura bugs de correção" ],
+    "example": "/simplify"
+  }
+}

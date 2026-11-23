@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "slug": "theme",
+  "command": "/theme",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Deixa as cores confortáveis no seu terminal" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /theme" },
+      { "id": "s2", "layer": "processing", "label": "Abre a lista de temas" },
+      { "id": "s3", "layer": "processing", "label": "Você escolhe o tema" },
+      { "id": "s4", "layer": "result", "label": "Interface troca as cores" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "espera" },
+      { "from": "s3", "to": "s4", "verb": "muda" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": "~/.claude/themes/", "label": "Lê temas personalizados criados por você" }
+    ],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Cores não combinam com o terminal", "Precisa de cores mais fáceis de distinguir" ],
+    "pitfalls": [ "Não muda as cores do terminal", "Primeiro tema em pasta nova pede reinício" ],
+    "example": "/theme"
+  }
+}

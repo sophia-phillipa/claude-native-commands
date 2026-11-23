@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "slug": "status",
+  "command": "/status",
+  "category": "Diagnóstico e uso",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Abre a aba Status com versão, modelo, conta e conectividade."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /status"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "Abre a aba Status"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Mostra versão, modelo e conta"
+      },
+      {
+        "id": "s4",
+        "layer": "processing",
+        "label": "Mostra conectividade e Session kind"
+      },
+      {
+        "id": "s5",
+        "layer": "result",
+        "label": "Confere o que parece errado"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "executa"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "lista"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "completa"
+      },
+      {
+        "from": "s4",
+        "to": "s5",
+        "verb": "ajuda"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/doctor",
+        "label": "Check-up da instalação"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quando algo parece errado",
+      "Enquanto o Claude está respondendo"
+    ],
+    "pitfalls": [
+      "Em segundo plano, não mostra interactive"
+    ],
+    "example": "/status"
+  }
+}

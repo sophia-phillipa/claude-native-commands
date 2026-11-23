@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "slug": "design-consent",
+  "command": "/design-consent",
+  "category": "Extensões e conexões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Concede ao Claude acesso ao Claude Design." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /design consent" },
+      { "id": "s2", "layer": "processing", "label": "O motor concede o acesso" },
+      { "id": "s3", "layer": "result", "label": "Claude passa a ter acesso" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "libera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-revoke", "label": "Retira o acesso ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Claude pediu acesso numa resposta",
+      "Quer dar acesso ao Claude Design"
+    ],
+    "pitfalls": [
+      "Claude não digita este comando"
+    ],
+    "example": "/design consent"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "slug": "init",
+  "command": "/init",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Cria o CLAUDE.md que guia cada sessão nova" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você roda /init na pasta" },
+      { "id": "s2", "layer": "processing", "label": "O Claude analisa o código" },
+      { "id": "s3", "layer": "processing", "label": "O Claude cria o CLAUDE.md" },
+      { "id": "s4", "layer": "result", "label": "Sessões novas já começam informadas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "guia" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      { "text": "CLAUDE.md", "label": "Guia do projeto para o Claude" }
+    ],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Primeiro dia num repositório novo",
+      "Repositório recém-clonado antes da primeira tarefa",
+      "Depois de reorganizar a estrutura do projeto"
+    ],
+    "pitfalls": [
+      "Arquivo existente recebe sugestões, não troca",
+      "Revise o CLAUDE.md antes do commit"
+    ],
+    "example": "/init"
+  }
+}

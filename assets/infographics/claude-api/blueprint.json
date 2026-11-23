@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "slug": "claude-api",
+  "command": "/claude-api",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Carrega a referência da API da Claude." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /claude-api" },
+      { "id": "s2", "layer": "processing", "label": "Claude carrega a referência" },
+      { "id": "s3", "layer": "result", "label": "Resposta usa a referência" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "aciona" },
+      { "from": "s2", "to": "s3", "verb": "embasa" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Ao construir um app com a API", "Ao trocar de modelo ou calcular custo" ],
+    "pitfalls": [ "Skill pode estar desligada nas configurações" ],
+    "example": "/claude-api como ligo o cache de prompt no meu chatbot em Python?"
+  }
+}

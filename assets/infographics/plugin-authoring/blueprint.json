@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "plugin-authoring",
+  "command": "/plugin-authoring",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Ajuda a criar, mudar ou depurar um mod do Claude."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /plugin-authoring" },
+      { "id": "s2", "layer": "input", "label": "Você descreve o mod" },
+      { "id": "s3", "layer": "processing", "label": "Guia formato e cuidados" },
+      { "id": "s4", "layer": "processing", "label": "Cria ou conserta o mod" },
+      { "id": "s5", "layer": "result", "label": "Mod criado, mudado ou depurado" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "orienta" },
+      { "from": "s3", "to": "s4", "verb": "leva a" },
+      { "from": "s4", "to": "s5", "verb": "gera" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quer mudar a interface ou o comportamento",
+      "Não sabe por onde começar um mod"
+    ],
+    "pitfalls": [
+      "Descobrir tudo por tentativa",
+      "Esquecer o formato de cada tipo"
+    ],
+    "example": "/plugin-authoring uma linha de status com a hora do último commit"
+  }
+}

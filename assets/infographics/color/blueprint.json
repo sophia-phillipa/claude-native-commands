@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slug": "color",
+  "command": "/color",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Diferencia cada sessão pela cor da barra" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /color" },
+      { "id": "s2", "layer": "processing", "label": "A barra muda de cor" },
+      { "id": "s3", "layer": "processing", "label": "A cor vale nesta sessão" },
+      { "id": "s4", "layer": "result", "label": "Você reconhece a sessão" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "aplica" },
+      { "from": "s3", "to": "s4", "verb": "mostra" }
+    ]
+  },
+  "connections": {
+    "flags": [
+      { "text": "<cor>", "label": "Escolhe a cor da barra" },
+      { "text": "default", "label": "Volta à cor padrão" }
+    ],
+    "files": [],
+    "related": [
+      { "command": "/doctor", "label": "Check-up da instalação" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Duas ou mais sessões abertas juntas",
+      "Código e revisão em janelas separadas"
+    ],
+    "pitfalls": [
+      "Vale só para esta sessão"
+    ],
+    "example": "/color green"
+  }
+}

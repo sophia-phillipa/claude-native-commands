@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "slug": "import",
+  "command": "/import",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Traz para o Claude Code a configuração de outro agente"
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /import" },
+      { "id": "s2", "layer": "processing", "label": "Acha o que pode importar" },
+      { "id": "s3", "layer": "processing", "label": "Você confirma o que importar" },
+      { "id": "s4", "layer": "result", "label": "Claude Code recebe a configuração" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "mostra" },
+      { "from": "s3", "to": "s4", "verb": "aplica" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Ao trocar de outro agente de código",
+      "Para não recriar servidores MCP à mão"
+    ],
+    "pitfalls": [
+      "Pode não aparecer na sua lista"
+    ],
+    "example": "/import"
+  }
+}

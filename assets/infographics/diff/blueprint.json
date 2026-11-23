@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "slug": "diff",
+  "command": "/diff",
+  "category": "Revisão de código",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Confere o que mudou na árvore de trabalho."
+  },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Claude edita arquivos" },
+      { "id": "s2", "layer": "input", "label": "Você digita /diff" },
+      { "id": "s3", "layer": "processing", "label": "Lê as mudanças do git" },
+      { "id": "s4", "layer": "processing", "label": "Conta linhas por arquivo" },
+      { "id": "s5", "layer": "result", "label": "Mostra as mudanças por arquivo" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "motiva" },
+      { "from": "s2", "to": "s3", "verb": "executa" },
+      { "from": "s3", "to": "s4", "verb": "soma" },
+      { "from": "s4", "to": "s5", "verb": "exibe" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/code-review", "label": "Caçar bugs no diff atual" }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Antes de aceitar o resultado da sessão",
+      "Antes de seguir com a próxima mudança"
+    ],
+    "pitfalls": [
+      "Edição em submódulo não aparece",
+      "Edição por shell não aparece nos turnos"
+    ],
+    "example": "/diff"
+  }
+}

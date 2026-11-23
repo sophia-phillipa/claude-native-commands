@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "slides",
+  "command": "/slides",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Cria uma apresentação a partir de um resumo." },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /slides com resumo" },
+      { "id": "s2", "layer": "processing", "label": "O Claude preenche os slides" },
+      { "id": "s3", "layer": "processing", "label": "Cria a apresentação como artefato" },
+      { "id": "s4", "layer": "result", "label": "Primeiro rascunho da apresentação" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "gera" },
+      { "from": "s3", "to": "s4", "verb": "entrega" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "[brief]", "label": "Assunto ou resumo da apresentação" } ],
+    "files": [],
+    "related": [
+      { "command": "/design-sync", "label": "Enviar seu design system ao Claude Design" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Primeiro rascunho de uma apresentação", "Quando a conta tem artefatos" ],
+    "pitfalls": [ "Exige Claude Code mais novo", "Depende do template de slides na conta" ],
+    "example": "/slides uma revisão trimestral da equipe de plataforma"
+  }
+}

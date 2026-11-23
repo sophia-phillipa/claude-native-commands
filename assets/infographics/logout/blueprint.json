@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "slug": "logout",
+  "command": "/logout",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Desconecta a conta Anthropic num computador dividido com outras pessoas."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /logout"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "Motor encerra sessão da conta"
+      },
+      {
+        "id": "s3",
+        "layer": "result",
+        "label": "Conta fica desconectada"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "executa"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "desconecta"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/login",
+        "label": "Para entrar de novo depois de sair"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Computador vai ser usado por outra pessoa",
+      "Conta precisa sair da sessão"
+    ],
+    "pitfalls": [
+      "Depois de sair, precisa de /login"
+    ],
+    "example": "/logout"
+  }
+}

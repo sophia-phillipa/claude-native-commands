@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "sandbox",
+  "command": "/sandbox",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Liga ou desliga o sandbox na sessão" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /sandbox" },
+      { "id": "s2", "layer": "processing", "label": "Abre o painel do sandbox" },
+      { "id": "s3", "layer": "processing", "label": "Você liga ou desliga" },
+      { "id": "s4", "layer": "result", "label": "Modo sandbox muda de estado" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "abre" },
+      { "from": "s2", "to": "s3", "verb": "aguarda" },
+      { "from": "s3", "to": "s4", "verb": "muda" }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      { "command": "/config", "label": "Mudar uma configuração pelo nome" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Quer ligar ou desligar o sandbox", "Plataforma que suporta o sandbox" ],
+    "pitfalls": [ "Vem desligado por padrão", "Só em plataformas compatíveis", "Windows nativo roda sem sandbox" ],
+    "example": "/sandbox"
+  }
+}

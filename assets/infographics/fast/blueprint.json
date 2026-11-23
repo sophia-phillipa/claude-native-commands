@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "slug": "fast",
+  "command": "/fast",
+  "category": "Modelo e potência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": { "purpose": "Liga ou desliga o modo rápido da sessão" },
+  "flow": {
+    "steps": [
+      { "id": "s1", "layer": "input", "label": "Você digita /fast para alternar" },
+      { "id": "s2", "layer": "processing", "label": "O motor alterna o modo" },
+      { "id": "s3", "layer": "processing", "label": "Acelera a saída do modelo" },
+      { "id": "s4", "layer": "result", "label": "Respostas saem mais rápidas" }
+    ],
+    "edges": [
+      { "from": "s1", "to": "s2", "verb": "executa" },
+      { "from": "s2", "to": "s3", "verb": "ativa" },
+      { "from": "s3", "to": "s4", "verb": "entrega" }
+    ]
+  },
+  "connections": {
+    "flags": [ { "text": "on · off", "label": "Liga ou desliga o modo" } ],
+    "files": [],
+    "related": [
+      { "command": "/model", "label": "Trocar o modelo da sessão" }
+    ]
+  },
+  "contrast": {
+    "when": [ "Sequência de ajustes pequenos", "Quando a espera pesa mais" ],
+    "pitfalls": [ "Modelo sem suporte: sessão muda de modelo", "Custa mais por token" ],
+    "example": "/fast on"
+  }
+}
