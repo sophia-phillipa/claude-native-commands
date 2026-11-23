@@ -104,7 +104,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 22 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -140,7 +140,7 @@ O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o
 | `/security-review` | Revisão de segurança do branch | Comando embutido | [ver](assets/infographics/security-review/infographic.webp) |
 | `/ultrareview` | Revisão profunda de código em sandbox na nuvem | Comando embutido | [ver](assets/infographics/ultrareview/infographic.webp) |
 | `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | [ver](assets/infographics/diff/infographic.webp) |
-| `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | em preparo |
+| `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | [ver](assets/infographics/copy/infographic.webp) |
 | `/review` | Nome antigo do /code-review | Alias | [ver](assets/infographics/review/infographic.webp) |
 | `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | em preparo |
 
@@ -152,9 +152,9 @@ O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o
 | `/loop` | Repetir em intervalos | Skill embutida | [ver](assets/infographics/loop/infographic.webp) |
 | `/run` | Abrir o app e ver a mudança funcionando | Skill embutida | em preparo |
 | `/batch` | Mudança grande em paralelo, um PR por parte | Skill embutida | em preparo |
-| `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | em preparo |
+| `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | [ver](assets/infographics/tasks/infographic.webp) |
 | `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em preparo |
-| `/subtask` | Subagente com a conversa inteira | Comando embutido | em preparo |
+| `/subtask` | Subagente com a conversa inteira | Comando embutido | [ver](assets/infographics/subtask/infographic.webp) |
 | `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | em preparo |
 | `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em preparo |
 

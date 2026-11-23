@@ -78,6 +78,19 @@
       "slug": "context",
       "updated_at": "2026-11-23T16:01:20Z"
     },
+    "copy": {
+      "command": "/copy",
+      "formats": {
+        "download": "assets/infographics/copy/infographic-1920.png",
+        "image": "assets/infographics/copy/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "copy",
+      "updated_at": "2026-11-23T20:39:21Z"
+    },
     "diff": {
       "command": "/diff",
       "formats": {
@@ -233,6 +246,32 @@
       "qa_status": "passed",
       "slug": "status",
       "updated_at": "2026-11-23T11:29:58Z"
+    },
+    "subtask": {
+      "command": "/subtask",
+      "formats": {
+        "download": "assets/infographics/subtask/infographic-1920.png",
+        "image": "assets/infographics/subtask/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "subtask",
+      "updated_at": "2026-11-23T20:50:37Z"
+    },
+    "tasks": {
+      "command": "/tasks",
+      "formats": {
+        "download": "assets/infographics/tasks/infographic-1920.png",
+        "image": "assets/infographics/tasks/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "tasks",
+      "updated_at": "2026-11-23T20:43:15Z"
     },
     "ultrareview": {
       "command": "/ultrareview",
