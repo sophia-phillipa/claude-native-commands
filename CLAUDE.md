@@ -7,6 +7,7 @@ Guidance for Claude Code in this repository. The project is a guide to the nativ
 - `comandos-nativos.html`: the page. It opens straight from disk and reads the poster images from `assets/infographics/` beside it.
 - `assets/infographics/<slug>/`: `infographic.webp` and `infographic-1920.png` for each command that has a poster, plus the poster's sources (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`).
 - `.claude/skills/notebooklm-command-infographic-playbook/`: the skill that guides poster generation in NotebookLM.
+- `.gitlab-ci.yml`: the GitLab Pages job. On each push to the default branch that changes the page or the posters, it publishes the page as `index.html` with the poster images.
 
 ## Editing the page
 

@@ -1,0 +1,24 @@
+# GitLab Pages: publishes the page as index.html with the poster images, nothing else.
+pages:
+  image: alpine:3.20
+  variables:
+    GIT_DEPTH: "1"
+  script:
+    - mkdir -p public
+    - cp comandos-nativos.html public/index.html
+    - |
+      for f in assets/infographics/*/infographic.webp assets/infographics/*/infographic-1920.png; do
+        mkdir -p "public/$(dirname "$f")"
+        cp "$f" "public/$f"
+      done
+  artifacts:
+    paths:
+      - public
+    # Only the job artifact expires; the Pages deployment stays.
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - .gitlab-ci.yml
+        - comandos-nativos.html
+        - assets/infographics/**/*
