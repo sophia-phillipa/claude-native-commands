@@ -9,10 +9,12 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - The repository is public, with a fresh history. Working notes (`dossier/`, and `work/` except `work/infographic-contracts.md`) stay local and gitignored, and the skill reads the NotebookLM notebook URL from a gitignored `references/notebook.local.md`.
+- Command guide card text corrected against the 2026-11-23 source recheck: 58 wording fixes, the reload-skills and rewind notes, two docs links and the `/doctor` app field.
 
 ### Added
 
 - Command guide page `comandos-nativos.html`, generated from `src/comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
+- Cards for `/agents`, `/help` and `/whiteboard`; the guide now has 82 cards.
 - Infographic pipeline `infographic-register-tool.py`, with the barriers `check-blueprint`, `check-qa` and `register`.
 - 14 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.
 - 229 pytest tests under `.claude/skills/notebooklm-command-infographic-playbook/scripts/tests`.

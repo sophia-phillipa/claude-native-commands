@@ -25,7 +25,7 @@ It does not run Claude commands, does not replace the official documentation and
 ## 🎁 What it delivers
 
 - `comandos-nativos.html`: a standalone page with the command guide, generated from `src/comandos-nativos.html`.
-- `src/comandos-nativos.html`: the only hand-edited page file. Card data lives in the `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS` and `LOTE8_COMMANDS` arrays.
+- `src/comandos-nativos.html`: the only hand-edited page file. Card data lives in the `COMMANDS`, `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` and `LOTE9_COMMANDS` arrays.
 - `assets/infographics/<slug>/`: per-command files (`blueprint.json`, `nota.md`, `roteiro.md`, `qa-report.json`) and the downloadable image formats for each card that has one.
 - `assets/infographics/manifest.json`: the index of the registered infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status` at this commit).
 - `.claude/skills/notebooklm-command-infographic-playbook/`: the project skill and the `infographic-register-tool.py` script that checks and registers each infographic, with 224 tests.
@@ -33,7 +33,7 @@ It does not run Claude commands, does not replace the official documentation and
 <!-- CATALOG:BEGIN -->
 ## 📚 Command catalog
 
-The descriptions below are in Portuguese, as the guide is. The catalog has 79 commands; 13 already have a registered infographic (link "ver").
+The descriptions below are in Portuguese, as the guide is. The catalog has 82 commands; 14 already have a registered infographic (link "ver").
 
 ### Contexto e memória
 
@@ -85,6 +85,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 79 co
 | `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em produção |
 | `/subtask` | Subagente com a conversa inteira | Comando embutido | em produção |
 | `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | em produção |
+| `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em produção |
 
 ### Diagnóstico e uso
 
@@ -132,6 +133,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 79 co
 | `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | em produção |
 | `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | em produção |
 | `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | em produção |
+| `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em produção |
 
 ### Ajustes e permissões
 
@@ -153,6 +155,7 @@ The descriptions below are in Portuguese, as the guide is. The catalog has 79 co
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | em produção |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em produção |
 | `/login` | Entrar na sua conta Anthropic | Comando embutido | em produção |
+| `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em produção |
 
 
 Catalog generated from the data of the `comandos-nativos.html` page, in page order.
@@ -258,7 +261,7 @@ No known open issues as of 2026-11-23. Found one? Open an issue in this reposito
 
 Limitations found in the code:
 
-- Only 14 of the 79 cards have a registered infographic in `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status`); the other 65 are being generated. The other folders under `assets/infographics/` have blueprints and notes, but no registered image.
+- Only 14 of the 82 cards have a registered infographic in `assets/infographics/manifest.json` (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `review`, `rewind`, `status`); the other 68 are being generated. The other folders under `assets/infographics/` have blueprints and notes, but no registered image.
 - `work/infographic-contracts.md` (section 8) and the INFOGRAPHICS comment in the page still name `register_and_check.py`. The real script is `infographic-register-tool.py`.
 
 ## 🧪 Tests

@@ -468,8 +468,8 @@ const ICONS = {
 const COMMANDS = [
   {
     id: "goal", h: 350, icon: "target", kind: "Comando embutido", short: "Trabalhar até a meta ser cumprida",
-    what: "Define uma condição de pronto. Antes de parar, Claude confere essa condição e continua trabalhando enquanto ela não estiver cumprida.",
-    why: "Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a parada só acontece quando o critério que você deu é verdadeiro.",
+    what: "Define uma condição de pronto. Depois de cada turno, um modelo avaliador separado confere a condição; enquanto ela não estiver cumprida, Claude segue trabalhando.",
+    why: "Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a sessão só para quando o critério que você deu é verdadeiro, ou quando o avaliador julga a meta impossível ou um erro exige correção.",
     how: "Digite <code>/goal</code> seguido da condição. Para remover a meta, use <code>/goal clear</code>.",
     params: [
       ["<condição>", "Texto livre com o critério de pronto. Quanto mais verificável, melhor: um teste que passa, um arquivo que existe, um comando que sai sem erro."],
@@ -484,7 +484,7 @@ const COMMANDS = [
   {
     id: "skill-doctor", h: 20, icon: "pill", kind: "Comando embutido", short: "Skills carregadas que só gastam contexto",
     app: { ok: false, text: "No app: indisponível nesta conexão" },
-    what: "Lista as skills carregadas na sessão com a origem, o contexto que cada uma ocupa por turno, os tokens dos últimos 7 dias, quantas vezes foi usada e quando.",
+    what: "Lista as skills da sessão, exceto as embutidas e as de empresa, com o contexto que cada uma ocupa por turno, os tokens dos últimos 7 dias e quantas vezes foi usada.",
     why: "Toda skill carregada entra no prompt de sistema em todo turno. Saber quais nunca são usadas mostra onde dá para economizar contexto.",
     how: "No app Desktop ele responde “Skill usage reports are not available on this connection”. Rode no painel Terminal: abra <code>claude</code> e digite <code>/skill-doctor</code>.",
     note: "Testado no app Desktop, ele não funcionou. No terminal ele roda normalmente e aponta as skills carregadas que nunca foram usadas. O /context, que funciona no app, mostra a parte “Skills” do contexto.",
@@ -499,13 +499,13 @@ const COMMANDS = [
     id: "advisor", h: 270, icon: "advisor", kind: "Comando embutido", short: "Um revisor mais forte nos momentos-chave",
     app: { ok: true, text: "Testado no app: “Advisor set to Fable 5.2”" },
     what: "Liga um revisor com um modelo mais forte. Claude o consulta antes de começar o trabalho de verdade, quando trava e antes de dizer que terminou.",
-    why: "Um segundo olhar no começo evita seguir por um caminho errado, e no fim pega o que faltou conferir. Você paga a consulta só nesses momentos.",
+    why: "Um segundo olhar no começo evita seguir por um caminho errado, e no fim pega o que faltou conferir. O Claude decide quando consultar o revisor, e cada consulta consome tokens.",
     how: "Digite <code>/advisor</code> seguido do modelo revisor, ou <code>/advisor off</code> para desligar.",
     params: [
-      ["<modelo>", "O modelo que vai revisar. A dica do comando lista os aceitos na conta; fable, por exemplo, vira Fable 5.2."],
+      ["[modelo]", "Opcional. O modelo que vai revisar; sem ele, abre o seletor de modelos. A dica do comando lista os aceitos na conta; fable, por exemplo, vira Fable 5.2."],
       ["off", "Palavra fixa. Desliga o revisor."]
     ],
-    note: "Depende de um controle de recurso da conta: pode não aparecer em todas.",
+    note: "Depende do provedor (não Bedrock, Agent Platform nem Foundry), do modelo principal e de uma flag de recurso buscada da Anthropic; pode não aparecer em todas as sessões.",
     examples: [
       ["/advisor fable", "Revisor Fable 5.2."],
       ["/advisor opus", "Troca o revisor para o Opus."],
@@ -543,7 +543,7 @@ const COMMANDS = [
     app: { ok: true, text: "Testado no app: tabela por categoria" },
     what: "Mostra o uso atual da janela de contexto, com uma tabela por categoria e a lista de ferramentas MCP, agentes e skills com os tokens de cada um.",
     why: "Explica por que uma sessão ficou pesada e o que cortar. Com muitos servidores MCP ligados, as ferramentas deles costumam ser uma das maiores fatias.",
-    how: "Rode <code>/context</code> sem parâmetros. No app não há opções extras.",
+    how: "Rode <code>/context</code> sem parâmetros. No app, o teste cobriu só a tabela por categoria; o argumento <code>all</code>, que expande a tabela, não foi testado.",
     examples: [
       ["/context", "Retrato do contexto agora."],
       ["/context", "Rode antes e depois de um /compact para ver quanto foi liberado."],
@@ -554,9 +554,9 @@ const COMMANDS = [
     id: "code-review", h: 205, icon: "lens", kind: "Skill embutida", short: "Caçar bugs no diff atual",
     what: "Revisa o diff atual, um PR, um branch ou um caminho em busca de bugs de correção, no nível de esforço que você escolher.",
     why: "Pega erros antes do commit. O nível controla quantos achados vêm: low traz poucos e certeiros, high e xhigh trazem mais.",
-    how: "Use <code>/code-review &lt;nível&gt; [alvo] [opções]</code>. Sem nível, ele repete o último que você usou.",
+    how: "Use <code>/code-review [nível] [alvo] [opções]</code>. Sem nível, ele repete o último que você usou.",
     params: [
-      ["<nível>", "low, medium, high, xhigh ou max. ultra roda uma revisão com vários agentes na nuvem."],
+      ["[nível]", "Opcional: low, medium, high, xhigh ou max. ultra roda uma revisão com vários agentes na nuvem."],
       ["[alvo]", "Opcional: número de PR, branch ou caminho. Sem alvo, revisa o diff atual."],
       ["--fix", "Aplica as correções no working tree depois da revisão."],
       ["--comment", "Publica os achados como comentários no PR."],
@@ -576,7 +576,7 @@ const COMMANDS = [
     why: "Corta as interrupções repetidas de “posso rodar isso?” sem liberar comandos que alteram coisas.",
     how: "Rode <code>/fewer-permission-prompts</code> na pasta do projeto.",
     params: [
-      ["[instruções]", "Opcional, texto livre. Entra como instrução extra para a análise."]
+      ["[instruções]", "Opcional, texto livre. Vai como argumento para a skill."]
     ],
     examples: [
       ["/fewer-permission-prompts", "Allowlist sugerida a partir do seu histórico."],
@@ -608,10 +608,11 @@ const COMMANDS = [
   },
   {
     id: "doctor", h: 330, icon: "heart", kind: "Skill embutida", aliases: ["/checkup"], bonus: true, short: "Check-up da instalação",
+    app: { ok: true, text: "Testado no app: funcionou" },
     what: "Faz um check-up da sua instalação e corrige problemas: saúde da instalação, extensões sem uso, arquivos de memória duplicados ou inchados, hooks lentos, atualizações e permissões.",
     why: "Junta num só lugar o que normalmente se descobre aos poucos quando algo fica lento ou estranho.",
     how: "Rode <code>/doctor</code> ou o apelido <code>/checkup</code>, sem parâmetros. Se não aparecer no menu do app, abra <code>claude</code> no painel Terminal e rode lá.",
-    note: "Está na lista do modo Desktop, e a 2.1.325 o marca como comando de terminal. A mesma marca está no /color e no /reload-plugins, que funcionaram no app, então é provável que ele funcione também. Ainda não foi testado no app.",
+    note: "Testado no app Desktop: funciona. A lista do Desktop e a 2.1.325 o marcam como comando de terminal, como o /color e o /reload-plugins, que também funcionaram no app.",
     warn: true,
     examples: [
       ["/doctor", "Check-up completo com sugestões de correção."],
@@ -621,10 +622,10 @@ const COMMANDS = [
   },
   {
     id: "insights", h: 225, icon: "chart", kind: "Comando embutido", lote: 2, short: "Relatório das suas sessões",
-    what: "Analisa as sessões de todos os projetos desta máquina, não só do projeto aberto, e gera um relatório que pode ser compartilhado.",
+    what: "Analisa as sessões de todos os projetos desta máquina, não só do projeto aberto, e gera um relatório em HTML.",
     why: "Dá uma visão do seu uso ao longo de vários projetos e sessões, que uma sessão sozinha não mostra.",
     how: "Rode <code>/insights</code> sem parâmetros, de qualquer projeto: o resultado é o mesmo. Só você consegue chamar: o Claude não o dispara sozinho.",
-    note: "Ele lê a pasta <code>~/.claude/projects</code> inteira, das sessões mais recentes para as mais antigas. Guarda o que já analisou e, a cada rodada, analisa até cerca de 200 sessões novas, então a primeira vez demora mais.",
+    note: "Ele analisa as sessões desta máquina que ainda não viu, até cerca de 200 por rodada, e pula as muito curtas. Guarda o que já analisou, então a primeira vez demora mais.",
     examples: [
       ["/insights", "Gera o relatório das suas sessões."],
       ["/insights", "Rode no fim da semana e compare com o relatório anterior."],
@@ -639,7 +640,7 @@ const COMMANDS = [
     examples: [
       ["/recap", "Resumo curto do que a sessão fez até aqui."],
       ["/recap", "Rode antes de pausar e cole a linha nas suas notas do dia."],
-      ["/loop 30m /recap", "Combinado com /loop: um resumo novo a cada meia hora."]
+      ["/loop 30m faça um resumo de uma linha da sessão", "Com /loop, um resumo em texto a cada meia hora. O /recap em si não roda dentro do loop: comandos embutidos chegam ao Claude como texto."]
     ]
   },
   {
@@ -649,15 +650,15 @@ const COMMANDS = [
     how: "Use <code>/effort &lt;nível&gt;</code>.",
     params: [
       ["low · medium · high", "Do mais rápido e barato ao mais cuidadoso."],
-      ["xhigh · max", "Os mais caros. O app só aceita os que o modelo atual suporta."],
-      ["auto", "Devolve a escolha do esforço ao Claude."]
+      ["xhigh · max", "Os níveis mais altos. Se o modelo atual não suporta o nível pedido, o Claude Code usa o mais alto que ele suporta abaixo dele."],
+      ["auto", "Limpa o nível salvo para o modelo atual."]
     ],
-    note: "xhigh e max consomem bem mais tokens. Use-os em tarefas curtas e difíceis, não na sessão inteira.",
+    note: "xhigh consome mais tokens que high. max é para problemas difíceis, pode pensar demais e mostrar retorno decrescente: teste antes de usar com frequência.",
     warn: true,
     examples: [
       ["/effort high", "Mais raciocínio para um bug difícil."],
       ["/effort low", "Rápido e barato para renomear arquivos ou ajustar texto."],
-      ["/effort auto", "Devolve a escolha do esforço ao Claude."]
+      ["/effort auto", "Limpa o nível salvo para o modelo atual."]
     ]
   },
   {
@@ -669,11 +670,11 @@ const COMMANDS = [
       ["[intervalo]", "Opcional. Tempo entre as voltas, como 5m ou 1h. Sem intervalo, o Claude decide quando voltar."],
       ["[prompt]", "O pedido ou o comando de barra que vai se repetir."]
     ],
-    note: "Não serve para tarefas de uma vez só. Para parar, peça na conversa que encerre o loop.",
+    note: "Não serve para tarefas de uma vez só. Para parar um loop com intervalo, peça na conversa para cancelá-lo; um loop sem intervalo para com Esc, com a caixa de prompt vazia.",
     examples: [
       ["/loop 10m confira se o deploy de staging terminou", "Repete a cada 10 minutos."],
-      ["/loop 1h /usage", "Acompanha o consumo do plano de hora em hora."],
-      ["/loop /recap", "Sem intervalo: o Claude escolhe o ritmo."]
+      ["/loop 1h rode os testes e me avise se algum falhar", "Repete o pedido de hora em hora. Comandos embutidos, como /usage, não rodam dentro do loop: chegam ao Claude como texto."],
+      ["/loop resuma em uma linha o que foi feito na sessão", "Sem intervalo: o Claude escolhe o ritmo."]
     ]
   },
   {
@@ -693,7 +694,7 @@ const COMMANDS = [
     why: "Teste verde não garante que a tela abre. O /run sobe o app e mostra o resultado real, inclusive com captura de tela.",
     how: "Use <code>/run</code> sozinho ou com um pedido do que mostrar.",
     params: [
-      ["[pedido]", "Opcional, texto livre. Diz o que abrir, clicar ou conferir no app."]
+      ["[pedido]", "Opcional, texto livre. Vai como argumento para a skill, que o usa ao conduzir o app."]
     ],
     examples: [
       ["/run", "Sobe o app do projeto do jeito padrão."],
@@ -708,7 +709,7 @@ const COMMANDS = [
     how: "Use <code>/mcp</code> sozinho ou com uma ação.",
     params: [
       ["reconnect", "Reconecta um servidor que caiu ou travou."],
-      ["enable · disable", "Liga ou desliga um servidor nesta sessão."],
+      ["enable · disable", "Liga ou desliga um servidor; a escolha fica salva para o projeto."],
       ["<servidor> · all", "O nome do servidor, ou all para todos de uma vez."]
     ],
     examples: [
@@ -719,13 +720,13 @@ const COMMANDS = [
   },
   {
     id: "batch", h: 118, icon: "stack", kind: "Skill embutida", lote: 3, short: "Mudança grande em paralelo, um PR por parte",
-    what: "Pesquisa e planeja uma mudança grande e depois a executa em paralelo com 5 a 30 agentes, cada um num worktree isolado e cada um abrindo o seu PR.",
+    what: "Pesquisa e planeja uma mudança grande e depois a executa em paralelo com 5 a 30 agentes, cada um num worktree isolado; cada um abre o seu PR ou relata o que aconteceu.",
     why: "Serve para mudanças mecânicas em muitos arquivos, como migrações, refatorações e renomeações em massa, que se dividem em partes independentes.",
     how: "Use <code>/batch &lt;instrução&gt;</code>. Só você consegue chamar: o Claude não o dispara sozinho.",
     params: [
       ["<instrução>", "Obrigatória, texto livre. A mudança completa que você quer, com o critério de pronto."]
     ],
-    note: "É o mais caro do guia: abre muitos agentes e muitos PRs de uma vez. Confira o plano e o custo antes de deixar executar.",
+    note: "Antes de executar, mostra um plano, e os agentes só começam depois da sua aprovação: confira o plano antes de aprovar.",
     warn: true,
     examples: [
       ["/batch troque todos os print() por logging no pacote src/", "Migração mecânica dividida por arquivo."],
@@ -739,7 +740,7 @@ const COMMANDS = [
     why: "Modelos menores respondem mais rápido e custam menos. Os maiores resolvem melhor problemas difíceis. Combina com o /effort.",
     how: "Use <code>/model &lt;modelo&gt;</code>.",
     params: [
-      ["<modelo>", "O nome do modelo, como opus, sonnet, haiku ou fable. A dica do comando mostra os aceitos na sua conta."]
+      ["[modelo]", "Opcional. O nome do modelo, como opus, sonnet, haiku ou fable; sem ele, abre o seletor. A dica do comando mostra os aceitos na sua conta."]
     ],
     examples: [
       ["/model sonnet", "Bom equilíbrio para o trabalho do dia a dia."],
@@ -769,7 +770,7 @@ const COMMANDS = [
     params: [
       ["on · off", "Opcional. Liga ou desliga. Sem parâmetro, alterna o estado atual."]
     ],
-    note: "Se o modelo atual não suporta o modo rápido, o app passa a sessão para o Opus.",
+    note: "Se o modelo atual não suporta o modo rápido, ligá-lo troca o modelo; na API da Anthropic, a sessão passa para o Opus.",
     warn: true,
     examples: [
       ["/fast", "Alterna o modo rápido."],
@@ -786,10 +787,10 @@ const COMMANDS = [
       ["<tokens>", "Número de tokens em que a compactação automática entra, como 300000."],
       ["auto", "Devolve o tamanho ao ajuste automático do Claude Code."]
     ],
-    note: "Escolha um valor com folga abaixo do tamanho da janela do modelo. Se um hook ou um plugin também compacta a sessão, vale quem chegar primeiro.",
+    note: "Escolha um valor com folga abaixo do tamanho da janela do modelo. Se a variável CLAUDE_CODE_AUTO_COMPACT_WINDOW estiver definida, ela tem prioridade sobre o comando, a flag e a configuração autoCompactWindow, a não ser que o Claude Code ignore o valor.",
     warn: true,
     examples: [
-      ["/autocompact 300000", "Compacta com folga antes do fim da janela, sem cortar a resposta em curso."],
+      ["/autocompact 300000", "Compacta quando o contexto chega a 300 mil tokens, sem passar do limite de contexto do modelo."],
       ["/autocompact 200000", "Sessões mais leves, para quem compacta com frequência."],
       ["/autocompact auto", "Volta ao ajuste automático."]
     ]
@@ -800,11 +801,11 @@ const COMMANDS = [
     why: "Contexto limpo custa menos e evita que restos da tarefa anterior atrapalhem a nova. Diferente do /compact, nada da conversa passa para a sessão nova.",
     how: "Use <code>/clear</code>, com ou sem um nome.",
     params: [
-      ["[nome]", "Opcional. Um nome para identificar a sessão."]
+      ["[nome]", "Opcional. Um nome para a conversa anterior, que aparece assim na lista do /resume."]
     ],
     examples: [
       ["/clear", "Contexto vazio para a próxima tarefa."],
-      ["/clear revisão dos READMEs", "Começa de novo já com um nome."],
+      ["/clear revisão dos READMEs", "Começa de novo; o nome vai para a conversa anterior, na lista do /resume."],
       ["/new", "Mesmo comando pelo apelido."]
     ]
   },
@@ -813,7 +814,7 @@ const COMMANDS = [
     what: "Lista os subagentes, colegas de equipe e outras sessões do Claude para os quais você pode mandar mensagem.",
     why: "Mostra os nomes certos antes de enviar algo e quem está disponível agora.",
     how: "Rode <code>/list-agents</code> sem parâmetros.",
-    note: "Depende do recurso de mensagens entre sessões estar ligado na conta. Ele estava na lista do modo Desktop.",
+    note: "Depende da versão do Claude Code (2.1.224 ou mais nova; 2.1.234 no Windows nativo), do sistema, do provedor e da configuração da sessão. Para ver sessões em outras máquinas, a sessão precisa estar no Remote Control, que exige login no claude.ai. Ele estava na lista do modo Desktop.",
     examples: [
       ["/list-agents", "Lista quem pode receber mensagem."],
       ["/peers", "Mesmo comando pelo apelido."],
@@ -823,11 +824,11 @@ const COMMANDS = [
   {
     id: "reload-skills", h: 82, icon: "refresh", kind: "Comando embutido", lote: 4, short: "Usar uma skill nova sem reabrir",
     what: "Carrega as skills criadas ou alteradas no disco durante a sessão.",
-    why: "Sem ele, uma skill nova ou editada só passa a valer numa sessão nova.",
+    why: "Uma skill nova que não aparece na lista entra na sessão com ele, sem reabrir o Claude Code. Edições em skills já carregadas entram sozinhas.",
     how: "Rode <code>/reload-skills</code> sem parâmetros.",
     examples: [
       ["/reload-skills", "Depois de criar uma skill, para chamá-la nesta mesma sessão."],
-      ["/reload-skills", "Depois de mudar a descrição de uma skill, para o Claude ler a versão nova."],
+      ["/reload-skills", "Depois de criar uma skill que ainda não aparece na lista."],
       ["/context", "Em seguida, confira a linha Skills para ver quanto a skill nova custa."]
     ]
   },
@@ -840,7 +841,7 @@ const COMMANDS = [
       ["--wizard … --propose", "Avançado. Responde ao assistente de uma vez, com postura, escopo e profundidade, e só propõe as regras."],
       ["--apply-file <arquivo>", "Avançado. Aplica um arquivo de regras já revisado, conferido com --expect-sha256."]
     ],
-    note: "Só aparece com o modo auto disponível na conta.",
+    note: "Só está disponível em plano Pro, Max, Ultra, Team ou Enterprise, ou com chave de API do Console, na versão mínima de cada plano.",
     examples: [
       ["/auto-mode-setup", "Abre o assistente de configuração."],
       ["/auto-mode-setup", "Rode de novo depois de passar a trabalhar numa pasta ou ferramenta nova."],
@@ -882,7 +883,7 @@ const COMMANDS = [
   {
     id: "reload-plugins", h: 235, icon: "puzzle", kind: "Comando embutido", lote: 5, short: "Ativar plugins sem abrir outra sessão",
     app: { ok: true, text: "Testado no app: funcionou" },
-    what: "Ativa na sessão atual as mudanças de plugins que ficaram pendentes, como um plugin instalado, atualizado, ligado ou desligado.",
+    what: "Ativa na sessão atual as mudanças de plugins que ficaram pendentes, como um plugin instalado, atualizado, ligado ou desligado. No app, mudanças em servidores MCP de plugins não entram nessa recarga.",
     why: "Sem ele, um plugin novo ou atualizado só passa a valer numa sessão nova, e você perde o contexto acumulado.",
     how: "Rode <code>/reload-plugins</code>. Se ele avisar que a próxima mensagem vai reler a conversa inteira, rode <code>/reload-plugins --force</code> para aplicar.",
     params: [
@@ -903,14 +904,14 @@ const COMMANDS = [
     why: "Ajusta dicas, tema, editor, formato da hora e outras opções na hora, sem abrir arquivos de configuração.",
     how: "Use <code>/config chave=valor</code>. Dá para passar vários pares de uma vez.",
     params: [
-      ["(sem nada)", "Sem interface (<code>claude -p</code>), lista as chaves aceitas e os valores de cada uma. Na aba Code, segundo a documentação, abre as Configurações."],
+      ["(sem nada)", "Sem interface (<code>claude -p</code>), lista as chaves aceitas e os valores de cada uma. No app, o comando funcionou no teste."],
       ["chave=valor", "Uma configuração, como tips=false, turnDuration=true ou verbose=true."],
       ["[chave=valor …]", "Vários pares separados por espaço, aplicados juntos."]
     ],
     note: "A mudança fica salva nas configurações, não só nesta sessão. Para desfazer, rode a mesma chave com o valor anterior. Chaves como permissionMode e autoCompact mudam o comportamento de todas as sessões: confira antes de trocar.",
     warn: true,
     examples: [
-      ["/config", "Sem interface, lista as chaves aceitas. Na aba Code, a documentação diz que abre as Configurações."],
+      ["/config", "Sem interface, lista as chaves aceitas. No app, o comando funcionou no teste."],
       ["/config tips=false turnDuration=true", "Dois ajustes de uma vez: tira as dicas e mostra quanto durou cada resposta."],
       ["/config verbose=true", "Mostra mais detalhes de cada passo. Desfaça com verbose=false."]
     ]
@@ -1031,7 +1032,7 @@ const NEW_COMMANDS = [
     examples: [
       ["/claude-api como ligo o cache de prompt no meu chatbot em Python?", "Passo a passo com o SDK, usando a referência."],
       ["/claude-api qual a diferença de preço entre os modelos atuais?", "Consulta a tabela em vez de chutar."],
-      ["/claude-api migrar meu código do modelo antigo para o mais novo", "Lista o que muda em parâmetros e comportamento."]
+      ["/claude-api migrate", "Atualiza o código da API para um modelo mais novo."]
     ]
   },
   {
@@ -1128,7 +1129,7 @@ const NEW_COMMANDS = [
     id: "import", h: 182, icon: "download", kind: "Comando embutido", lote: 6,
     short: "Trazer a configuração de outro agente de código",
     what: "Importa configuração de outro agente de código: servidores MCP, comandos de barra, subagentes, skills e instruções. Primeiro ele só varre e lista o que dá para importar.",
-    why: "Quem usa outra ferramenta não precisa recriar tudo à mão. A importação aplica verificações de nomes e de caminhos seguras, em vez de você copiar arquivos por conta própria.",
+    why: "Quem usa outra ferramenta não precisa recriar tudo à mão. O /import traz a configuração para o Claude Code, em vez de você copiar arquivos por conta própria.",
     how: "Rode <code>/import</code> para escanear e listar. A saída informa um código; depois rode <code>/import --yes=&lt;código&gt;</code> para aplicar o que foi listado.",
     params: [
       ["--yes=<código>", "Aplica a importação listada. O código vem da saída do escaneamento."]
@@ -1165,11 +1166,11 @@ const NEW_COMMANDS = [
     examples: [
       ["/add-dir ../minha-biblioteca", "Inclui a biblioteca vizinha ao app."],
       ["/add-dir ~/projetos/docs", "Inclui um repositório de documentação."],
-      ["/add-dir /srv/config-compartilhada", "Inclui uma pasta de configuração usada por vários projetos."]
+      ["/add-dir /srv/config-compartilhada", "Dá acesso aos arquivos de uma pasta compartilhada por vários projetos; a configuração .claude/ dela, em geral, não é carregada."]
     ]
   },
   {
-    id: "usage-credits", h: 280, icon: "coins", kind: "Comando embutido", aliases: ["/extra-usage"], lote: 6,
+    id: "usage-credits", h: 280, icon: "coins", kind: "Comando embutido", lote: 6,
     short: "Créditos extras quando o limite do plano acaba",
     what: "Configura créditos de uso ou os pede ao administrador quando você bate num limite. O nome antigo era <code>/extra-usage</code>, hoje oculto.",
     why: "Evita ficar parado esperando o limite renovar: com créditos ligados, o trabalho continua, e o pedido ao administrador sai sem você procurar o painel.",
@@ -1288,7 +1289,7 @@ const DOCS = {
   "note": "A documentação confirma que funciona no app Desktop."
  },
  "compact": {
-  "url": "https://code.claude.com/docs/en/context-window#what-survives-compaction",
+  "url": "https://code.claude.com/docs/en/desktop#check-and-free-up-context",
   "note": "A documentação do Desktop cita o /compact para resumir antes do limite."
  },
  "usage": {
@@ -1397,7 +1398,7 @@ const DOCS = {
  },
  "config": {
   "url": "https://code.claude.com/docs/en/settings",
-  "note": "Na aba Code do app, o /config sozinho abre as Configurações."
+  "note": "A documentação se contradiz: a página de configurações diz que o app não abre esse menu, e a de estilos de saída diz que abre as Configurações. No teste no app, o comando funcionou."
  },
  "update-config": {
   "url": "https://code.claude.com/docs/en/commands#all-commands",
@@ -1610,7 +1611,7 @@ const LOTE7_COMMANDS = [
     "kind": "Comando embutido",
     "lote": 7,
     "short": "Sair da sua conta Anthropic",
-    "what": "Encerra a sessão com a sua conta Anthropic, conforme a descrição da referência oficial.",
+    "what": "Encerra a sessão com a sua conta Anthropic.",
     "why": "Serve para desconectar a conta num computador que você divide com outras pessoas.",
     "how": "Rode <code>/logout</code> para sair da conta atual.",
     "note": "",
@@ -1640,7 +1641,7 @@ const LOTE7_COMMANDS = [
     "kind": "Comando embutido",
     "lote": 7,
     "short": "Enviar feedback sobre o Claude Code",
-    "what": "Envia feedback sobre o Claude Code pelo mesmo diálogo do <code>/bug</code>, com o mesmo consentimento e as mesmas regras de envio. Se a sessão tiver rascunhos sugeridos pelo Claude, sem argumento o comando abre a fila de rascunhos, onde você revisa, edita, envia ou descarta cada um.",
+    "what": "Envia feedback sobre o Claude Code pelo mesmo diálogo do <code>/bug</code>, com o mesmo consentimento e as mesmas regras de envio. Nas sessões com feedback sugerido pelo Claude, <code>/feedback</code> sem argumento abre a fila de rascunhos, com os de todas as sessões, onde você revisa, edita, envia ou descarta cada um.",
     "why": "Permite relatar o que faltou ou não funcionou, com uma etapa de consentimento antes do envio.",
     "how": "Rode <code>/feedback</code> seguido do texto do relatório para abrir o diálogo direto, ou só <code>/feedback</code> para ver a fila de rascunhos, quando houver.",
     "note": "Documentado na referência oficial.",
@@ -1661,7 +1662,7 @@ const LOTE7_COMMANDS = [
       ],
       [
         "/feedback seria útil um atalho para repetir o último comando",
-        "Registra uma sugestão de melhoria."
+        "Abre o diálogo de envio com essa sugestão; nada sai antes do seu consentimento."
       ]
     ],
     "app": {
@@ -1844,7 +1845,7 @@ const LOTE7_COMMANDS = [
       ],
       [
         "/workflows",
-        "Salva uma execução concluída para consulta posterior."
+        "Com a visão aberta, a tecla s salva o script da execução como um comando reutilizável."
       ]
     ],
     "app": {
@@ -1859,10 +1860,10 @@ const LOTE7_COMMANDS = [
     "kind": "Skill embutida",
     "lote": 7,
     "short": "Recursos que uma página publicada pode usar",
-    "what": "Carrega a referência dos recursos de runtime que um artifact publicado pode usar, como chamar seus conectores ou oferecer um arquivo para download, junto com os recursos que a sua conta tem. Normalmente o Claude a carrega sozinho antes de criar uma página que use um desses recursos.",
+    "what": "Carrega a referência dos recursos de execução que um artefato publicado pode usar, como chamar seus conectores ou oferecer um arquivo para download, junto com os recursos que a sua conta tem. Normalmente o Claude a carrega sozinho antes de criar uma página que use um desses recursos.",
     "why": "Ajuda a conferir o que a conta pode usar antes de a página depender de um conector ou de um download.",
     "how": "Digite <code>/artifact-capabilities</code> quando quiser ver a referência antes de montar a página. Você também pode deixar o Claude carregá-la sozinho.",
-    "note": "Documentado na referência oficial. Disponível onde os artifacts estão disponíveis.",
+    "note": "Documentado na referência oficial. Disponível onde os artefatos estão disponíveis.",
     "examples": [
       [
         "/artifact-capabilities",
@@ -1928,7 +1929,7 @@ const LOTE7_COMMANDS = [
     "what": "Liga ou desliga a visão de foco, que mostra só o seu último prompt, um resumo de uma linha das chamadas de ferramenta com as estatísticas de edição e a resposta final. O resumo também conta os subagentes lançados no turno e junta as notificações de tarefas em segundo plano concluídas em uma única contagem.",
     "why": "Deixa a conversa mais limpa quando você quer ver só o pedido e o resultado, sem a sequência de ferramentas.",
     "how": "Rode <code>/focus</code> para alternar. A escolha fica salva e vale nas próximas sessões; a configuração <code>viewMode</code> pode substituí-la.",
-    "note": "Só funciona com renderização em tela cheia.",
+    "note": "Segundo a documentação, só funciona com renderização em tela cheia; no app, o teste passou.",
     "examples": [
       [
         "/focus",
@@ -2135,7 +2136,7 @@ const LOTE7_COMMANDS = [
       ],
       [
         "/sandbox",
-        "Rode de novo para voltar ao estado anterior."
+        "Rode de novo para abrir o painel, com as abas Mode, Overrides e Config."
       ]
     ],
     "app": {
@@ -2233,7 +2234,7 @@ const LOTE7_COMMANDS = [
     "what": "Volta a conversa e/ou o código a um ponto anterior, ou faz um resumo a partir de uma mensagem escolhida. A documentação oficial descreve o recurso como checkpointing.",
     "why": "Permite desfazer um caminho que não deu certo sem começar a sessão do zero. A conversa e o código voltam a um ponto conhecido.",
     "how": "Rode <code>/rewind</code> para voltar a um ponto anterior. Os aliases <code>/undo</code> e <code>/checkpoint</code> executam o mesmo comando.",
-    "note": "Documentado na referência oficial.",
+    "note": "Documentado na referência oficial. Arquivos mudados só por comandos do Bash não voltam, e mudanças feitas fora do Claude Code não são rastreadas.",
     "examples": [
       [
         "/rewind",
@@ -2296,7 +2297,7 @@ const LOTE7_COMMANDS = [
     "what": "Torna esta sessão disponível para o Remote Control a partir do claude.ai. Se você executar o comando sem estar conectado, ele informa que o recurso exige assinatura do claude.ai e mostra como entrar.",
     "why": "Permite usar esta sessão pelo claude.ai enquanto ela está aberta no terminal.",
     "how": "Digite <code>/remote-control</code> ou o atalho <code>/rc</code>. Sem login, o comando mostra como entrar antes de continuar.",
-    "note": "Documentado na referência oficial. Requer assinatura do claude.ai.",
+    "note": "Documentado na referência oficial.",
     "examples": [
       [
         "/remote-control",
@@ -2559,7 +2560,7 @@ const LOTE7_CONTEXTS = {
   "artifact-capabilities": "Ao montar uma página publicada que precise chamar um conector ou oferecer um arquivo para download, e você quer saber o que a sua conta pode usar.",
   "copy": "Quando você quer levar uma resposta do Claude para outro lugar sem selecionar o texto na tela, sobretudo se houver código.",
   "focus": "Quando a conversa ficou longa demais e você quer enxergar só o pedido e o resultado final.",
-  "subtask": "Quando quer entender uma chamada antiga de subagente encontrada em material desatualizado; hoje o caminho indicado é o /fork.",
+  "subtask": "Quando surge uma tarefa lateral que precisa de toda a conversa e cujo resultado você quer aqui, sem parar o trabalho.",
   "slides": "Quando você precisa de um primeiro rascunho de apresentação a partir de um resumo, e a conta tem o recurso de artefatos.",
   "theme": "Quando o contraste da interface não combina com o fundo do terminal, ou quando você precisa de cores mais fáceis de distinguir.",
   "memory": "Quando o projeto ganha regras que devem valer em toda sessão, ou quando uma nota antiga do Claude começa a atrapalhar.",
@@ -2710,7 +2711,7 @@ const LOTE7_DOCS = {
   },
   "focus": {
     "url": "https://code.claude.com/docs/en/settings-reference#viewmode",
-    "note": "Só com renderização em tela cheia. Pelo Remote Control, /focus on e /focus off valem só para a sessão, a partir da versão 2.1.281."
+    "note": "Pelo Remote Control, /focus on e /focus off valem só para a sessão, a partir da versão 2.1.281."
   },
   "subtask": {
     "url": "https://code.claude.com/docs/en/sub-agents#fork-the-current-conversation",
@@ -2738,7 +2739,7 @@ const LOTE7_DOCS = {
   },
   "plan": {
     "url": "https://code.claude.com/docs/en/commands#all-commands",
-    "note": "Na tabela oficial: entra no modo de plano direto pelo prompt; com uma descrição, já começa essa tarefa."
+    "note": "Descrição oficial na tabela de comandos."
   },
   "plugin": {
     "url": "https://code.claude.com/docs/en/plugins/overview",
@@ -2750,7 +2751,7 @@ const LOTE7_DOCS = {
   },
   "login": {
     "url": "https://code.claude.com/docs/en/commands#all-commands",
-    "note": "Na tabela oficial: entra na sua conta Anthropic."
+    "note": "Descrição oficial na tabela de comandos."
   },
   "remote-control": {
     "url": "https://code.claude.com/docs/en/remote-control",
@@ -2765,12 +2766,12 @@ const LOTE7_DOCS = {
     "note": "A referência oficial descreve o comando."
   },
   "resume": {
-    "url": "https://code.claude.com/docs/en/agent-view",
+    "url": "https://code.claude.com/docs/en/desktop#coming-from-the-cli",
     "note": "A documentação do Desktop descreve a lista de sessões da CLI; não vale para SSH, WSL ou nuvem."
   },
   "fork": {
     "url": "https://code.claude.com/docs/en/agent-view#copy-the-session-with-%2Ffork",
-    "note": "Para um subagente cujo resultado volta a esta conversa, a referência indica /subtask. Para trocar de sessão, indica /branch."
+    "note": "Para trocar de sessão, a referência indica /branch."
   },
   "cost": {
     "url": "https://code.claude.com/docs/en/commands#all-commands",
@@ -2781,7 +2782,7 @@ const LOTE7_DOCS = {
     "note": "Alias de /code-review; as regras de nível e flags estão na página de revisão local."
   },
   "bug": {
-    "url": "https://code.claude.com/docs/en/data-usage#telemetry-services",
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
     "note": "A referência indica /share como alias e a v2.1.229 como versão mínima para o diálogo no VS Code."
   }
 };
@@ -2878,8 +2879,8 @@ const LOTE8_DOCS = {
     "note": "Workflow embutido listado na referência oficial de workflows."
   },
   "verify": {
-    "url": "https://code.claude.com/docs/en/skills#run-and-verify-your-app",
-    "note": "Tabela oficial: confirma a mudança construindo e rodando o app, em vez de depender só de testes ou checagens de tipo."
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Descrição oficial na tabela de comandos."
   }
 };
 
@@ -2889,6 +2890,168 @@ Object.assign(CONTEXTS, LOTE8_CONTEXTS);
 for (const [id, cat] of Object.entries(LOTE8_CATEGORY)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
 for (const [id, a] of Object.entries(LOTE8_MOTION)) MOTION[a].push(id);
 Object.assign(DOCS, LOTE8_DOCS);
+
+/* Lote 9: 3 cards from the Desktop menu check: agents (wizard removed), help (listed, does nothing in the app), whiteboard (artifact from the account's Whiteboard type).
+   Start: the lote 8 cards (agents, help). Each card has a // line above it listing the source of each claim; UNVERIFIED marks what this recheck could not reproduce.
+   Data only. Merge lines at the end follow the LOTE8 pattern of src/comandos-nativos.html. */
+
+const LOTE9_ICONS = {};
+
+const LOTE9_COMMANDS = [
+  // agents. Sources: docs table row /agents, https://code.claude.com/docs/en/commands.md (fetched 2026-11-23, line 52: "Print a reminder to ask Claude to create or manage subagents... On v2.1.197 and earlier, opens an interactive interface").
+  // Binary 2.1.312 (local install, version 2.1.312): name:"agents", description "(removed) Ask Claude to create/manage subagents, or edit .claude/agents/", isHidden.
+  // App test (2026-11-22): ("The /agents wizard has been removed."). pt-BR copy from lote 8 (agents).
+  {
+    "id": "agents",
+    "h": 2,
+    "icon": "people",
+    "kind": "Comando embutido",
+    "lote": 9,
+    "short": "Gerenciar subagentes (assistente removido)",
+    "what": "Na versão atual, o assistente de <code>/agents</code> foi removido. O comando só imprime um lembrete para pedir ao Claude que crie ou gerencie subagentes, ou para editar os arquivos em <code>.claude/agents/</code> ou <code>~/.claude/agents/</code>. Até a v2.1.197, ele abria uma interface interativa para configurar subagentes.",
+    "why": "Mostra o caminho que funciona hoje: pedir na conversa ou editar o arquivo direto, em vez de procurar um assistente que não existe mais.",
+    "how": "No app Desktop, <code>/agents</code> responde que o assistente foi removido. Peça ao Claude, na conversa, o subagente que você quer, ou edite o arquivo dele em <code>.claude/agents/</code>.",
+    "note": "Testado no app Desktop (22/11/2026): responde “The /agents wizard has been removed.”. Na referência oficial, o comando imprime um lembrete; até a v2.1.197 abria uma interface.",
+    "examples": [
+      [
+        "/agents",
+        "No app, responde que o assistente foi removido. No terminal, a referência oficial diz que ele imprime um lembrete."
+      ],
+      [
+        "crie um subagente em .claude/agents/ que revise os testes",
+        "O caminho de hoje: o pedido vai direto na conversa, sem comando."
+      ],
+      [
+        "mostre os subagentes deste projeto e o que cada um faz",
+        "Também na conversa: o Claude lê .claude/agents/ e ~/.claude/agents/ e resume."
+      ]
+    ],
+    "app": {
+      "ok": false,
+      "text": "No app: o assistente foi removido (“The /agents wizard has been removed.”)"
+    },
+    "warn": true
+  },
+  // help. Sources: docs row /help, https://code.claude.com/docs/en/commands.md line 96 ("Show help and available commands").
+  // Docs line 15 of the same page: "In fullscreen rendering, Claude Code also opens dialog commands such as /theme and /help immediately."
+  // Binary 2.1.312: name:"help", description "Show help and available commands", immediate for fullscreen, requires ink.
+  // App test (2026-11-22): ("listed in the app, but running it does nothing"). pt-BR copy from lote 8 (help).
+  // Terminal behaviour: only the docs and the binary; not tested here.
+  {
+    "id": "help",
+    "h": 114,
+    "icon": "lens",
+    "kind": "Comando embutido",
+    "lote": 9,
+    "short": "Mostrar a ajuda e os comandos disponíveis",
+    "what": "Mostra a ajuda e os comandos disponíveis na sessão.",
+    "why": "Serve para lembrar o nome exato de um comando, quando a lista aparece.",
+    "how": "No terminal, digite <code>/help</code> e leia a lista. No app Desktop, o comando aparece no menu, mas rodar não faz nada.",
+    "note": "Testado no app Desktop (22/11/2026): aparece no menu, mas rodar o comando não fez nada. Na referência oficial, em tela cheia, <code>/help</code> abre na hora.",
+    "examples": [
+      [
+        "/help",
+        "No terminal, mostra a ajuda e os comandos disponíveis na sessão."
+      ],
+      [
+        "/help",
+        "No app Desktop, aparece no menu, mas não faz nada."
+      ],
+      [
+        "/help",
+        "No terminal, ajuda a achar o nome de um comando antes de digitá-lo."
+      ]
+    ],
+    "app": {
+      "ok": false,
+      "text": "No app: aparece no menu, mas não faz nada"
+    },
+    "warn": true
+  },
+  // whiteboard. Sources: binary description "Make a new Whiteboard artifact from a brief" and argument hint "[what the whiteboard is for]": task brief (Desktop tests) and the binary's built-in skill constant next to dataviz, design and slides.
+  // Menu list, lote 8 (NATIVE-UNDOCUMENTED, bundled-skill constant). App test, 2026-11-22: (works; asks for a brief when none is given; depends on the account's artifact type).
+  // Beta message (paraphrased from the task brief, no verbatim text): account without the Whiteboard type gets a message that Whiteboard is in beta and may not be available yet.
+  // Docs: /whiteboard has no row in https://code.claude.com/docs/en/commands.md (fetched 2026-11-23). https://code.claude.com/docs/en/artifacts.md line 328: "Your account can include others, such as Sheets, Whiteboards, or Data."
+  // Verified 2026-11-23 in a live Desktop 2.1.325 session: typing /whiteboard loads the bundled skill `bundled:whiteboard`, which makes a NEW Artifact from the account's published "Whiteboard" type, asks what the whiteboard is for when no brief is given, and says Whiteboard is in beta when the type is missing. So kind "Skill embutida" (a bundled skill, not a registered command).
+  // Design choices (no source): h 190 (hue), icon "flow", motion "hue" (same family as design and slides), warn true because the app result depends on the account.
+  {
+    "id": "whiteboard",
+    "h": 190,
+    "icon": "flow",
+    "kind": "Skill embutida",
+    "lote": 9,
+    "short": "Criar um quadro Whiteboard como artefato",
+    "what": "Cria um artefato novo do tipo Whiteboard, a partir de um briefing que você descreve. Sem briefing, o Claude pergunta antes para que serve o quadro.",
+    "why": "Entrega o quadro como artefato da sua conta, em vez de só texto na conversa.",
+    "how": "Digite <code>/whiteboard</code> seguido do objetivo do quadro, como <code>/whiteboard mapa dos módulos do sistema de pagamentos</code>. Sem isso, o Claude pergunta antes de criar.",
+    "note": "Testado no app Desktop (22/11/2026). Depende da conta: sem o tipo Whiteboard, o app diz que o recurso está em beta e pode não estar disponível na conta ainda. Não está na tabela oficial de comandos: é uma skill embutida da versão 2.1.325.",
+    "params": [
+      [
+        "[briefing]",
+        "Opcional. Para que serve o quadro. Sem ele, o Claude pergunta antes de criar."
+      ]
+    ],
+    "examples": [
+      [
+        "/whiteboard mapa dos módulos do sistema de pagamentos",
+        "Cria um artefato Whiteboard a partir desse briefing."
+      ],
+      [
+        "/whiteboard",
+        "Sem briefing, o Claude pergunta primeiro para que serve o quadro."
+      ],
+      [
+        "/whiteboard retrospectiva da sprint com o time",
+        "Cria um Whiteboard novo para a retrospectiva."
+      ]
+    ],
+    "app": {
+      "ok": true,
+      "text": "Testado no app: cria o artefato a partir do tipo Whiteboard da conta"
+    },
+    "warn": true
+  }
+];
+
+const LOTE9_CONTEXTS = {
+  "agents": "Quando você quer um subagente especializado para uma parte do trabalho. Como o assistente foi removido, a forma atual é pedir na conversa ou editar o arquivo do subagente.",
+  "help": "Quando você esquece o nome de um comando e quer ver a lista no terminal. No app Desktop, o comando não responde.",
+  "whiteboard": "Quando você quer um quadro publicado como artefato, sobre um tema que descreve no briefing, e a conta tem o tipo Whiteboard."
+};
+
+const LOTE9_CATEGORY = {
+  "agents": "automacao",
+  "help": "ajustes",
+  "whiteboard": "criacao"
+};
+
+const LOTE9_MOTION = {
+  "agents": "rise",
+  "help": "beat",
+  "whiteboard": "hue"
+};
+
+const LOTE9_DOCS = {
+  "agents": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Tabela oficial: /agents imprime um lembrete para pedir ao Claude que crie ou gerencie subagentes; até a v2.1.197 abria uma interface de configuração."
+  },
+  "help": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Tabela oficial: “Show help and available commands”. A referência não fala do app Desktop; o teste de que o comando não faz nada no app foi feito no Desktop."
+  },
+  "whiteboard": {
+    "url": "https://code.claude.com/docs/en/artifacts",
+    "note": "Não está na tabela oficial de comandos; é uma skill embutida da versão 2.1.325. A página de artefatos cita Whiteboards entre os tipos da conta (Sheets, Whiteboards, Data)."
+  }
+};
+
+Object.assign(ICONS, LOTE9_ICONS);
+COMMANDS.push(...LOTE9_COMMANDS);
+Object.assign(CONTEXTS, LOTE9_CONTEXTS);
+for (const [id, cat] of Object.entries(LOTE9_CATEGORY)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
+for (const [id, a] of Object.entries(LOTE9_MOTION)) MOTION[a].push(id);
+Object.assign(DOCS, LOTE9_DOCS);
 
 const ANIM_OF = Object.fromEntries(Object.entries(MOTION).flatMap(([a, ids]) => ids.map((id) => [id, a])));
 
