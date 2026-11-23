@@ -16,5 +16,5 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Command guide page `comandos-nativos.html`, generated from `src/comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
 - Cards for `/agents`, `/help` and `/whiteboard`; the guide now has 82 cards.
 - Infographic pipeline `infographic-register-tool.py`, with the barriers `check-blueprint`, `check-qa` and `register`.
-- 15 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `status`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.
+- 17 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.
 - 229 pytest tests under `.claude/skills/notebooklm-command-infographic-playbook/scripts/tests`.

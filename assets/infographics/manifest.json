@@ -182,6 +182,32 @@
       "slug": "rewind",
       "updated_at": "2026-11-23T16:11:30Z"
     },
+    "security-review": {
+      "command": "/security-review",
+      "formats": {
+        "download": "assets/infographics/security-review/infographic-1920.png",
+        "image": "assets/infographics/security-review/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "security-review",
+      "updated_at": "2026-11-23T18:34:46Z"
+    },
+    "simplify": {
+      "command": "/simplify",
+      "formats": {
+        "download": "assets/infographics/simplify/infographic-1920.png",
+        "image": "assets/infographics/simplify/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "simplify",
+      "updated_at": "2026-11-23T18:41:14Z"
+    },
     "status": {
       "command": "/status",
       "formats": {
