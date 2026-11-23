@@ -15,13 +15,13 @@ Rode /rewind para voltar a um ponto anterior. Os aliases /undo e /checkpoint exe
 Quando a conversa ou o código seguiu por um caminho que não deu certo, e você quer voltar a um ponto anterior ou resumir a partir de uma mensagem.
 
 ## Observação
-Documentado na referência oficial. Doc oficial: checkpointing. Aliases /checkpoint e /undo.
+Documentado na referência oficial. Arquivos mudados só por comandos do Bash não voltam, e mudanças feitas fora do Claude Code não são rastreadas. Doc oficial: checkpointing. Aliases /checkpoint e /undo.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /rewind.
-2. O menu lista os prompts enviados na sessão.
-3. O motor restaura código ou conversa, conforme a opção escolhida.
-4. A sessão volta ao ponto escolhido.
+2. Menu lista os prompts enviados.
+3. Restaura código ou conversa.
+4. Sessão volta ao ponto escolhido.
 
 ## Exemplos
 - /rewind: volta a conversa ou o código a um ponto anterior.

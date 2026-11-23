@@ -24,6 +24,6 @@ Texto do relato, abre o diálogo
 Abre o diálogo de envio direto
 Algo não funcionou como esperado
 Quer deixar relato para o fabricante
-Sem texto, abre a fila de rascunhos
+Sem texto: fila de rascunhos, se houver
 Nada sai sem sua confirmação
 /feedback a busca de arquivos demora muito em pastas com milhares de itens

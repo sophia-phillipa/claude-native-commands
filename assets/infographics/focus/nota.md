@@ -15,7 +15,7 @@ Rode /focus para alternar. A escolha fica salva e vale nas próximas sessões; a
 Quando a conversa ficou longa demais e você quer enxergar só o pedido e o resultado final.
 
 ## Observação
-Só funciona com renderização em tela cheia. Pelo Remote Control, /focus on e /focus off valem só para a sessão, a partir da versão 2.1.281.
+Segundo a documentação, só funciona com renderização em tela cheia; no app, o teste passou. Pelo Remote Control, /focus on e /focus off valem só para a sessão, a partir da versão 2.1.281.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /focus.
@@ -24,7 +24,7 @@ Só funciona com renderização em tela cheia. Pelo Remote Control, /focus on e 
 4. A escolha fica salva e vale nas próximas sessões.
 
 ## Exemplos
-- /focus: liga a visão de foco com prompt, resumo e resposta final.
+- /focus: liga a visão de foco: prompt, resumo e resposta final.
 - /focus: chamado de novo, volta à visão normal da conversa.
 - /focus: a escolha fica salva e vale nas próximas sessões.
 
@@ -32,7 +32,7 @@ Só funciona com renderização em tela cheia. Pelo Remote Control, /focus on e 
 - /config: Mudar uma configuração pelo nome
 
 ## Armadilhas
-- Só com renderização em tela cheia
-- Configuração viewMode pode substituí-la
+- Segundo a documentação, só com tela cheia.
+- Configuração viewMode pode substituí-la.
 
 Documentação: https://code.claude.com/docs/en/settings-reference#viewmode

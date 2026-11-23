@@ -19,16 +19,16 @@ Parâmetros:
 Quando a compactação automática chega cedo ou tarde demais para o seu jeito de trabalhar, ou quando outra ferramenta já compacta a sessão e você quer que o Claude Code compacte antes dela.
 
 ## Observação
-Escolha um valor com folga abaixo do tamanho da janela do modelo. Se um hook ou um plugin também compacta a sessão, vale quem chegar primeiro.
+Escolha um valor com folga abaixo do tamanho da janela do modelo. Se a variável CLAUDE_CODE_AUTO_COMPACT_WINDOW estiver definida, ela tem prioridade sobre o comando, a flag e a configuração autoCompactWindow, a não ser que o Claude Code ignore o valor.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /autocompact com valor
-2. Claude Code define a janela
+2. O valor define a janela
 3. A compactação entra nesse tamanho
 4. Sessão compacta antes do fim
 
 ## Exemplos
-- /autocompact 300000: compacta com folga antes do fim da janela, sem cortar a resposta em curso.
+- /autocompact 300000: compacta quando o contexto chega a 300 mil tokens, sem passar do limite de contexto do modelo.
 - /autocompact 200000: sessões mais leves, para quem compacta com frequência.
 - /autocompact auto: volta ao ajuste automático.
 

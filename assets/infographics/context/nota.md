@@ -9,13 +9,13 @@ Mostra o uso atual da janela de contexto, com uma tabela por categoria e a lista
 Explica por que uma sessão ficou pesada e o que cortar. Com muitos servidores MCP ligados, as ferramentas deles costumam ser uma das maiores fatias.
 
 ## Como usar
-Rode /context sem parâmetros. No app não há opções extras.
+Rode /context sem parâmetros. No app, o teste cobriu só a tabela por categoria; o argumento all, que expande a tabela, não foi testado.
 
 ## Quando usar
 Quando as respostas ficam lentas ou a sessão parece pesada, e antes de colar um log grande. Olhe primeiro as maiores fatias da tabela: é ali que o corte rende mais.
 
 ## Observação
-A descrição segue a referência oficial do Claude Code.
+Testado no app: tabela por categoria.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /context

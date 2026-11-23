@@ -19,7 +19,7 @@ analisa
 monta
 reduz
 [instruções]
-Instrução extra para a análise
+Argumento de texto livre para a skill
 .claude/settings.json
 Recebe a allowlist do projeto
 /config

@@ -12,7 +12,7 @@ Resume a conversa e libera contexto.
 A conversa enche a janela
 Você digita /compact com instruções
 O motor lê o histórico
-O motor escreve resumo fiel
+O motor escreve o resumo
 Sessão segue mais leve
 motiva
 executa
@@ -30,4 +30,4 @@ Perto do limite da sessão
 Antes da compactação automática
 Sem instruções, detalhes podem sumir
 Mensagens exatas viram resumo
-/compact mantenha testes e decisões
+/compact descarte os logs longos e guarde só as conclusões

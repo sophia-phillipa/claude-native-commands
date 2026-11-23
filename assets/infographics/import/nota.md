@@ -6,7 +6,7 @@ Categoria: Ajustes e permissões. Tipo: comando embutido do Claude Code.
 Importa configuração de outro agente de código: servidores MCP, comandos de barra, subagentes, skills e instruções. Primeiro ele só varre e lista o que dá para importar.
 
 ## Por que usar
-Quem usa outra ferramenta não precisa recriar tudo à mão. A importação aplica verificações de nomes e de caminhos seguras, em vez de você copiar arquivos por conta própria.
+Quem usa outra ferramenta não precisa recriar tudo à mão. O /import traz a configuração para o Claude Code, em vez de você copiar arquivos por conta própria.
 
 ## Como usar
 Rode /import para escanear e listar. A saída informa um código; depois rode /import --yes=<código> para aplicar o que foi listado.

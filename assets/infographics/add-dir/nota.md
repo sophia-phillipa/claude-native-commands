@@ -27,7 +27,7 @@ No Desktop, a tela "Add folders to a session" faz o mesmo.
 ## Exemplos
 - /add-dir ../minha-biblioteca: inclui a biblioteca vizinha ao app.
 - /add-dir ~/projetos/docs: inclui um repositório de documentação.
-- /add-dir /srv/config-compartilhada: inclui uma pasta de configuração usada por vários projetos.
+- /add-dir /srv/config-compartilhada: dá acesso aos arquivos de uma pasta compartilhada por vários projetos; a configuração .claude/ dela, em geral, não é carregada.
 
 ## Comandos relacionados
 - /config: mudar uma configuração pelo nome.

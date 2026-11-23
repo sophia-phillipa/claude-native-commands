@@ -38,7 +38,7 @@
   },
   "contrast": {
     "when": [ "Ajustes mecânicos de texto e arquivos", "Bug difícil no meio da sessão" ],
-    "pitfalls": [ "xhigh gasta mais tokens", "Não use na sessão inteira" ],
+    "pitfalls": [ "xhigh gasta mais tokens", "Teste antes de usar com frequência" ],
     "example": "/effort high"
   }
 }

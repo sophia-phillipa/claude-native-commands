@@ -42,7 +42,7 @@
       "Deixa passar algo que você bloquearia"
     ],
     "pitfalls": [
-      "Só aparece com modo auto na conta",
+      "Exige plano compatível ou chave de API",
       "Aceite é tudo ou nada"
     ],
     "example": "/auto-mode-setup"

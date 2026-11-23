@@ -11,13 +11,10 @@ Contexto limpo custa menos e evita que restos da tarefa anterior atrapalhem a no
 ## Como usar
 Use /clear, com ou sem um nome.
 
-Parâmetro: [nome]. Opcional. Um nome para identificar a sessão.
+Parâmetro: [nome]. Opcional. Um nome para a conversa anterior, que aparece assim na lista do /resume.
 
 ## Quando usar
 Ao terminar uma tarefa e começar outra sem relação com ela, na mesma pasta: contexto limpo sai mais barato e não confunde a tarefa nova com a anterior.
-
-## Observação
-A descrição segue a referência oficial do Claude Code.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /clear
@@ -27,11 +24,11 @@ A descrição segue a referência oficial do Claude Code.
 
 ## Exemplos
 - /clear: contexto vazio para a próxima tarefa.
-- /clear revisão dos READMEs: começa de novo já com um nome.
+- /clear revisão dos READMEs: começa de novo; o nome vai para a conversa anterior, na lista do /resume.
 - /new: mesmo comando pelo apelido.
 
 ## Comandos relacionados
-- /compact: segue com resumo da conversa; o /clear não leva nada.
+- /compact: segue com resumo da conversa.
 
 ## Armadilhas
 - Para seguir a conversa, use /compact.

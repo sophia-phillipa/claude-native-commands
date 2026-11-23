@@ -25,7 +25,7 @@ Ela libera a consulta ao domínio platform.claude.com para buscar a documentaç�
 ## Exemplos
 - /claude-api como ligo o cache de prompt no meu chatbot em Python?: passo a passo com o SDK, usando a referência.
 - /claude-api qual a diferença de preço entre os modelos atuais?: consulta a tabela em vez de chutar.
-- /claude-api migrar meu código do modelo antigo para o mais novo: lista o que muda em parâmetros e comportamento.
+- /claude-api migrate: atualiza o código da API para um modelo mais novo.
 
 ## Comandos relacionados
 - /design-sync: Enviar seu design system ao Claude Design.

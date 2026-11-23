@@ -15,7 +15,7 @@
   "identity": { "purpose": "Revisa o diff e pega bugs de correção antes do commit." },
   "flow": {
     "steps": [
-      { "id": "s1", "layer": "input", "label": "Você digita /code-review com nível" },
+      { "id": "s1", "layer": "input", "label": "Você digita /code-review" },
       { "id": "s2", "layer": "processing", "label": "Revisão lê o alvo" },
       { "id": "s3", "layer": "processing", "label": "Revisão busca bugs de correção" },
       { "id": "s4", "layer": "processing", "label": "Nível controla quantos achados vêm" },
@@ -30,7 +30,7 @@
   },
   "connections": {
     "flags": [
-      { "text": "<nível>", "label": "Low traz poucos, high traz mais" },
+      { "text": "[nível]", "label": "Low traz poucos, high traz mais" },
       { "text": "[alvo]", "label": "Número de PR, branch ou caminho" },
       { "text": "--fix", "label": "Aplica as correções no working tree" }
     ],

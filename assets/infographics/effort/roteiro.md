@@ -25,5 +25,5 @@ Combina com o custo da sessão
 Ajustes mecânicos de texto e arquivos
 Bug difícil no meio da sessão
 xhigh gasta mais tokens
-Não use na sessão inteira
+Teste antes de usar com frequência
 /effort high

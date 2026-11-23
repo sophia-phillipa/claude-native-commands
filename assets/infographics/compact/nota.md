@@ -17,14 +17,14 @@ Parâmetro opcional: [instruções], texto livre. Diz ao resumo o que guardar co
 Perto do limite da sessão, antes de a compactação automática rodar sozinha. Rodando na mão, você descreve os critérios do resumo: o que guardar e o que descartar.
 
 ## Observação
-A compactação automática roda sozinha perto do limite. O comando serve para compactar antes, na hora e com os critérios que você escolher.
+A compactação automática roda sozinha perto do limite. O comando serve para compactar antes, na hora e com os critérios que você escolher. A documentação do Desktop cita o /compact para resumir antes do limite.
 
 ## O que acontece no fluxo do prompt e do motor
-1. A conversa enche a janela de contexto.
-2. Você digita /compact, com ou sem instruções.
-3. O motor lê o histórico da conversa.
-4. O motor escreve um resumo fiel, guiado pelas instruções.
-5. A sessão segue mais leve, com o resumo no lugar do histórico.
+1. A conversa enche a janela
+2. Você digita /compact com instruções
+3. O motor lê o histórico
+4. O motor escreve o resumo
+5. Sessão segue mais leve
 
 ## Exemplos
 - /compact: resumo padrão da sessão.
@@ -40,4 +40,4 @@ A compactação automática roda sozinha perto do limite. O comando serve para c
 - Sem instruções, detalhes podem sumir.
 - Mensagens exatas viram resumo.
 
-Documentação: https://code.claude.com/docs/en/context-window#what-survives-compaction
+Documentação: https://code.claude.com/docs/en/desktop#check-and-free-up-context

@@ -15,7 +15,7 @@
   "identity": { "purpose": "Define o modelo de IA da sessão" },
   "flow": {
     "steps": [
-      { "id": "s1", "layer": "input", "label": "Você digita /model com modelo" },
+      { "id": "s1", "layer": "input", "label": "Você digita /model" },
       { "id": "s2", "layer": "processing", "label": "O motor troca o modelo" },
       { "id": "s3", "layer": "processing", "label": "Próximos pedidos usam o novo" },
       { "id": "s4", "layer": "result", "label": "Sessão segue no novo modelo" }
@@ -27,7 +27,7 @@
     ]
   },
   "connections": {
-    "flags": [ { "text": "<modelo>", "label": "Nome do modelo da sessão" } ],
+    "flags": [ { "text": "[modelo]", "label": "Opcional; sem ele, abre o seletor" } ],
     "files": [],
     "related": [
       { "command": "/effort", "label": "Combina com o nível de esforço" }

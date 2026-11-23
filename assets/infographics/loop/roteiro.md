@@ -23,11 +23,10 @@ Tempo entre as voltas
 [prompt]
 O pedido ou comando que repete
 /usage
-Acompanha o consumo do plano
-/recap
-Repete o resumo sem intervalo
+Não roda no loop; chega como texto
 Acompanhar um deploy ou uma fila
 Algo que demora sem novo pedido
 Não serve para tarefa única
-Para parar, peça na conversa
+Com intervalo, peça para cancelar
+Sem intervalo, Esc com a caixa vazia
 /loop 10m confira se o deploy de staging terminou

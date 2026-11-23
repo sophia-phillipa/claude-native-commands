@@ -17,13 +17,13 @@ Parâmetro opcional: [description]. A tarefa a planejar; sem ela, só o modo é 
 Antes de uma tarefa grande ou arriscada, quando vale montar o plano e revisá-lo antes de qualquer mudança.
 
 ## Observação
-Documentado na referência oficial.
+Documentado na referência oficial. Descrição oficial na tabela de comandos. Testado no app: funcionou.
 
 ## O que acontece no fluxo do prompt e do motor
-1. Você digita /plan.
-2. O motor ativa modo plano.
-3. Com descrição, começa a tarefa.
-4. A sessão fica em modo plano.
+1. Você digita /plan
+2. O motor ativa modo plano
+3. Com descrição, começa a tarefa
+4. Sessão fica em modo plano
 
 ## Exemplos
 - /plan corrigir o bug de autenticação: entra no modo plano já com essa tarefa.
@@ -31,9 +31,9 @@ Documentado na referência oficial.
 - /plan migrar a tabela de usuários para o novo esquema: começa pelo plano da migração antes da execução.
 
 ## Comandos relacionados
-- /model: trocar o modelo da sessão.
+- /model: Trocar o modelo da sessão
 
 ## Armadilhas
-- Sem descrição, só o modo é ativado.
+- Sem descrição, só o modo é ativado
 
 Documentação: https://code.claude.com/docs/en/commands#all-commands

@@ -8,7 +8,7 @@ Conexões e variações
 Quando usar
 Armadilhas comuns
 Exemplo
-Acompanha, pausa e salva workflows em andamento.
+Acompanha e pausa workflows; a tecla s salva o script.
 Você digita /workflows
 Lista execuções rodando e terminadas
 Mostra fases e agentes

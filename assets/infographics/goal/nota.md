@@ -3,10 +3,10 @@
 Categoria: Automação. Tipo: comando embutido do Claude Code.
 
 ## O que faz
-Define uma condição de pronto. Antes de parar, Claude confere essa condição e continua trabalhando enquanto ela não estiver cumprida.
+Define uma condição de pronto. Depois de cada turno, um modelo avaliador separado confere a condição; enquanto ela não estiver cumprida, Claude segue trabalhando.
 
 ## Por que usar
-Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a parada só acontece quando o critério que você deu é verdadeiro.
+Tarefas longas às vezes param no meio, com “quase pronto”. Com uma meta escrita, a sessão só para quando o critério que você deu é verdadeiro, ou quando o avaliador julga a meta impossível ou um erro exige correção.
 
 ## Como usar
 Digite /goal seguido da condição. Para remover a meta, use /goal clear.

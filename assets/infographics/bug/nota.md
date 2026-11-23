@@ -34,4 +34,4 @@ No app aparece como /feedback (bug). Testado no app: vai para /feedback. A refer
 ## Armadilhas
 - No app, aparece como /feedback (bug).
 
-Documentação: https://code.claude.com/docs/en/data-usage#telemetry-services
+Documentação: https://code.claude.com/docs/en/commands#all-commands

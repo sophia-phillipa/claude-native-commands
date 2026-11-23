@@ -19,7 +19,7 @@ executa
 verifica
 mostra
 [pedido]
-Diz o que abrir, clicar ou conferir
+Vai como argumento para a skill
 /run-skill-generator
 Cria ou melhora uma skill por projeto
 Mudou uma tela ou um painel

@@ -30,7 +30,7 @@
   },
   "connections": {
     "flags": [
-      { "text": "[pedido]", "label": "Diz o que abrir, clicar ou conferir" }
+      { "text": "[pedido]", "label": "Vai como argumento para a skill" }
     ],
     "files": [],
     "related": [

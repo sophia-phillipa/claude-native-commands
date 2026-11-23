@@ -13,14 +13,14 @@ Use /effort <nível>.
 
 Parâmetros:
 - low · medium · high: do mais rápido e barato ao mais cuidadoso.
-- xhigh · max: os mais caros. O app só aceita os que o modelo atual suporta.
-- auto: devolve a escolha do esforço ao Claude.
+- xhigh · max: os níveis mais altos. Se o modelo atual não suporta o nível pedido, o Claude Code usa o mais alto que ele suporta abaixo dele.
+- auto: limpa o nível salvo para o modelo atual.
 
 ## Quando usar
 Quando o tipo de tarefa muda no meio da sessão: abaixe para ajustes mecânicos de texto e arquivos, suba ao chegar num bug difícil.
 
 ## Observação
-xhigh e max consomem bem mais tokens. Use-os em tarefas curtas e difíceis, não na sessão inteira.
+xhigh consome mais tokens que high. max é para problemas difíceis, pode pensar demais e mostrar retorno decrescente: teste antes de usar com frequência.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /effort com nível.
@@ -31,13 +31,13 @@ xhigh e max consomem bem mais tokens. Use-os em tarefas curtas e difíceis, não
 ## Exemplos
 - /effort high: Mais raciocínio para um bug difícil.
 - /effort low: Rápido e barato para renomear arquivos ou ajustar texto.
-- /effort auto: Devolve a escolha do esforço ao Claude.
+- /effort auto: Limpa o nível salvo para o modelo atual.
 
 ## Comandos relacionados
 - /usage: Combina com o custo da sessão.
 
 ## Armadilhas
 - xhigh gasta mais tokens.
-- Não use na sessão inteira.
+- Teste antes de usar com frequência.
 
 Documentação: https://code.claude.com/docs/en/model-config#adjust-effort-level

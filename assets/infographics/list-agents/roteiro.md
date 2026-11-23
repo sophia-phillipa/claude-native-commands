@@ -18,6 +18,6 @@ mostra
 Gerenciar servidores MCP
 Antes de enviar mensagem a outra sessão
 Para conferir quem está disponível
-Depende do recurso de mensagens ligado
-Sessões na nuvem exigem Remote Control
+Depende da versão do Claude Code
+Sessões de outras máquinas exigem Remote Control
 /list-agents

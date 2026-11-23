@@ -81,11 +81,7 @@
     "related": [
       {
         "command": "/usage",
-        "label": "Acompanha o consumo do plano"
-      },
-      {
-        "command": "/recap",
-        "label": "Repete o resumo sem intervalo"
+        "label": "Não roda no loop; chega como texto"
       }
     ]
   },
@@ -96,7 +92,8 @@
     ],
     "pitfalls": [
       "Não serve para tarefa única",
-      "Para parar, peça na conversa"
+      "Com intervalo, peça para cancelar",
+      "Sem intervalo, Esc com a caixa vazia"
     ],
     "example": "/loop 10m confira se o deploy de staging terminou"
   }

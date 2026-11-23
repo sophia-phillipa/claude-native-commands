@@ -11,7 +11,7 @@ Teste verde não garante que a tela abre. O /run sobe o app e mostra o resultado
 ## Como usar
 Use /run sozinho ou com um pedido do que mostrar.
 
-Parâmetro opcional: [pedido], texto livre. Diz o que abrir, clicar ou conferir no app.
+Parâmetro opcional: [pedido], texto livre. Vai como argumento para a skill, que o usa ao conduzir o app.
 
 ## Quando usar
 Depois de mudar algo visível, como uma tela, um painel ou uma CLI, quando teste verde não basta e você quer ver o app de verdade.

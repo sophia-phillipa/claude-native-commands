@@ -13,7 +13,7 @@ Use /mcp sozinho ou com uma ação.
 
 Parâmetros:
 - reconnect: Reconecta um servidor que caiu ou travou.
-- enable · disable: Liga ou desliga um servidor.
+- enable · disable: Liga ou desliga um servidor; a escolha fica salva para o projeto.
 - <servidor> · all: O nome do servidor, ou all para todos de uma vez.
 
 ## Quando usar
@@ -23,10 +23,10 @@ Quando uma ferramenta MCP para de responder ou some, e no começo de uma sessão
 No Desktop, os conectores também têm uma tela própria; o /mcp é o caminho por comando.
 
 ## O que acontece no fluxo do prompt e do motor
-1. Você digita /mcp.
-2. Painel lista os servidores.
-3. Reconecta ou desliga um servidor.
-4. Ferramentas voltam ou param.
+1. Você digita /mcp
+2. Painel lista os servidores
+3. Reconecta ou desliga um servidor
+4. Ferramentas voltam ou param
 
 ## Exemplos
 - /mcp: Lista os servidores e o estado de cada um.

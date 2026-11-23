@@ -10,7 +10,7 @@ Armadilhas comuns
 Exemplo
 Define em que tamanho a compactação automática entra
 Você digita /autocompact com valor
-Claude Code define a janela
+O valor define a janela
 A compactação entra nesse tamanho
 Sessão compacta antes do fim
 aciona

@@ -3,7 +3,7 @@
 Categoria: Automação. Tipo: skill embutida do Claude Code.
 
 ## O que faz
-Pesquisa e planeja uma mudança grande e depois a executa em paralelo com 5 a 30 agentes, cada um num worktree isolado e cada um abrindo o seu PR.
+Pesquisa e planeja uma mudança grande e depois a executa em paralelo com 5 a 30 agentes, cada um num worktree isolado; cada um abre o seu PR ou relata o que aconteceu.
 
 ## Por que usar
 Serve para mudanças mecânicas em muitos arquivos, como migrações, refatorações e renomeações em massa, que se dividem em partes independentes.
@@ -17,7 +17,7 @@ Parâmetro obrigatório: <instrução>, texto livre. A mudança completa que voc
 Mudanças grandes, repetitivas e independentes em muitos arquivos, que fariam uma sessão só levar horas. Não serve para partes que dependem umas das outras.
 
 ## Observação
-É o mais caro do guia: abre muitos agentes e muitos PRs de uma vez. Confira o plano e o custo antes de deixar executar.
+Antes de executar, mostra um plano, e os agentes só começam depois da sua aprovação: confira o plano antes de aprovar.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /batch com a instrução.
@@ -36,6 +36,6 @@ Mudanças grandes, repetitivas e independentes em muitos arquivos, que fariam um
 
 ## Armadilhas
 - Muitos agentes e PRs de uma vez.
-- Custo alto sem conferir o plano.
+- Aprovar o plano sem conferir.
 
 Documentação: https://code.claude.com/docs/en/skills#bundled-skills

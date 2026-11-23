@@ -35,7 +35,7 @@
   },
   "contrast": {
     "when": [ "Conversa ficou longa demais", "Quer ver só pedido e resultado" ],
-    "pitfalls": [ "Só com renderização em tela cheia", "Configuração viewMode pode substituí-la" ],
+    "pitfalls": [ "Segundo a documentação, só com tela cheia", "Configuração viewMode pode substituí-la" ],
     "example": "/focus"
   }
 }

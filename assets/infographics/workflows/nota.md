@@ -9,30 +9,30 @@ Abre a visão de andamento dos workflows, onde você acompanha, pausa, retoma e 
 Com vários agentes rodando, esta tela mostra em que ponto cada workflow está e permite pausar ou retomar um deles.
 
 ## Como usar
-Digite /workflows para abrir a visão. Dali, acompanhe a execução escolhida, pause, retome ou salve. No app, /workflow também funciona e aparece como /workflows (workflow).
+Digite /workflows para abrir a visão. Dali, acompanhe a execução escolhida, pause, retome ou salve.
 
 ## Quando usar
 Quando um workflow com vários agentes está rodando ou já terminou, e você quer ver em que ponto ele está.
 
 ## Observação
-Documentado na referência oficial. A documentação descreve a visão de andamento na página de workflows.
+Documentado na referência oficial. No app, /workflow também funciona e aparece como /workflows (workflow). A documentação descreve a visão de andamento na página de workflows.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /workflows.
-2. O motor lista execuções rodando e terminadas.
-3. A visão mostra fases e agentes da execução escolhida.
-4. A execução fica pausada, retomada ou salva.
+2. Lista execuções rodando e terminadas.
+3. Mostra fases e agentes.
+4. Execução pausada, retomada ou salva.
 
 ## Exemplos
 - /workflows: mostra os workflows em execução e os que já terminaram.
 - /workflows: pausa uma execução em andamento para retomá-la depois.
-- /workflows: salva uma execução concluída para consulta posterior.
+- /workflows: com a visão aberta, a tecla s salva o script da execução como um comando reutilizável.
 
 ## Comandos relacionados
 - /goal: trabalhar até a meta ser cumprida.
 
 ## Armadilhas
-- Sair da sessão não retoma o workflow sozinho: é preciso pedir ao Claude para relançá-lo.
-- Muitos agentes gastam mais tokens que uma conversa comum.
+- Sair da sessão não retoma sozinho.
+- Muitos agentes gastam mais tokens.
 
 Documentação: https://code.claude.com/docs/en/workflows#watch-the-run

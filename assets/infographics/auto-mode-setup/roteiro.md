@@ -24,6 +24,6 @@ Recebe as regras aceitas
 Mudar uma configuração pelo nome
 Pede confirmação de coisas normais
 Deixa passar algo que você bloquearia
-Só aparece com modo auto na conta
+Exige plano compatível ou chave de API
 Aceite é tudo ou nada
 /auto-mode-setup

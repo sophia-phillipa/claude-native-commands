@@ -20,5 +20,5 @@ permite
 Resumo novo a cada intervalo
 Antes de pausar ou trocar de sessão
 Ao voltar a uma sessão antiga
-Resumo tem limite de 400 caracteres
+No /loop, chega ao Claude como texto
 /recap

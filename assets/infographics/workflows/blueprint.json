@@ -13,7 +13,7 @@
     "example": "Exemplo"
   },
   "identity": {
-    "purpose": "Acompanha, pausa e salva workflows em andamento."
+    "purpose": "Acompanha e pausa workflows; a tecla s salva o script."
   },
   "flow": {
     "steps": [

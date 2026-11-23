@@ -17,7 +17,7 @@ Parâmetro: on · off, opcional. Liga ou desliga. Sem parâmetro, alterna o esta
 Numa sequência de ajustes pequenos e rápidos, em que esperar a resposta pesa mais que a profundidade dela.
 
 ## Observação
-Se o modelo atual não suporta o modo rápido, o app passa a sessão para o Opus.
+Se o modelo atual não suporta o modo rápido, ligá-lo troca o modelo; na API da Anthropic, a sessão passa para o Opus.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /fast para alternar.
@@ -26,12 +26,12 @@ Se o modelo atual não suporta o modo rápido, o app passa a sessão para o Opus
 4. Respostas saem mais rápidas.
 
 ## Exemplos
-- /fast: Alterna o modo rápido.
-- /fast on: Liga para uma rodada de ajustes pequenos.
-- /fast off: Desliga e volta ao ritmo normal.
+- /fast: alterna o modo rápido.
+- /fast on: liga para uma rodada de ajustes pequenos.
+- /fast off: desliga e volta ao ritmo normal.
 
 ## Comandos relacionados
-- /model: Trocar o modelo da sessão.
+- /model: trocar o modelo da sessão.
 
 ## Armadilhas
 - Modelo sem suporte: sessão muda de modelo.

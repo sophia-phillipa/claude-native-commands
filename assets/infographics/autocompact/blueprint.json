@@ -18,7 +18,7 @@
   "flow": {
     "steps": [
       { "id": "s1", "layer": "input", "label": "Você digita /autocompact com valor" },
-      { "id": "s2", "layer": "processing", "label": "Claude Code define a janela" },
+      { "id": "s2", "layer": "processing", "label": "O valor define a janela" },
       { "id": "s3", "layer": "processing", "label": "A compactação entra nesse tamanho" },
       { "id": "s4", "layer": "result", "label": "Sessão compacta antes do fim" }
     ],

@@ -12,7 +12,7 @@
     "pitfalls": "Armadilhas comuns",
     "example": "Exemplo"
   },
-  "identity": { "purpose": "Carrega skills criadas ou editadas sem reabrir a sessão." },
+  "identity": { "purpose": "Carrega skills novas sem reabrir a sessão." },
   "flow": {
     "steps": [
       { "id": "s1", "layer": "input", "label": "Você digita /reload-skills" },
@@ -34,7 +34,7 @@
   "contrast": {
     "when": [
       "Depois de criar uma skill na sessão",
-      "Depois de editar uma skill na sessão"
+      "Skill nova que não aparece na lista"
     ],
     "pitfalls": [
       "Mudança em plugin usa /reload-plugins",

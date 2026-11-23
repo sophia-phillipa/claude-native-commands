@@ -12,21 +12,21 @@ Permite trocar o modo sandbox direto na sessão, quando o recurso estiver dispon
 Rode /sandbox para alternar o modo. O comando está disponível só em plataformas compatíveis.
 
 ## Quando usar
-Quando quer ligar ou desligar o modo sandbox numa plataforma que o suporta.
+Quer ligar ou desligar o sandbox, numa plataforma compatível.
 
 ## Observação
-Documentado na referência oficial. Disponível só em plataformas compatíveis.
+Documentado na referência oficial. Disponível só em plataformas compatíveis. Doc oficial: sandboxing. Só em plataformas compatíveis. Testado no app: funcionou.
 
 ## O que acontece no fluxo do prompt e do motor
-1. Você digita /sandbox.
-2. Abre o painel do sandbox.
-3. Você liga ou desliga.
-4. Modo sandbox muda de estado.
+1. Você digita /sandbox
+2. Abre o painel do sandbox
+3. Você liga ou desliga
+4. Modo sandbox muda de estado
 
 ## Exemplos
 - /sandbox: alterna o modo sandbox nesta plataforma.
 - /sandbox: se a plataforma não for compatível, o comando não está disponível.
-- /sandbox: rode de novo para voltar ao estado anterior.
+- /sandbox: rode de novo para abrir o painel, com as abas Mode, Overrides e Config.
 
 ## Comandos relacionados
 - /config: Mudar uma configuração pelo nome

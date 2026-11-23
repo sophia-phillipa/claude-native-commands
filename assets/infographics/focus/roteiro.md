@@ -20,6 +20,6 @@ salva
 Mudar uma configuração pelo nome
 Conversa ficou longa demais
 Quer ver só pedido e resultado
-Só com renderização em tela cheia
+Segundo a documentação, só com tela cheia
 Configuração viewMode pode substituí-la
 /focus

@@ -35,7 +35,7 @@
       {
         "id": "s4",
         "layer": "processing",
-        "label": "O motor escreve resumo fiel"
+        "label": "O motor escreve o resumo"
       },
       {
         "id": "s5",
@@ -98,6 +98,6 @@
       "Sem instruções, detalhes podem sumir",
       "Mensagens exatas viram resumo"
     ],
-    "example": "/compact mantenha testes e decisões"
+    "example": "/compact descarte os logs longos e guarde só as conclusões"
   }
 }

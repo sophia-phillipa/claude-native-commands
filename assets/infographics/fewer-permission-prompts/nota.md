@@ -11,7 +11,7 @@ Corta as interrupções repetidas de “posso rodar isso?” sem liberar comando
 ## Como usar
 Rode /fewer-permission-prompts na pasta do projeto.
 
-Parâmetro opcional: [instruções], texto livre. Entra como instrução extra para a análise.
+Parâmetro opcional: [instruções], texto livre. Vai como argumento para a skill.
 
 ## Quando usar
 Quando você se pega aprovando os mesmos comandos de leitura, como git status, rg ou ls, toda hora num projeto que usa sempre.
@@ -33,5 +33,6 @@ Quando você se pega aprovando os mesmos comandos de leitura, como git status, r
 
 ## Armadilhas
 - Só comandos de leitura entram na lista.
+- Vale só para o projeto atual.
 
 Documentação: https://code.claude.com/docs/en/commands#all-commands

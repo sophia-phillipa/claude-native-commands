@@ -30,7 +30,7 @@
   },
   "connections": {
     "flags": [
-      { "text": "[instruções]", "label": "Instrução extra para a análise" }
+      { "text": "[instruções]", "label": "Argumento de texto livre para a skill" }
     ],
     "files": [
       { "text": ".claude/settings.json", "label": "Recebe a allowlist do projeto" }

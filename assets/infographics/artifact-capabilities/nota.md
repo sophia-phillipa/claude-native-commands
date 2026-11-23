@@ -3,7 +3,7 @@
 Categoria: Extensões e conexões. Tipo: skill embutida do Claude Code.
 
 ## O que faz
-Carrega a referência dos recursos de runtime que um artifact publicado pode usar, como chamar seus conectores ou oferecer um arquivo para download, junto com os recursos que a sua conta tem. Normalmente o Claude a carrega sozinho antes de criar uma página que use um desses recursos.
+Carrega a referência dos recursos de execução que um artefato publicado pode usar, como chamar seus conectores ou oferecer um arquivo para download, junto com os recursos que a sua conta tem. Normalmente o Claude a carrega sozinho antes de criar uma página que use um desses recursos.
 
 ## Por que usar
 Ajuda a conferir o que a conta pode usar antes de a página depender de um conector ou de um download.
@@ -15,7 +15,7 @@ Digite /artifact-capabilities quando quiser ver a referência antes de montar a 
 Ao montar uma página publicada que precise chamar um conector ou oferecer um arquivo para download, e você quer saber o que a sua conta pode usar.
 
 ## Observação
-Documentado na referência oficial. Disponível onde os artifacts estão disponíveis. Testado no app: funcionou.
+Documentado na referência oficial. Disponível onde os artefatos estão disponíveis. Testado no app: funcionou.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /artifact-capabilities.

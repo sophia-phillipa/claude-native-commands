@@ -12,7 +12,7 @@
     "pitfalls": "Armadilhas comuns",
     "example": "Exemplo"
   },
-  "identity": { "purpose": "Divide uma mudança grande em partes, um PR cada" },
+  "identity": { "purpose": "Divide uma mudança grande em partes; cada parte abre PR ou relata" },
   "flow": {
     "steps": [
       { "id": "s1", "layer": "input", "label": "Você digita /batch com instrução" },
@@ -44,7 +44,7 @@
     ],
     "pitfalls": [
       "Muitos agentes e PRs de uma vez",
-      "Custo alto sem conferir o plano"
+      "Aprovar o plano sem conferir"
     ],
     "example": "/batch troque todos os print() por logging no pacote src/"
   }

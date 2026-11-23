@@ -15,7 +15,7 @@ Digite /verify depois da mudança. A skill constrói e roda o app e descreve o q
 Depois de mudar o código, quando os testes e as checagens de tipo passam, mas você ainda não viu o app funcionando.
 
 ## Observação
-Aparece no menu do app (vídeo de 22/11/2026); ainda não testado. Tabela oficial: confirma a mudança construindo e rodando o app, em vez de depender só de testes ou checagens de tipo.
+Aparece no menu do app (vídeo de 22/11/2026); ainda não testado. Descrição oficial na tabela de comandos.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você muda o código.
@@ -36,4 +36,4 @@ Aparece no menu do app (vídeo de 22/11/2026); ainda não testado. Tabela oficia
 - Sem receita, grava em SKILL.md.
 - Só testes e tipos não bastam.
 
-Documentação: https://code.claude.com/docs/en/skills#run-and-verify-your-app
+Documentação: https://code.claude.com/docs/en/commands#all-commands

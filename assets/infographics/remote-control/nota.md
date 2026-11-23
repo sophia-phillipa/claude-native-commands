@@ -12,16 +12,16 @@ Permite usar esta sessão pelo claude.ai enquanto ela está aberta no terminal.
 Digite /remote-control ou o atalho /rc. Sem login, o comando mostra como entrar antes de continuar.
 
 ## Quando usar
-Quando quer acessar a sessão atual pelo claude.ai, e não apenas pelo terminal.
+Quando quer continuar a sessão em outro aparelho.
 
 ## Observação
 Documentado na referência oficial. Requer assinatura do claude.ai. Testado no app: funcionou.
 
 ## O que acontece no fluxo do prompt e do motor
-1. Você digita /remote-control.
-2. O motor verifica o login.
-3. O motor liga esta sessão.
-4. Sessão acessível de outro aparelho.
+1. Você digita /remote-control
+2. O motor verifica o login
+3. O motor liga esta sessão
+4. Sessão acessível de outro aparelho
 
 ## Exemplos
 - /remote-control: liga esta sessão ao Remote Control do claude.ai.
@@ -29,10 +29,10 @@ Documentado na referência oficial. Requer assinatura do claude.ai. Testado no a
 - /remote-control: sem login, mostra que é preciso assinatura do claude.ai e como entrar.
 
 ## Comandos relacionados
-- /mcp: gerenciar servidores MCP.
+- /mcp: Gerenciar servidores MCP
 
 ## Armadilhas
-- Requer assinatura do claude.ai.
-- Sem login, mostra como entrar.
+- Requer assinatura do Claude
+- Sem login, mostra como entrar
 
 Documentação: https://code.claude.com/docs/en/remote-control

@@ -9,7 +9,7 @@ Quando usar
 Armadilhas comuns
 Exemplo
 Revisa o diff e pega bugs de correção antes do commit.
-Você digita /code-review com nível
+Você digita /code-review
 Revisão lê o alvo
 Revisão busca bugs de correção
 Nível controla quantos achados vêm
@@ -18,7 +18,7 @@ inicia
 examina
 filtra
 entrega
-<nível>
+[nível]
 Low traz poucos, high traz mais
 [alvo]
 Número de PR, branch ou caminho

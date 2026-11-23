@@ -17,7 +17,7 @@ Parâmetros avançados: --wizard … --propose responde ao assistente de uma vez
 Quando o modo auto pede confirmação para coisas que são normais no seu ambiente, ou deixa passar algo que você preferia bloquear.
 
 ## Observação
-Só aparece com o modo auto disponível na conta.
+Só está disponível em plano Pro, Max, Ultra, Team ou Enterprise, ou com chave de API do Console, na versão mínima de cada plano.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você roda /auto-mode-setup.
@@ -34,6 +34,7 @@ Só aparece com o modo auto disponível na conta.
 - /config: Mudar uma configuração pelo nome.
 
 ## Armadilhas
-- Só aparece com modo auto na conta.
+- Exige plano compatível ou chave de API.
+- Aceite é tudo ou nada.
 
 Documentação: https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries

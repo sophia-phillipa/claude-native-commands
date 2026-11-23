@@ -37,8 +37,8 @@
       "Para conferir quem está disponível"
     ],
     "pitfalls": [
-      "Depende do recurso de mensagens ligado",
-      "Sessões na nuvem exigem Remote Control"
+      "Depende da versão do Claude Code",
+      "Sessões de outras máquinas exigem Remote Control"
     ],
     "example": "/list-agents"
   }

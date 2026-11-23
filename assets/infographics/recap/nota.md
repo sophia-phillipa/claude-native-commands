@@ -15,7 +15,7 @@ Rode /recap sem parâmetros.
 Antes de pausar ou de trocar de sessão, e ao voltar para uma sessão antiga sem lembrar onde parou.
 
 ## Observação
-A descrição segue a referência oficial do Claude Code.
+O /recap em si não roda dentro do loop: comandos embutidos chegam ao Claude como texto.
 
 ## O que acontece no fluxo do prompt e do motor
 1. Você digita /recap
@@ -26,12 +26,12 @@ A descrição segue a referência oficial do Claude Code.
 ## Exemplos
 - /recap: resumo curto do que a sessão fez até aqui.
 - /recap: rode antes de pausar e cole a linha nas suas notas do dia.
-- /loop 30m /recap: combinado com /loop, um resumo novo a cada meia hora.
+- /loop 30m faça um resumo de uma linha da sessão: com /loop, um resumo em texto a cada meia hora.
 
 ## Comandos relacionados
 - /loop: resumo novo a cada intervalo.
 
 ## Armadilhas
-- Resumo tem limite de 400 caracteres.
+- No /loop, chega ao Claude como texto.
 
 Documentação: https://code.claude.com/docs/en/interactive-mode#session-recap

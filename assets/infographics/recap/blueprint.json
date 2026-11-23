@@ -41,7 +41,7 @@
       "Ao voltar a uma sessão antiga"
     ],
     "pitfalls": [
-      "Resumo tem limite de 400 caracteres"
+      "No /loop, chega ao Claude como texto"
     ],
     "example": "/recap"
   }
