@@ -104,7 +104,7 @@ O guia não executa comandos do Claude Code, não substitui a documentação ofi
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 17 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em produção".
+O catálogo tem 82 comandos. Os 19 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em produção".
 
 ### Contexto e memória
 
@@ -138,8 +138,8 @@ O catálogo tem 82 comandos. Os 17 que já têm infográfico registrado trazem o
 | `/code-review` | Caçar bugs no diff atual | Skill embutida | [ver](assets/infographics/code-review/infographic.webp) |
 | `/simplify` | Limpar o código alterado | Skill embutida | [ver](assets/infographics/simplify/infographic.webp) |
 | `/security-review` | Revisão de segurança do branch | Comando embutido | [ver](assets/infographics/security-review/infographic.webp) |
-| `/ultrareview` | Revisão profunda de código em sandbox na nuvem | Comando embutido | em produção |
-| `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | em produção |
+| `/ultrareview` | Revisão profunda de código em sandbox na nuvem | Comando embutido | [ver](assets/infographics/ultrareview/infographic.webp) |
+| `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | [ver](assets/infographics/diff/infographic.webp) |
 | `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | em produção |
 | `/review` | Nome antigo do /code-review | Alias | [ver](assets/infographics/review/infographic.webp) |
 | `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | em produção |
@@ -234,7 +234,7 @@ Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem
 
 ## 🧭 Uso
 
-Abra `comandos-nativos.html` no navegador, com um duplo clique. A página roda sozinha, sem instalação, build ou servidor. Os infográficos vêm da pasta `assets/infographics/`: mantenha essa pasta ao lado do arquivo para que **Ver infográfico** e **Baixar PNG** funcionem.
+O `comandos-nativos.html` usa a pasta de pôsteres `assets/infographics/`, que fica ao lado dele e deve ser baixada junto. Fora isso, a página foi feita para depender do mínimo possível: abre direto no navegador.
 
 ## 🔒 Segurança e privacidade
 
