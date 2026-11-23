@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "slug": "agents",
+  "command": "/agents",
+  "category": "Automação",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra o caminho atual: pedir na conversa ou editar o arquivo."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /agents"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "O motor imprime um lembrete"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Você pede o subagente"
+      },
+      {
+        "id": "s4",
+        "layer": "result",
+        "label": "Subagente criado ou editado"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "executa"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "orienta"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "leva a"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [
+      {
+        "text": ".claude/agents/",
+        "label": "Arquivo do subagente, editado direto"
+      },
+      {
+        "text": "~/.claude/agents/",
+        "label": "Mesma edição, na pasta do usuário"
+      }
+    ],
+    "related": [
+      {
+        "command": "/goal",
+        "label": "Trabalhar até a meta ser cumprida"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Precisa de um subagente especializado",
+      "Quer gerenciar os subagentes"
+    ],
+    "pitfalls": [
+      "O assistente foi removido",
+      "Versões antigas abriam uma interface"
+    ],
+    "example": "/agents"
+  }
+}

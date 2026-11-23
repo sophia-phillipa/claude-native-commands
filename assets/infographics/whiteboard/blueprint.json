@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "slug": "whiteboard",
+  "command": "/whiteboard",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Entrega o quadro como artefato da sua conta."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /whiteboard com briefing"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "A skill recebe o briefing"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "O Claude cria o artefato"
+      },
+      {
+        "id": "s4",
+        "layer": "result",
+        "label": "Quadro entregue como artefato"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "envia"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "gera"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "entrega"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [
+      {
+        "text": "[briefing]",
+        "label": "Para que serve o quadro"
+      }
+    ],
+    "files": [],
+    "related": [
+      {
+        "command": "/design-sync",
+        "label": "Enviar seu design system ao Claude Design"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quer um quadro publicado como artefato",
+      "Tem o tipo Whiteboard na conta"
+    ],
+    "pitfalls": [
+      "Sem o tipo, diz que é beta",
+      "Sem briefing, o Claude pergunta antes"
+    ],
+    "example": "/whiteboard mapa dos módulos do sistema de pagamentos"
+  }
+}

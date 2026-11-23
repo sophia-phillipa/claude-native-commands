@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "slug": "help",
+  "command": "/help",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra a ajuda e os comandos disponíveis na sessão."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /help"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "O motor lista os comandos"
+      },
+      {
+        "id": "s3",
+        "layer": "result",
+        "label": "Você acha o nome certo"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "executa"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "mostra"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/config",
+        "label": "Mudar uma configuração pelo nome"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Esqueceu o nome de um comando",
+      "Quer ver a lista no terminal"
+    ],
+    "pitfalls": [
+      "No app Desktop, rodar não faz nada"
+    ],
+    "example": "/help"
+  }
+}
