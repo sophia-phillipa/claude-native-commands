@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 25 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 28 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -158,12 +158,12 @@ O catálogo tem 82 comandos. Os 25 que já têm infográfico registrado trazem o
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/skill-doctor` | Skills carregadas que só gastam contexto | Comando embutido | em preparo |
-| `/usage` | Custo da sessão e uso do plano | Comando embutido | em preparo |
+| `/usage` | Custo da sessão e uso do plano | Comando embutido | [ver](assets/infographics/usage/infographic.webp) |
 | `/doctor` | Check-up da instalação | Skill embutida | [ver](assets/infographics/doctor/infographic.webp) |
 | `/insights` | Relatório das suas sessões | Comando embutido | em preparo |
 | `/debug` | Investigar um problema da sessão | Skill embutida | [ver](assets/infographics/debug/infographic.webp) |
-| `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | em preparo |
-| `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | em preparo |
+| `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | [ver](assets/infographics/team-onboarding/infographic.webp) |
+| `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | [ver](assets/infographics/usage-credits/infographic.webp) |
 | `/heapdump` | Gerar snapshot de memória para diagnóstico | Comando embutido | em preparo |
 | `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | em preparo |
 | `/status` | Ver versão, modelo, conta e conectividade | Comando embutido | [ver](assets/infographics/status/infographic.webp) |
