@@ -11,7 +11,7 @@
       "model_mode": "notebooklm",
       "qa_status": "passed",
       "slug": "autocompact",
-      "updated_at": "2026-11-23T15:34:52Z"
+      "updated_at": "2026-11-23T18:57:15Z"
     },
     "btw": {
       "command": "/btw",
@@ -50,7 +50,7 @@
       "model_mode": "notebooklm",
       "qa_status": "passed",
       "slug": "code-review",
-      "updated_at": "2026-11-23T13:42:48Z"
+      "updated_at": "2026-11-23T19:17:50Z"
     },
     "compact": {
       "command": "/compact",
@@ -63,7 +63,7 @@
       "model_mode": "notebooklm",
       "qa_status": "passed",
       "slug": "compact",
-      "updated_at": "2026-11-23T11:12:53Z"
+      "updated_at": "2026-11-23T19:23:00Z"
     },
     "context": {
       "command": "/context",
