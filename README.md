@@ -15,7 +15,6 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 <details>
 <summary>Sumário</summary>
 
-- [Status](#-status)
 - [A página com cards abertos](#-a-página-com-cards-abertos)
 - [Infográficos registrados](#-infográficos-registrados)
 - [O que cada card traz](#-o-que-cada-card-traz)
@@ -29,10 +28,6 @@ Uma página HTML com um design atraente que ensina o que os comandos nativos do 
 </details>
 
 </div>
-
-## 📌 Status
-
-Alfa. Ainda não há tag de versão, e o conteúdo pode mudar a qualquer momento.
 
 ## 🃏 A página com cards abertos
 

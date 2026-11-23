@@ -15,9 +15,10 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - README: screenshots of the `/simplify`, `/memory` and `/rewind` cards, a catalog that links all 22 registered posters, and a wording review.
 - README covers only the page. The install, how-it-works, prerequisites, uninstall, configuration, known-issues, tests, development, changelog, contributions, maintainer and license sections are gone, and Uso says the page needs the infographics folder beside it and keeps its dependencies to a minimum. A wording review (Fable 5.2 as advisor) tightened three more lines, and the catalog marks commands still waiting for a poster as "em preparo".
 - The register script and its tests are no longer in the repositories; they stay local while the posters are generated.
+- The repositories keep one HTML page, the root `comandos-nativos.html`; its source `src/comandos-nativos.html` stays local while the posters are generated. The README Status section is gone, and `CLAUDE.md` is cut to what an editor of the page needs.
 
 ### Added
 
-- Command guide page `comandos-nativos.html`, generated from `src/comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
+- Command guide page `comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
 - Cards for `/agents`, `/help` and `/whiteboard`; the guide now has 82 cards.
 - 22 infographics (`autocompact`, `btw`, `clear`, `code-review`, `compact`, `context`, `copy`, `diff`, `logout`, `loop`, `memory`, `model`, `recap`, `resume`, `review`, `rewind`, `security-review`, `simplify`, `status`, `subtask`, `tasks`, `ultrareview`), registered in `assets/infographics/manifest.json` with their WebP and 1920 px PNG.

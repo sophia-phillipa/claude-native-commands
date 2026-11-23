@@ -19,6 +19,8 @@ __pycache__/
 
 # Local-only tooling: the register script and its tests stay on disk while the posters are generated; the repos ship the page.
 /.claude/skills/notebooklm-command-infographic-playbook/scripts/
+# The page source stays local while posters are generated; the repos ship only the root page.
+/src/
 
 # Local-only values, such as the private NotebookLM notebook URL.
 *.local.md
