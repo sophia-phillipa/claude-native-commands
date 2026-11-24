@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 46 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 48 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -120,7 +120,7 @@ O catálogo tem 82 comandos. Os 46 que já têm infográfico registrado trazem o
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em preparo |
-| `/effort` | Nível de esforço do modelo | Comando embutido | em preparo |
+| `/effort` | Nível de esforço do modelo | Comando embutido | [ver](assets/infographics/effort/infographic.webp) |
 | `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
 | `/fast` | Modo rápido | Comando embutido | em preparo |
 | `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em preparo |
@@ -218,7 +218,7 @@ O catálogo tem 82 comandos. Os 46 que já têm infográfico registrado trazem o
 | `/logout` | Sair da sua conta Anthropic | Comando embutido | [ver](assets/infographics/logout/infographic.webp) |
 | `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | em preparo |
 | `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | [ver](assets/infographics/theme/infographic.webp) |
-| `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | em preparo |
+| `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | [ver](assets/infographics/permissions/infographic.webp) |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em preparo |
 | `/login` | Entrar na sua conta Anthropic | Comando embutido | em preparo |
 | `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em preparo |
