@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 75 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 78 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -123,7 +123,7 @@ O catálogo tem 82 comandos. Os 75 que já têm infográfico registrado trazem o
 | `/effort` | Nível de esforço do modelo | Comando embutido | [ver](assets/infographics/effort/infographic.webp) |
 | `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
 | `/fast` | Modo rápido | Comando embutido | [ver](assets/infographics/fast/infographic.webp) |
-| `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em preparo |
+| `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | [ver](assets/infographics/plan/infographic.webp) |
 | `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | [ver](assets/infographics/fork/infographic.webp) |
 
 ### Revisão de código
@@ -182,7 +182,7 @@ O catálogo tem 82 comandos. Os 75 que já têm infográfico registrado trazem o
 | `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | [ver](assets/infographics/skills/infographic.webp) |
 | `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | [ver](assets/infographics/artifact-capabilities/infographic.webp) |
 | `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | [ver](assets/infographics/plugin/infographic.webp) |
-| `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em preparo |
+| `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | [ver](assets/infographics/remote-control/infographic.webp) |
 | `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | [ver](assets/infographics/design-consent/infographic.webp) |
 | `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | [ver](assets/infographics/design-revoke/infographic.webp) |
 
@@ -220,7 +220,7 @@ O catálogo tem 82 comandos. Os 75 que já têm infográfico registrado trazem o
 | `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | [ver](assets/infographics/theme/infographic.webp) |
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | [ver](assets/infographics/permissions/infographic.webp) |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | [ver](assets/infographics/sandbox/infographic.webp) |
-| `/login` | Entrar na sua conta Anthropic | Comando embutido | em preparo |
+| `/login` | Entrar na sua conta Anthropic | Comando embutido | [ver](assets/infographics/login/infographic.webp) |
 | `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em preparo |
 
 
