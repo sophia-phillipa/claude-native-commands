@@ -65,6 +65,19 @@
       "slug": "code-review",
       "updated_at": "2026-11-23T19:17:50Z"
     },
+    "color": {
+      "command": "/color",
+      "formats": {
+        "download": "assets/infographics/color/infographic-1920.png",
+        "image": "assets/infographics/color/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "color",
+      "updated_at": "2026-11-24T00:31:41Z"
+    },
     "compact": {
       "command": "/compact",
       "formats": {
@@ -273,6 +286,19 @@
       "slug": "model",
       "updated_at": "2026-11-23T19:35:59Z"
     },
+    "output-style": {
+      "command": "/output-style",
+      "formats": {
+        "download": "assets/infographics/output-style/infographic-1920.png",
+        "image": "assets/infographics/output-style/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "output-style",
+      "updated_at": "2026-11-24T00:21:15Z"
+    },
     "plugin": {
       "command": "/plugin",
       "formats": {
@@ -480,6 +506,19 @@
       "qa_status": "passed",
       "slug": "ultrareview",
       "updated_at": "2026-11-23T20:17:38Z"
+    },
+    "update-config": {
+      "command": "/update-config",
+      "formats": {
+        "download": "assets/infographics/update-config/infographic-1920.png",
+        "image": "assets/infographics/update-config/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "update-config",
+      "updated_at": "2026-11-24T00:43:53Z"
     },
     "usage": {
       "command": "/usage",

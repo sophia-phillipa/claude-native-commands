@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 40 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 43 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -207,11 +207,11 @@ O catálogo tem 82 comandos. Os 40 que já têm infográfico registrado trazem o
 | ------- | --------- | ---- | ----------- |
 | `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em preparo |
 | `/init` | Criar o CLAUDE.md do projeto | Comando embutido | em preparo |
-| `/output-style` | Estilo das respostas | Comando embutido | em preparo |
+| `/output-style` | Estilo das respostas | Comando embutido | [ver](assets/infographics/output-style/infographic.webp) |
 | `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | em preparo |
-| `/color` | Cor da barra de prompt da sessão | Comando embutido | em preparo |
+| `/color` | Cor da barra de prompt da sessão | Comando embutido | [ver](assets/infographics/color/infographic.webp) |
 | `/config` | Mudar uma configuração pelo nome | Comando embutido | em preparo |
-| `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | em preparo |
+| `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | [ver](assets/infographics/update-config/infographic.webp) |
 | `/rename` | Dar um nome à conversa atual | Comando embutido | em preparo |
 | `/import` | Trazer a configuração de outro agente de código | Comando embutido | em preparo |
 | `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | em preparo |
