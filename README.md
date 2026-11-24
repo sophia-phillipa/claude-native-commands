@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 59 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 61 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -165,7 +165,7 @@ O catálogo tem 82 comandos. Os 59 que já têm infográfico registrado trazem o
 | `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | [ver](assets/infographics/team-onboarding/infographic.webp) |
 | `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | [ver](assets/infographics/usage-credits/infographic.webp) |
 | `/heapdump` | Gerar snapshot de memória para diagnóstico | Comando embutido | [ver](assets/infographics/heapdump/infographic.webp) |
-| `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | em preparo |
+| `/feedback` | Enviar feedback sobre o Claude Code | Comando embutido | [ver](assets/infographics/feedback/infographic.webp) |
 | `/status` | Ver versão, modelo, conta e conectividade | Comando embutido | [ver](assets/infographics/status/infographic.webp) |
 | `/stats` | Abrir o painel de uso direto na aba Stats | Comando embutido | [ver](assets/infographics/stats/infographic.webp) |
 | `/cost` | Nome antigo do /usage | Alias | [ver](assets/infographics/cost/infographic.webp) |
@@ -175,7 +175,7 @@ O catálogo tem 82 comandos. Os 59 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/mcp` | Gerenciar servidores MCP | Comando embutido | em preparo |
+| `/mcp` | Gerenciar servidores MCP | Comando embutido | [ver](assets/infographics/mcp/infographic.webp) |
 | `/list-agents` | Quem pode receber mensagem | Comando embutido | em preparo |
 | `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | em preparo |
 | `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | em preparo |
