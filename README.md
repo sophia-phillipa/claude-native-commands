@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 69 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 72 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -213,10 +213,10 @@ O catálogo tem 82 comandos. Os 69 que já têm infográfico registrado trazem o
 | `/config` | Mudar uma configuração pelo nome | Comando embutido | [ver](assets/infographics/config/infographic.webp) |
 | `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | [ver](assets/infographics/update-config/infographic.webp) |
 | `/rename` | Dar um nome à conversa atual | Comando embutido | [ver](assets/infographics/rename/infographic.webp) |
-| `/import` | Trazer a configuração de outro agente de código | Comando embutido | em preparo |
-| `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | em preparo |
+| `/import` | Trazer a configuração de outro agente de código | Comando embutido | [ver](assets/infographics/import/infographic.webp) |
+| `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | [ver](assets/infographics/add-dir/infographic.webp) |
 | `/logout` | Sair da sua conta Anthropic | Comando embutido | [ver](assets/infographics/logout/infographic.webp) |
-| `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | em preparo |
+| `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | [ver](assets/infographics/focus/infographic.webp) |
 | `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | [ver](assets/infographics/theme/infographic.webp) |
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | [ver](assets/infographics/permissions/infographic.webp) |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em preparo |
