@@ -34,7 +34,7 @@ Produces one checked infographic per command of the guide page `src/comandos-nat
 
 ## Steps
 
-Barriers: Barrier 1 is the blueprint (step 2), Barrier 3 the PNG (step 6). Nothing passes its barrier unchecked. At most 3 generation attempts per run.
+Barriers: Barrier 1 is the blueprint (step 2), Barrier 3 the PNG (step 6). Nothing passes its barrier unchecked. At most 3 generation attempts per run (one owner-authorized 4th attempt: step 8).
 
 1. **Read the command card.** `rg -n 'id: "<slug>"'` on `src/comandos-nativos.html` for the card in `COMMANDS`, `rg -n 'ids: \[.*"<slug>"'` for its category in `CATEGORIES`, and `rg -n '"<slug>": {'` near `const DOCS` for the doc url. Read the card's slice with `Read` and `offset`/`limit`.
 
@@ -55,7 +55,7 @@ Barriers: Barrier 1 is the blueprint (step 2), Barrier 3 the PNG (step 6). Nothi
 
 6. **Barrier 3: audit the PNG.** `Read` `assets/infographics/<slug>/infographic.png`, then zoomed crops per zone. Compare every rendered word with `roteiro.md` (method in `references/notebooklm-chrome-playbook.md` section 4). Only misspellings, missing accents, garbled or truncated words, wrong-language text and invented text are errors. Correct sentences or labels that are not in the roteiro, and omitted zones or boxes (the Conciso detail may leave out zone 3, "Quando usar", "Armadilhas" and "Exemplo"), are NOT errors; record them in the report only. Text that is not in the roteiro is an error when it is not Portuguese, or when it asserts a value, name, scale level or state that the notes do not state. Pilot cases (2026-11-23): errors were "REPORT" (English), "BAIXO MÉDIO ALTO" (invented level names), "PENDENTE" (state), and "4.5.2", "ENG-X7", "ADMIN_USER", "PRIMARY", "ATIVA" (invented values); notes only were "Desconectado" (restates the roteiro result), "QUANTIDADE" and "NÍVEL" (restate the step label), "DIFF" (word of the roteiro purpose), "ENCERRAR" (roteiro verb on a stop button), title wording and captions in correct PT-BR, unreadable decorative strokes. Literal identifiers from the roteiro (commands, flags, `commit`, `diff`) are Portuguese-context words, not wrong-language text. Write `assets/infographics/<slug>/qa-report.json` (contract section 5) with `attempt`, `model_mode` `"notebooklm"`, `passed` and the `errors`, then run `check-qa <slug>`. Passed with no errors: go to step 9. Otherwise go to step 7.
 
-7. **Correction loop: at most 3 attempts in total.**
+7. **Correction loop: at most 3 attempts in total** (a 4th only as step 8 allows).
    - Attempt 1 is the generation of step 4.
    - Attempts 2 and 3: an output has no correction input, so each is a fresh generation with the same two notes and recipe, and the prompt gets the extra sentence of `notebooklm-flow-reference.md` section 10.1 for the class of the audit errors. Move the failed PNG and its `qa-report.json` to the local-only (gitignored) `work/notebooklm-tests/<slug>-attempt<N>.png` and `<slug>-attempt<N>-qa-report.json` first. Wait, download and collect again with a new snapshot, then audit again with the new `attempt`.
    - Every attempt re-downloads and re-audits; never reuse a previous PNG.

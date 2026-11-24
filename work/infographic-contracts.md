@@ -110,7 +110,7 @@ Exactly the user's format:
 { "passed": true, "attempt": 1, "model_mode": "notebooklm", "errors": [] }
 ```
 
-`model_mode` in `notebooklm | vector_fallback`; `attempt` 1 to 3; each error `{ "expected", "found", "location", "issue_type" }` with `issue_type` in `typo | missing_accent | garbled | truncated | wrong_language`. Approved only when `passed` is `true` and `errors` is empty.
+`model_mode` in `notebooklm | vector_fallback`; `attempt` 1 to 3, or 4 only when the optional `extra_attempt` field holds a non-empty text with the date and Sophia's authorization (SKILL.md step 8); each error `{ "expected", "found", "location", "issue_type" }` with `issue_type` in `typo | missing_accent | garbled | truncated | wrong_language`. Approved only when `passed` is `true` and `errors` is empty.
 
 ## 6. `manifest.json`
 
