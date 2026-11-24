@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 78 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 81 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -137,7 +137,7 @@ O catálogo tem 82 comandos. Os 78 que já têm infográfico registrado trazem o
 | `/diff` | Revisar as mudanças da árvore de trabalho | Comando embutido | [ver](assets/infographics/diff/infographic.webp) |
 | `/copy` | Copiar a última resposta ou uma anterior | Comando embutido | [ver](assets/infographics/copy/infographic.webp) |
 | `/review` | Nome antigo do /code-review | Alias | [ver](assets/infographics/review/infographic.webp) |
-| `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | em preparo |
+| `/verify` | Confirmar a mudança rodando o app de verdade | Skill embutida | [ver](assets/infographics/verify/infographic.webp) |
 
 ### Automação
 
@@ -151,7 +151,7 @@ O catálogo tem 82 comandos. Os 78 que já têm infográfico registrado trazem o
 | `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | [ver](assets/infographics/workflows/infographic.webp) |
 | `/subtask` | Subagente com a conversa inteira | Comando embutido | [ver](assets/infographics/subtask/infographic.webp) |
 | `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | [ver](assets/infographics/deep-research/infographic.webp) |
-| `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em preparo |
+| `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | [ver](assets/infographics/agents/infographic.webp) |
 
 ### Diagnóstico e uso
 
@@ -221,7 +221,7 @@ O catálogo tem 82 comandos. Os 78 que já têm infográfico registrado trazem o
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | [ver](assets/infographics/permissions/infographic.webp) |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | [ver](assets/infographics/sandbox/infographic.webp) |
 | `/login` | Entrar na sua conta Anthropic | Comando embutido | [ver](assets/infographics/login/infographic.webp) |
-| `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em preparo |
+| `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | [ver](assets/infographics/help/infographic.webp) |
 
 
 Catálogo gerado a partir dos dados da página `comandos-nativos.html`, na ordem da página.
