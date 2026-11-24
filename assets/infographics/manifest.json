@@ -494,6 +494,32 @@
       "slug": "recap",
       "updated_at": "2026-11-23T15:49:11Z"
     },
+    "reload-plugins": {
+      "command": "/reload-plugins",
+      "formats": {
+        "download": "assets/infographics/reload-plugins/infographic-1920.png",
+        "image": "assets/infographics/reload-plugins/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "reload-plugins",
+      "updated_at": "2026-11-24T13:38:39Z"
+    },
+    "reload-skills": {
+      "command": "/reload-skills",
+      "formats": {
+        "download": "assets/infographics/reload-skills/infographic-1920.png",
+        "image": "assets/infographics/reload-skills/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "reload-skills",
+      "updated_at": "2026-11-24T16:06:41Z"
+    },
     "rename": {
       "command": "/rename",
       "formats": {

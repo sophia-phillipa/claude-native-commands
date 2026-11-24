@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 61 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 63 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -177,8 +177,8 @@ O catálogo tem 82 comandos. Os 61 que já têm infográfico registrado trazem o
 | ------- | --------- | ---- | ----------- |
 | `/mcp` | Gerenciar servidores MCP | Comando embutido | [ver](assets/infographics/mcp/infographic.webp) |
 | `/list-agents` | Quem pode receber mensagem | Comando embutido | em preparo |
-| `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | em preparo |
-| `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | em preparo |
+| `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | [ver](assets/infographics/reload-skills/infographic.webp) |
+| `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | [ver](assets/infographics/reload-plugins/infographic.webp) |
 | `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | [ver](assets/infographics/skills/infographic.webp) |
 | `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | em preparo |
 | `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | [ver](assets/infographics/plugin/infographic.webp) |
