@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 43 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 46 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -206,18 +206,18 @@ O catálogo tem 82 comandos. Os 43 que já têm infográfico registrado trazem o
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em preparo |
-| `/init` | Criar o CLAUDE.md do projeto | Comando embutido | em preparo |
+| `/init` | Criar o CLAUDE.md do projeto | Comando embutido | [ver](assets/infographics/init/infographic.webp) |
 | `/output-style` | Estilo das respostas | Comando embutido | [ver](assets/infographics/output-style/infographic.webp) |
 | `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | em preparo |
 | `/color` | Cor da barra de prompt da sessão | Comando embutido | [ver](assets/infographics/color/infographic.webp) |
 | `/config` | Mudar uma configuração pelo nome | Comando embutido | em preparo |
 | `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | [ver](assets/infographics/update-config/infographic.webp) |
-| `/rename` | Dar um nome à conversa atual | Comando embutido | em preparo |
+| `/rename` | Dar um nome à conversa atual | Comando embutido | [ver](assets/infographics/rename/infographic.webp) |
 | `/import` | Trazer a configuração de outro agente de código | Comando embutido | em preparo |
 | `/add-dir` | Dar acesso a mais uma pasta de trabalho | Comando embutido | em preparo |
 | `/logout` | Sair da sua conta Anthropic | Comando embutido | [ver](assets/infographics/logout/infographic.webp) |
 | `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | em preparo |
-| `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | em preparo |
+| `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | [ver](assets/infographics/theme/infographic.webp) |
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | em preparo |
 | `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em preparo |
 | `/login` | Entrar na sua conta Anthropic | Comando embutido | em preparo |
