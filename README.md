@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 51 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 54 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -119,10 +119,10 @@ O catálogo tem 82 comandos. Os 51 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | em preparo |
+| `/advisor` | Um revisor mais forte nos momentos-chave | Comando embutido | [ver](assets/infographics/advisor/infographic.webp) |
 | `/effort` | Nível de esforço do modelo | Comando embutido | [ver](assets/infographics/effort/infographic.webp) |
 | `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
-| `/fast` | Modo rápido | Comando embutido | em preparo |
+| `/fast` | Modo rápido | Comando embutido | [ver](assets/infographics/fast/infographic.webp) |
 | `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em preparo |
 | `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | em preparo |
 
@@ -143,7 +143,7 @@ O catálogo tem 82 comandos. Os 51 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/goal` | Trabalhar até a meta ser cumprida | Comando embutido | em preparo |
+| `/goal` | Trabalhar até a meta ser cumprida | Comando embutido | [ver](assets/infographics/goal/infographic.webp) |
 | `/loop` | Repetir em intervalos | Skill embutida | [ver](assets/infographics/loop/infographic.webp) |
 | `/run` | Abrir o app e ver a mudança funcionando | Skill embutida | em preparo |
 | `/batch` | Mudança grande em paralelo, um PR por parte | Skill embutida | em preparo |
