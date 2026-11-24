@@ -1027,6 +1027,19 @@
       "slug": "verify",
       "updated_at": "2026-11-24T20:06:14Z"
     },
+    "whiteboard": {
+      "command": "/whiteboard",
+      "formats": {
+        "download": "assets/infographics/whiteboard/infographic-1920.png",
+        "image": "assets/infographics/whiteboard/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "whiteboard",
+      "updated_at": "2026-11-24T20:36:26Z"
+    },
     "workflow-authoring": {
       "command": "/workflow-authoring",
       "formats": {

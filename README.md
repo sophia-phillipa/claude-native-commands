@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 81 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 82 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -199,7 +199,7 @@ O catálogo tem 82 comandos. Os 81 que já têm infográfico registrado trazem o
 | `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | [ver](assets/infographics/plugin-authoring/infographic.webp) |
 | `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | [ver](assets/infographics/design/infographic.webp) |
 | `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | [ver](assets/infographics/slides/infographic.webp) |
-| `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em preparo |
+| `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | [ver](assets/infographics/whiteboard/infographic.webp) |
 
 ### Ajustes e permissões
 
