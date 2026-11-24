@@ -169,6 +169,19 @@
       "slug": "deep-research",
       "updated_at": "2026-11-23T20:56:34Z"
     },
+    "design": {
+      "command": "/design",
+      "formats": {
+        "download": "assets/infographics/design/infographic-1920.png",
+        "image": "assets/infographics/design/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "design",
+      "updated_at": "2026-11-24T10:47:25Z"
+    },
     "design-consent": {
       "command": "/design-consent",
       "formats": {
@@ -181,6 +194,19 @@
       "qa_status": "passed",
       "slug": "design-consent",
       "updated_at": "2026-11-23T22:39:31Z"
+    },
+    "design-revoke": {
+      "command": "/design-revoke",
+      "formats": {
+        "download": "assets/infographics/design-revoke/infographic-1920.png",
+        "image": "assets/infographics/design-revoke/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "design-revoke",
+      "updated_at": "2026-11-24T10:52:25Z"
     },
     "design-sync": {
       "command": "/design-sync",
@@ -480,6 +506,19 @@
       "qa_status": "passed",
       "slug": "skills",
       "updated_at": "2026-11-23T22:21:14Z"
+    },
+    "slides": {
+      "command": "/slides",
+      "formats": {
+        "download": "assets/infographics/slides/infographic-1920.png",
+        "image": "assets/infographics/slides/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "slides",
+      "updated_at": "2026-11-24T10:47:33Z"
     },
     "stats": {
       "command": "/stats",

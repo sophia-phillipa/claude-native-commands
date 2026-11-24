@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 48 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 51 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -184,7 +184,7 @@ O catálogo tem 82 comandos. Os 48 que já têm infográfico registrado trazem o
 | `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | [ver](assets/infographics/plugin/infographic.webp) |
 | `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em preparo |
 | `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | [ver](assets/infographics/design-consent/infographic.webp) |
-| `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | em preparo |
+| `/design-revoke` | Retirar o acesso do Claude ao Claude Design | Comando embutido | [ver](assets/infographics/design-revoke/infographic.webp) |
 
 ### Criação e referência
 
@@ -197,8 +197,8 @@ O catálogo tem 82 comandos. Os 48 que já têm infográfico registrado trazem o
 | `/artifact-diagramming` | Diagramas que mostram o mecanismo, não só o nome | Skill embutida | [ver](assets/infographics/artifact-diagramming/infographic.webp) |
 | `/workflow-authoring` | Referência para escrever um script de workflow | Skill embutida | [ver](assets/infographics/workflow-authoring/infographic.webp) |
 | `/plugin-authoring` | Criar um mod: painel, barra, comando ou hook | Skill de plugin embutido | [ver](assets/infographics/plugin-authoring/infographic.webp) |
-| `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | em preparo |
-| `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | em preparo |
+| `/design` | Rascunhar telas e artes como pranchetas no Claude Design | Skill embutida | [ver](assets/infographics/design/infographic.webp) |
+| `/slides` | Criar uma apresentação a partir de um resumo | Skill embutida | [ver](assets/infographics/slides/infographic.webp) |
 | `/whiteboard` | Criar um quadro Whiteboard como artefato | Skill embutida | em preparo |
 
 ### Ajustes e permissões
