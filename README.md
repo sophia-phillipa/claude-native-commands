@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 72 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 75 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -124,7 +124,7 @@ O catálogo tem 82 comandos. Os 72 que já têm infográfico registrado trazem o
 | `/model` | Trocar o modelo da sessão | Comando embutido | [ver](assets/infographics/model/infographic.webp) |
 | `/fast` | Modo rápido | Comando embutido | [ver](assets/infographics/fast/infographic.webp) |
 | `/plan` | Entrar no modo plano, com ou sem tarefa | Comando embutido | em preparo |
-| `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | em preparo |
+| `/fork` | Copiar a conversa para uma sessão em segundo plano | Comando embutido | [ver](assets/infographics/fork/infographic.webp) |
 
 ### Revisão de código
 
@@ -169,7 +169,7 @@ O catálogo tem 82 comandos. Os 72 que já têm infográfico registrado trazem o
 | `/status` | Ver versão, modelo, conta e conectividade | Comando embutido | [ver](assets/infographics/status/infographic.webp) |
 | `/stats` | Abrir o painel de uso direto na aba Stats | Comando embutido | [ver](assets/infographics/stats/infographic.webp) |
 | `/cost` | Nome antigo do /usage | Alias | [ver](assets/infographics/cost/infographic.webp) |
-| `/bug` | Nome antigo do /feedback | Alias | em preparo |
+| `/bug` | Nome antigo do /feedback | Alias | [ver](assets/infographics/bug/infographic.webp) |
 
 ### Extensões e conexões
 
@@ -219,7 +219,7 @@ O catálogo tem 82 comandos. Os 72 que já têm infográfico registrado trazem o
 | `/focus` | Alternar a visão só com prompt e resposta | Comando embutido | [ver](assets/infographics/focus/infographic.webp) |
 | `/theme` | Trocar o tema de cores do Claude Code | Comando embutido | [ver](assets/infographics/theme/infographic.webp) |
 | `/permissions` | Gerenciar regras de permissão das ferramentas | Comando embutido | [ver](assets/infographics/permissions/infographic.webp) |
-| `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | em preparo |
+| `/sandbox` | Ligar ou desligar o modo sandbox | Comando embutido | [ver](assets/infographics/sandbox/infographic.webp) |
 | `/login` | Entrar na sua conta Anthropic | Comando embutido | em preparo |
 | `/help` | Mostrar a ajuda e os comandos disponíveis | Comando embutido | em preparo |
 
