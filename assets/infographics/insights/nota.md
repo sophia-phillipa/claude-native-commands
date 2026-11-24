@@ -35,4 +35,3 @@ Ele analisa as sessões desta máquina que ainda não viu, até cerca de 200 por
 ## Armadilhas
 - A primeira rodada demora mais.
 - Não inclui sessões de outros aparelhos.
-</content>

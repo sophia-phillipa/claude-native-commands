@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 57 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 59 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -148,7 +148,7 @@ O catálogo tem 82 comandos. Os 57 que já têm infográfico registrado trazem o
 | `/run` | Abrir o app e ver a mudança funcionando | Skill embutida | [ver](assets/infographics/run/infographic.webp) |
 | `/batch` | Mudança grande em paralelo, um PR por parte | Skill embutida | [ver](assets/infographics/batch/infographic.webp) |
 | `/tasks` | Ver e gerenciar o trabalho em segundo plano | Comando embutido | [ver](assets/infographics/tasks/infographic.webp) |
-| `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | em preparo |
+| `/workflows` | Acompanhar workflows em execução e concluídos | Comando embutido | [ver](assets/infographics/workflows/infographic.webp) |
 | `/subtask` | Subagente com a conversa inteira | Comando embutido | [ver](assets/infographics/subtask/infographic.webp) |
 | `/deep-research` | Pesquisar na web e entregar relatório com fontes | Workflow embutido | [ver](assets/infographics/deep-research/infographic.webp) |
 | `/agents` | Gerenciar subagentes (assistente removido) | Comando embutido | em preparo |
@@ -160,7 +160,7 @@ O catálogo tem 82 comandos. Os 57 que já têm infográfico registrado trazem o
 | `/skill-doctor` | Skills carregadas que só gastam contexto | Comando embutido | [ver](assets/infographics/skill-doctor/infographic.webp) |
 | `/usage` | Custo da sessão e uso do plano | Comando embutido | [ver](assets/infographics/usage/infographic.webp) |
 | `/doctor` | Check-up da instalação | Skill embutida | [ver](assets/infographics/doctor/infographic.webp) |
-| `/insights` | Relatório das suas sessões | Comando embutido | em preparo |
+| `/insights` | Relatório das suas sessões | Comando embutido | [ver](assets/infographics/insights/infographic.webp) |
 | `/debug` | Investigar um problema da sessão | Skill embutida | [ver](assets/infographics/debug/infographic.webp) |
 | `/team-onboarding` | Guia para novos colegas, feito do seu uso | Comando embutido | [ver](assets/infographics/team-onboarding/infographic.webp) |
 | `/usage-credits` | Créditos extras quando o limite do plano acaba | Comando embutido | [ver](assets/infographics/usage-credits/infographic.webp) |
