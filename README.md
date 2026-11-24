@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 63 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 66 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -176,11 +176,11 @@ O catálogo tem 82 comandos. Os 63 que já têm infográfico registrado trazem o
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
 | `/mcp` | Gerenciar servidores MCP | Comando embutido | [ver](assets/infographics/mcp/infographic.webp) |
-| `/list-agents` | Quem pode receber mensagem | Comando embutido | em preparo |
+| `/list-agents` | Quem pode receber mensagem | Comando embutido | [ver](assets/infographics/list-agents/infographic.webp) |
 | `/reload-skills` | Usar uma skill nova sem reabrir | Comando embutido | [ver](assets/infographics/reload-skills/infographic.webp) |
 | `/reload-plugins` | Ativar plugins sem abrir outra sessão | Comando embutido | [ver](assets/infographics/reload-plugins/infographic.webp) |
 | `/skills` | Listar e filtrar as skills disponíveis | Comando embutido | [ver](assets/infographics/skills/infographic.webp) |
-| `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | em preparo |
+| `/artifact-capabilities` | Recursos que uma página publicada pode usar | Skill embutida | [ver](assets/infographics/artifact-capabilities/infographic.webp) |
 | `/plugin` | Gerenciar plugins do Claude Code | Comando embutido | [ver](assets/infographics/plugin/infographic.webp) |
 | `/remote-control` | Deixar esta sessão disponível no claude.ai | Comando embutido | em preparo |
 | `/design-consent` | Conceder ao Claude acesso ao Claude Design | Comando embutido | [ver](assets/infographics/design-consent/infographic.webp) |
@@ -190,7 +190,7 @@ O catálogo tem 82 comandos. Os 63 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | em preparo |
+| `/claude-api` | Referência da API da Claude ao construir apps | Skill embutida | [ver](assets/infographics/claude-api/infographic.webp) |
 | `/run-skill-generator` | Criar a skill que sabe rodar o app do projeto | Skill embutida | [ver](assets/infographics/run-skill-generator/infographic.webp) |
 | `/design-sync` | Enviar seu design system ao Claude Design | Skill embutida | [ver](assets/infographics/design-sync/infographic.webp) |
 | `/dataviz` | Gráficos que seguem um só sistema visual | Skill embutida | [ver](assets/infographics/dataviz/infographic.webp) |

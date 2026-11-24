@@ -13,6 +13,19 @@
       "slug": "advisor",
       "updated_at": "2026-11-24T12:07:42Z"
     },
+    "artifact-capabilities": {
+      "command": "/artifact-capabilities",
+      "formats": {
+        "download": "assets/infographics/artifact-capabilities/infographic-1920.png",
+        "image": "assets/infographics/artifact-capabilities/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "artifact-capabilities",
+      "updated_at": "2026-11-24T18:02:32Z"
+    },
     "artifact-diagramming": {
       "command": "/artifact-diagramming",
       "formats": {
@@ -64,6 +77,19 @@
       "qa_status": "passed",
       "slug": "btw",
       "updated_at": "2026-11-23T15:54:29Z"
+    },
+    "claude-api": {
+      "command": "/claude-api",
+      "formats": {
+        "download": "assets/infographics/claude-api/infographic-1920.png",
+        "image": "assets/infographics/claude-api/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "claude-api",
+      "updated_at": "2026-11-24T18:09:02Z"
     },
     "clear": {
       "command": "/clear",
@@ -363,6 +389,19 @@
       "qa_status": "passed",
       "slug": "insights",
       "updated_at": "2026-11-24T13:15:50Z"
+    },
+    "list-agents": {
+      "command": "/list-agents",
+      "formats": {
+        "download": "assets/infographics/list-agents/infographic-1920.png",
+        "image": "assets/infographics/list-agents/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "list-agents",
+      "updated_at": "2026-11-24T17:57:27Z"
     },
     "logout": {
       "command": "/logout",
