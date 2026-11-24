@@ -99,7 +99,7 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos. Os 66 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
+O catálogo tem 82 comandos. Os 69 que já têm infográfico registrado trazem o link "ver"; nos outros, a coluna mostra "em preparo".
 
 ### Contexto e memória
 
@@ -205,12 +205,12 @@ O catálogo tem 82 comandos. Os 66 que já têm infográfico registrado trazem o
 
 | Comando | O que faz | Tipo | Infográfico |
 | ------- | --------- | ---- | ----------- |
-| `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | em preparo |
+| `/fewer-permission-prompts` | Menos pedidos de permissão | Skill embutida | [ver](assets/infographics/fewer-permission-prompts/infographic.webp) |
 | `/init` | Criar o CLAUDE.md do projeto | Comando embutido | [ver](assets/infographics/init/infographic.webp) |
 | `/output-style` | Estilo das respostas | Comando embutido | [ver](assets/infographics/output-style/infographic.webp) |
-| `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | em preparo |
+| `/auto-mode-setup` | Ensinar o modo auto sobre o seu ambiente | Comando embutido | [ver](assets/infographics/auto-mode-setup/infographic.webp) |
 | `/color` | Cor da barra de prompt da sessão | Comando embutido | [ver](assets/infographics/color/infographic.webp) |
-| `/config` | Mudar uma configuração pelo nome | Comando embutido | em preparo |
+| `/config` | Mudar uma configuração pelo nome | Comando embutido | [ver](assets/infographics/config/infographic.webp) |
 | `/update-config` | Mudar hooks, permissões e variáveis em palavras | Skill embutida | [ver](assets/infographics/update-config/infographic.webp) |
 | `/rename` | Dar um nome à conversa atual | Comando embutido | [ver](assets/infographics/rename/infographic.webp) |
 | `/import` | Trazer a configuração de outro agente de código | Comando embutido | em preparo |
