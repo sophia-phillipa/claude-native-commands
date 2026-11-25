@@ -2993,7 +2993,7 @@ const LOTE9_COMMANDS = [
     "what": "Cria um artefato novo do tipo Whiteboard, a partir de um briefing que você descreve. Sem briefing, o Claude pergunta antes para que serve o quadro.",
     "why": "Entrega o quadro como artefato da sua conta, em vez de só texto na conversa.",
     "how": "Digite <code>/whiteboard</code> seguido do objetivo do quadro, como <code>/whiteboard mapa dos módulos do sistema de pagamentos</code>. Sem isso, o Claude pergunta antes de criar.",
-    "note": "Testado no app Desktop (22/11/2026). Depende da conta: sem o tipo Whiteboard, o app diz que o recurso está em beta e pode não estar disponível na conta ainda. Não está na tabela oficial de comandos: é uma skill embutida da versão 2.1.325.",
+    "note": "Testado no app Desktop (22/11/2026). Depende da conta: sem o tipo Whiteboard, o app diz que o recurso está em beta e pode não estar disponível na conta ainda. Na tabela oficial, é uma skill embutida que pede o Claude Code 2.1.323 ou mais novo.",
     "params": [
       [
         "[briefing]",
@@ -3050,8 +3050,8 @@ const LOTE9_DOCS = {
     "note": "Tabela oficial: “Show help and available commands”. A referência não fala do app Desktop; o teste de que o comando não faz nada no app foi feito no Desktop."
   },
   "whiteboard": {
-    "url": "https://code.claude.com/docs/en/artifacts",
-    "note": "Não está na tabela oficial de comandos; é uma skill embutida da versão 2.1.325. A página de artefatos cita Whiteboards entre os tipos da conta (Sheets, Whiteboards, Data)."
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Tabela oficial: skill embutida que cria um quadro do Claude Whiteboards a partir do briefing; pede o Claude Code 2.1.323 ou mais novo e uma conta com o modelo Whiteboards ligado. A página de artefatos cita Whiteboards entre os tipos da conta (Sheets, Whiteboards, Data)."
   }
 };
 
