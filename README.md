@@ -45,7 +45,7 @@ Quando um comando tem infográfico registrado, o card mostra os botões **Ver in
 
 </div>
 
-O catálogo completo, com os 82 comandos e o link de cada infográfico, está em [Catálogo dos comandos](#-catálogo-dos-comandos).
+O catálogo completo, com os 84 comandos e o link de cada infográfico, está em [Catálogo dos comandos](#-catálogo-dos-comandos).
 
 ## 🔎 O que cada card traz
 
@@ -92,14 +92,14 @@ O guia não executa comandos do Claude Code e não substitui a documentação of
 
 ## 🎁 O que entrega
 
-- `comandos-nativos.html`: a página com os 82 cards, que abre sozinha no navegador.
+- `comandos-nativos.html`: a página com os 84 cards, que abre sozinha no navegador.
 - `assets/infographics/<slug>/`: as imagens de cada comando que já tem infográfico (`infographic.webp` e `infographic-1920.png`), que a página mostra e oferece para download.
 - `.claude/skills/notebooklm-command-infographic-playbook/`: a skill que orienta a geração dos infográficos no NotebookLM.
 
 <!-- CATALOG:BEGIN -->
 ## 📚 Catálogo dos comandos
 
-O catálogo tem 82 comandos, todos com infográfico registrado e o link "ver".
+O catálogo tem 84 comandos, todos com infográfico registrado e o link "ver".
 
 ### Contexto e memória
 

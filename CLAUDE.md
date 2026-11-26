@@ -12,7 +12,7 @@ Guidance for Claude Code in this repository. The project is a guide to the nativ
 ## Editing the page
 
 - If a local `src/comandos-nativos.html` exists, it is the source: edit it, then rebuild the root page as the first 254 bytes of the current root page, the source, and `\n</html>\n`. Otherwise, edit `comandos-nativos.html` directly.
-- Card data lives in the page's inline script: `COMMANDS` plus the arrays `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS` and `LOTE9_COMMANDS`, and the maps `ICONS`, `CONTEXTS`, `CATEGORIES`, `MOTION` and `DOCS`. Every card needs 3 examples and an entry in `CATEGORIES`, `CONTEXTS`, `ICONS` and `MOTION`.
+- Card data lives in the page's inline script: `COMMANDS` plus the arrays `NEW_COMMANDS`, `LOTE7_COMMANDS`, `LOTE8_COMMANDS`, `LOTE9_COMMANDS` and `LOTE10_COMMANDS`, and the maps `ICONS`, `CONTEXTS`, `CATEGORIES`, `MOTION` and `DOCS`. Every card needs 3 examples and an entry in `CATEGORIES`, `CONTEXTS`, `ICONS` and `MOTION`.
 - The block between `INFOGRAPHICS:BEGIN` and `INFOGRAPHICS:END`, and `assets/infographics/manifest.json`, are written when a poster is registered. Do not edit them by hand.
 - After a change, run `node --check` on the inline script, then open the page at 375 and 1280 px: no console errors and no horizontal scroll.
 

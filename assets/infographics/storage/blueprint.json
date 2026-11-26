@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "slug": "storage",
+  "command": "/storage",
+  "category": "Ajustes e permissões",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Mostra quanto espaço o Claude usa neste computador."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /storage"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "Calcula o espaço por categoria"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Mostra total e seções"
+      },
+      {
+        "id": "s4",
+        "layer": "result",
+        "label": "Limpa caches, se quiser"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "abre"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "mostra"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "permite"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/send-to-project",
+        "label": "Leva o trabalho a um projeto"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "O disco está cheio",
+      "Quer saber o que o Claude ocupa"
+    ],
+    "pitfalls": [
+      "Não consta na tabela oficial",
+      "Ainda não testado no app"
+    ],
+    "example": "/storage"
+  }
+}

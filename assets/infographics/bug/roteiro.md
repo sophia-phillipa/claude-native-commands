@@ -8,17 +8,18 @@ Conexões e variações
 Quando usar
 Armadilhas comuns
 Exemplo
-Encaminha o nome antigo ao /feedback, que abre o diálogo de envio.
+Relata um problema ao fabricante, com consentimento antes do envio.
 Você digita /bug
-O app envia para /feedback
-Abre o diálogo de envio
+Escolhe quanto do histórico entra
+Abre o diálogo de consentimento
 Você confirma antes do envio
-redireciona
-executa
+abre
+mostra
 pede
 /feedback
-Envia relato ao fabricante
-Lembra do nome antigo do comando
-Quer relatar um problema ao fabricante
-No app, aparece como /feedback (bug)
+Feedback, outro comando embutido
+Algo do Claude Code falha
+Quer relatar ao fabricante
+Alias do comando: /share
+No app de 22/11/2026, abriu o /feedback
 /bug a busca de arquivos demora muito

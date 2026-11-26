@@ -128,7 +128,7 @@
       "model_mode": "notebooklm",
       "qa_status": "passed",
       "slug": "bug",
-      "updated_at": "2026-11-24T19:07:00Z"
+      "updated_at": "2026-11-26T20:33:40Z"
     },
     "claude-api": {
       "command": "/claude-api",
@@ -832,6 +832,19 @@
       "slug": "security-review",
       "updated_at": "2026-11-23T18:34:46Z"
     },
+    "send-to-project": {
+      "command": "/send-to-project",
+      "formats": {
+        "download": "assets/infographics/send-to-project/infographic-1920.png",
+        "image": "assets/infographics/send-to-project/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "send-to-project",
+      "updated_at": "2026-11-26T20:41:30Z"
+    },
     "simplify": {
       "command": "/simplify",
       "formats": {
@@ -909,6 +922,19 @@
       "qa_status": "passed",
       "slug": "status",
       "updated_at": "2026-11-23T11:29:58Z"
+    },
+    "storage": {
+      "command": "/storage",
+      "formats": {
+        "download": "assets/infographics/storage/infographic-1920.png",
+        "image": "assets/infographics/storage/infographic.webp",
+        "pdf": null,
+        "vector": null
+      },
+      "model_mode": "notebooklm",
+      "qa_status": "passed",
+      "slug": "storage",
+      "updated_at": "2026-11-26T20:59:41Z"
     },
     "subtask": {
       "command": "/subtask",

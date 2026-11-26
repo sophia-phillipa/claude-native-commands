@@ -13,31 +13,68 @@
     "example": "Exemplo"
   },
   "identity": {
-    "purpose": "Encaminha o nome antigo ao /feedback, que abre o diálogo de envio."
+    "purpose": "Relata um problema ao fabricante, com consentimento antes do envio."
   },
   "flow": {
     "steps": [
-      { "id": "s1", "layer": "input", "label": "Você digita /bug" },
-      { "id": "s2", "layer": "processing", "label": "O app envia para /feedback" },
-      { "id": "s3", "layer": "processing", "label": "Abre o diálogo de envio" },
-      { "id": "s4", "layer": "result", "label": "Você confirma antes do envio" }
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /bug"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "Escolhe quanto do histórico entra"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Abre o diálogo de consentimento"
+      },
+      {
+        "id": "s4",
+        "layer": "result",
+        "label": "Você confirma antes do envio"
+      }
     ],
     "edges": [
-      { "from": "s1", "to": "s2", "verb": "redireciona" },
-      { "from": "s2", "to": "s3", "verb": "executa" },
-      { "from": "s3", "to": "s4", "verb": "pede" }
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "abre"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "mostra"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "pede"
+      }
     ]
   },
   "connections": {
     "flags": [],
     "files": [],
     "related": [
-      { "command": "/feedback", "label": "Envia relato ao fabricante" }
+      {
+        "command": "/feedback",
+        "label": "Feedback, outro comando embutido"
+      }
     ]
   },
   "contrast": {
-    "when": [ "Lembra do nome antigo do comando", "Quer relatar um problema ao fabricante" ],
-    "pitfalls": [ "No app, aparece como /feedback (bug)" ],
+    "when": [
+      "Algo do Claude Code falha",
+      "Quer relatar ao fabricante"
+    ],
+    "pitfalls": [
+      "Alias do comando: /share",
+      "No app de 22/11/2026, abriu o /feedback"
+    ],
     "example": "/bug a busca de arquivos demora muito"
   }
 }

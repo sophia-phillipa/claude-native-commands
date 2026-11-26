@@ -2,5 +2,9 @@
   "passed": true,
   "attempt": 1,
   "model_mode": "notebooklm",
-  "errors": []
+  "errors": [],
+  "notes": [
+    "Visible strings: title /bug; subtitle, four panel titles and the verbs abre, mostra, pede all match roteiro.md; watermark Gemini Notebook (app watermark, not a roteiro word, not counted as an error).",
+    "Zone 3 and Conciso omissions allowed."
+  ]
 }

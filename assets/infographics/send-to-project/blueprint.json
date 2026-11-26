@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "slug": "send-to-project",
+  "command": "/send-to-project",
+  "category": "Criação e referência",
+  "aspect": "16:9",
+  "ui": {
+    "zone1": "Identidade e gatilho",
+    "zone2": "Fluxo de execução",
+    "zone3": "Conexões e variações",
+    "when": "Quando usar",
+    "pitfalls": "Armadilhas comuns",
+    "example": "Exemplo"
+  },
+  "identity": {
+    "purpose": "Leva o trabalho da sessão a um Claude Project."
+  },
+  "flow": {
+    "steps": [
+      {
+        "id": "s1",
+        "layer": "input",
+        "label": "Você digita /send-to-project"
+      },
+      {
+        "id": "s2",
+        "layer": "processing",
+        "label": "Informa o projeto de destino"
+      },
+      {
+        "id": "s3",
+        "layer": "processing",
+        "label": "Envia o trabalho lido"
+      },
+      {
+        "id": "s4",
+        "layer": "result",
+        "label": "O trabalho segue no projeto"
+      }
+    ],
+    "edges": [
+      {
+        "from": "s1",
+        "to": "s2",
+        "verb": "pede"
+      },
+      {
+        "from": "s2",
+        "to": "s3",
+        "verb": "envia"
+      },
+      {
+        "from": "s3",
+        "to": "s4",
+        "verb": "continua"
+      }
+    ]
+  },
+  "connections": {
+    "flags": [],
+    "files": [],
+    "related": [
+      {
+        "command": "/fork",
+        "label": "Bifurca a conversa em outra sessão"
+      }
+    ]
+  },
+  "contrast": {
+    "when": [
+      "Quer continuar num projeto do claude.ai",
+      "O trabalho deve sair da conversa atual"
+    ],
+    "pitfalls": [
+      "Não consta na tabela oficial",
+      "Ainda não testado no app"
+    ],
+    "example": "/send-to-project Pesquisa de fornecedores"
+  }
+}

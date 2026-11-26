@@ -8,6 +8,8 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `/bug` card: now a built-in command with alias `/share`, as the docs table and the 2.1.325 binary say; the 22/11/2026 app observation (it opened `/feedback`) stays as a dated note.
+- Page history panel: the Lote 9 and Lote 10 lines are added, the footer covers lotes 4 to 10, and the "Fora do Desktop" panel no longer lists `/btw` and `/rewind`, which work in the app.
 - README rewritten for a company audience: screenshots of the guide in `docs/screenshots/` and a gallery of registered posters.
 - The repository is public, with a fresh history. Working notes (`dossier/`, and `work/` except `work/infographic-contracts.md`) stay local and gitignored, and the skill reads the NotebookLM notebook URL from a gitignored `references/notebook.local.md`.
 - Command guide card text corrected against the 2026-11-23 source recheck: 58 wording fixes, the reload-skills and rewind notes, two docs links and the `/doctor` app field.
@@ -18,6 +20,10 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The repositories keep one HTML page, the root `comandos-nativos.html`; its source `src/comandos-nativos.html` stays local while the posters are generated. The README Status section is gone, and `CLAUDE.md` is cut to what an editor of the page needs.
 
 ### Added
+
+- Card and poster for `/send-to-project` (Lote 10): in the 2.1.325 binary and in a Desktop menu video, not in the official table, not tested in the app.
+- Card and poster for `/storage` (Lote 10): opens the Desktop app's Storage dialog, confirmed by a screenshot; not in the official table or the binary; the card shows no sizes or counts.
+- Poster for `/bug` regenerated after the card fix.
 
 - Command guide page `comandos-nativos.html`, with one card per native Claude Code Desktop slash command.
 - GitLab Pages job (`.gitlab-ci.yml`): publishes the page and its poster images when a pipeline is started by hand on the default branch.

@@ -391,20 +391,18 @@ footer { color: var(--muted); font-size: .88rem; }
         <li><b>Lote 4</b>, 22/11/2026: <code>/autocompact</code>, <code>/clear</code>, <code>/list-agents</code>, <code>/reload-skills</code>, <code>/auto-mode-setup</code> e <code>/debug</code>. Todos os cartões ganharam o item Contexto, com a situação em que vale rodar o comando.</li>
         <li><b>Lote 5</b>, 22/11/2026: <code>/color</code>, <code>/reload-plugins</code> e <code>/config</code>, os três testados no app Desktop. O baralho passou a ser agrupado em sete categorias, cada uma com uma dica para lembrar, e ganhou efeitos para memorizar: ícones que fazem o gesto do comando, o Modo memória e o menu que digita os comandos sozinho.</li>
         <li><b>Lote 6</b>, 22/11/2026: <code>/update-config</code>, <code>/claude-api</code>, <code>/run-skill-generator</code>, <code>/design-sync</code>, <code>/dataviz</code>, <code>/artifact-diagramming</code>, <code>/workflow-authoring</code>, <code>/plugin-authoring</code>, <code>/rename</code>, <code>/import</code> e <code>/team-onboarding</code>. Entrou a categoria Criação e referência, e cada cartão ganhou o link para a documentação oficial. Outros quatro estão no binário, mas fora da lista do modo Desktop: ficaram em “Para testar no app”.</li>
-        <li><b>Lote 7</b>, 22/11/2026: 30 comandos confirmados no app Desktop: <code>/btw</code>, <code>/heapdump</code>, <code>/design</code>, <code>/ultrareview</code>, <code>/logout</code>, <code>/feedback</code>, <code>/status</code>, <code>/stats</code>, <code>/skills</code>, <code>/diff</code>, <code>/tasks</code>, <code>/workflows</code>, <code>/artifact-capabilities</code>, <code>/copy</code>, <code>/focus</code>, <code>/subtask</code>, <code>/slides</code>, <code>/theme</code>, <code>/memory</code>, <code>/permissions</code>, <code>/sandbox</code>, <code>/plan</code>, <code>/plugin</code>, <code>/rewind</code>, <code>/login</code>, <code>/remote-control</code>, <code>/design-consent</code>, <code>/design-revoke</code>, <code>/resume</code> e <code>/fork</code>. Três cartões de alias: <code>/cost</code>, <code>/review</code> e <code>/bug</code>, que o app aceita e mostra com o nome atual entre parênteses. <code>/add-dir</code> e <code>/usage-credits</code> voltam do lote 6, porque funcionam no app.</li>
+        <li><b>Lote 7</b>, 22/11/2026: 30 comandos confirmados no app Desktop: <code>/btw</code>, <code>/heapdump</code>, <code>/design</code>, <code>/ultrareview</code>, <code>/logout</code>, <code>/feedback</code>, <code>/status</code>, <code>/stats</code>, <code>/skills</code>, <code>/diff</code>, <code>/tasks</code>, <code>/workflows</code>, <code>/artifact-capabilities</code>, <code>/copy</code>, <code>/focus</code>, <code>/subtask</code>, <code>/slides</code>, <code>/theme</code>, <code>/memory</code>, <code>/permissions</code>, <code>/sandbox</code>, <code>/plan</code>, <code>/plugin</code>, <code>/rewind</code>, <code>/login</code>, <code>/remote-control</code>, <code>/design-consent</code>, <code>/design-revoke</code>, <code>/resume</code> e <code>/fork</code>. Dois cartões de alias: <code>/cost</code> e <code>/review</code>, que o app aceita e mostra com o nome atual entre parênteses. O <code>/bug</code> entrou como comando embutido, com alias <code>/share</code>. <code>/add-dir</code> e <code>/usage-credits</code> voltam do lote 6, porque funcionam no app.</li>
         <li><b>Lote 8</b>, 22/11/2026: entraram <code>/deep-research</code> e <code>/verify</code>, vistos no menu do app em vídeo de 22/11/2026. Ainda não foram testados no app; os cartões dizem isso.</li>
+        <li><b>Lote 9</b>, 23/11/2026: <code>/agents</code>, <code>/help</code> e <code>/whiteboard</code>. No app, <code>/agents</code> mostrou que o assistente foi removido, <code>/help</code> aparece no menu mas não faz nada, e <code>/whiteboard</code> cria o artefato a partir do tipo Whiteboard da conta.</li>
+        <li><b>Lote 10</b>, 26/11/2026: <code>/send-to-project</code>, que está no binário 2.1.325 e apareceu no menu do app em vídeo de 22/11/2026, mas não consta na tabela oficial. <code>/storage</code>, que abre o diálogo de armazenamento do app, visto em captura de tela em 26/11/2026. Os dois ainda não foram testados no app.</li>
       </ul>
       <p>As marcações “Testei” dos lotes anteriores continuam salvas quando um lote novo entra.</p>
     </div>
     <div class="panel">
       <span class="eyebrow">Fora do Desktop</span>
-      <h2>Existem, mas não aparecem no app</h2>
-      <p>Estão no binário só na versão de terminal. No Desktop o app oferece botões próprios no lugar deles:</p>
-      <ul>
-        <li><code>/btw</code> faz uma pergunta paralela sem interromper a conversa.</li>
-        <li><code>/rewind</code> (também <code>/undo</code>) volta código e conversa a um ponto anterior.</li>
-      </ul>
-      <p>Para usá-los, abra <code>claude</code> no painel Terminal do app. A documentação lista <a href="https://code.claude.com/docs/en/desktop#what%E2%80%99s-not-available-in-desktop" target="_blank" rel="noopener">o que não está no Desktop ↗</a>.</p>
+      <h2>O que a documentação deixa de fora</h2>
+      <p>A página do Desktop lista o que não está na aba Code: o Code Mode e as equipes de agentes, que ficam na CLI, e os comandos que abrem um painel interativo no terminal. Esses se comportam de outro jeito no app. <code>/btw</code> e <code>/rewind</code> não estão nessa lista e funcionaram no app em 22/11/2026, por isso estão no histórico de lotes.</p>
+      <p>A lista completa está em <a href="https://code.claude.com/docs/en/desktop#what%E2%80%99s-not-available-in-desktop" target="_blank" rel="noopener">o que não está no Desktop ↗</a>.</p>
     </div>
     <div class="panel">
       <span class="eyebrow">Na documentação oficial</span>
@@ -421,7 +419,7 @@ footer { color: var(--muted); font-size: .88rem; }
     </div>
   </section>
 
-  <footer>Lotes 1 a 3 conferidos em 20/11/2026 e lotes 4 a 8 em 22/11/2026, no Claude Code 2.1.325 do Claude Desktop (Linux). Comandos com controle de recurso, como o <code>/advisor</code>, dependem da conta e podem não aparecer em outra máquina.</footer>
+  <footer>Lotes 1 a 3 conferidos em 20/11/2026 lotes 4 a 8 em 22/11/2026 e o lote 9 em 23/11/2026 e o lote 10 em 26/11/2026 (binário), no Claude Code 2.1.325 do Claude Desktop (Linux). Comandos com controle de recurso, como o <code>/advisor</code>, dependem da conta e podem não aparecer em outra máquina.</footer>
 </div>
 </div>
 
@@ -1471,7 +1469,7 @@ const DOCS = {
  }
 };
 
-/* Lote 7 (22/11/2026). Cards for the commands that work in the Claude Code Desktop app (app tests of 22/11/2026, binary 2.1.325), plus the aliases /cost, /review and /bug. Commands that did not work, were removed or were not tested are left out. */
+/* Lote 7 (22/11/2026). Cards for the commands that work in the Claude Code Desktop app (app tests of 22/11/2026, binary 2.1.325), plus the aliases /cost and /review, and the /bug card (a built-in with alias /share). Commands that did not work, were removed or were not tested are left out. */
 const LOTE7_ICONS = {};
 
 const LOTE7_COMMANDS = [
@@ -2525,30 +2523,33 @@ const LOTE7_COMMANDS = [
     "id": "bug",
     "h": 33,
     "icon": "bug",
-    "kind": "Alias",
+    "kind": "Comando embutido",
+    "aliases": [
+      "/share"
+    ],
     "lote": 7,
-    "short": "Nome antigo do /feedback",
-    "what": "No app, <code>/bug</code> é enviado para <code>/feedback</code>, que abre o mesmo diálogo de envio, com consentimento antes do envio.",
-    "why": "Quem conhece o nome antigo encontra o comando atual sem procurar.",
-    "how": "Use <code>/feedback</code>, que é o nome atual. Veja o <a href=\"#feedback\">cartão de /feedback</a>.",
-    "note": "No app aparece como <code>/feedback (bug)</code>.",
+    "short": "Relatar um problema ao fabricante",
+    "what": "Relata um problema ao fabricante ou compartilha a conversa. Antes do envio, você escolhe quanto do histórico da sessão entra e confirma numa tela de consentimento. A referência oficial lista <code>/bug</code> como comando embutido, com o alias <code>/share</code>.",
+    "why": "Quem procura como reportar um erro encontra o comando certo, com consentimento antes do envio.",
+    "how": "Use <code>/bug</code> com o problema descrito, como em <code>/bug a busca de arquivos demora muito</code>. O cartão de <a href=\"#feedback\">/feedback</a> explica o comando vizinho, que envia feedback ao Anthropic.",
+    "note": "Observado em 22/11/2026, no app Desktop (Claude Code 2.1.325): <code>/bug</code> abriu o diálogo de <code>/feedback</code> e a barra mostrou “/feedback (bug)”. O binário 2.1.325 define <code>/bug</code> como comando próprio, com alias <code>/share</code>. A diferença entre o app e o binário não foi explicada.",
     "examples": [
       [
         "/bug",
-        "Abre o diálogo de envio, como o /feedback."
-      ],
-      [
-        "/feedback",
-        "Nome atual do mesmo comando."
+        "Abre o diálogo de envio, com consentimento antes do envio."
       ],
       [
         "/bug a busca de arquivos demora muito",
         "Relato direto, com o texto do problema."
+      ],
+      [
+        "/bug",
+        "Com a conversa aberta, o diálogo deixa escolher quanto do histórico entra."
       ]
     ],
     "app": {
       "ok": true,
-      "text": "Testado no app: vai para /feedback"
+      "text": "Testado no app em 22/11/2026: abriu o diálogo de /feedback"
     }
   }
 ];
@@ -2586,7 +2587,7 @@ const LOTE7_CONTEXTS = {
   "fork": "Quando uma tarefa paralela pode rodar em segundo plano enquanto você segue com a conversa atual.",
   "cost": "Quando você lembra do nome antigo e quer chegar ao comando atual.",
   "review": "Quando você lembra do nome antigo e quer revisar o diff antes de entregar.",
-  "bug": "Quando você lembra do nome antigo e quer relatar um problema ao fabricante."
+  "bug": "Quando algo do Claude Code falha e você quer relatar ao fabricante, escolhendo quanto do histórico da sessão vai junto."
 };
 
 const LOTE7_CATEGORY = {
@@ -2792,7 +2793,7 @@ const LOTE7_DOCS = {
   },
   "bug": {
     "url": "https://code.claude.com/docs/en/commands#all-commands",
-    "note": "A referência indica /share como alias e a v2.1.229 como versão mínima para o diálogo no VS Code."
+    "note": "Comando embutido na referência oficial, com o alias /share. A mesma referência diz que, antes da v2.1.212, /bug e /share eram aliases de /feedback. No VS Code, /bug abre o diálogo da extensão (v2.1.229 ou mais nova)."
   }
 };
 
@@ -3062,6 +3063,97 @@ for (const [id, cat] of Object.entries(LOTE9_CATEGORY)) CATEGORIES.find((k) => k
 for (const [id, a] of Object.entries(LOTE9_MOTION)) MOTION[a].push(id);
 Object.assign(DOCS, LOTE9_DOCS);
 
+/* Lote 10 (26/11/2026). /send-to-project: in the 2.1.325 binary as a user-invocable command and in a Desktop '/' menu video of 22/11/2026; not in the official table; not tested in the app. /storage: opens the Desktop app's Storage dialog (screenshot of 26/11/2026); not in the table or the binary; no numbers in the card. */
+const LOTE10_ICONS = {};
+
+const LOTE10_COMMANDS = [
+  {
+    "id": "send-to-project",
+    "h": 200,
+    "icon": "flow",
+    "kind": "Comando embutido",
+    "lote": 10,
+    "short": "Levar o trabalho da sessão a um Claude Project",
+    "what": "Leva o trabalho desta sessão a um Claude Project, no claude.ai. O comando lê o que o Claude Code leu desta pasta e aceita o nome ou o id do projeto de destino e, se você quiser, uma mensagem ou nota.",
+    "why": "Continua o trabalho num projeto do claude.ai, sem recomeçar do zero numa conversa nova.",
+    "how": "Digite <code>/send-to-project</code> com o nome ou o id do projeto e, se quiser, a palavra <code>nota</code> ou <code>mensagem</code> seguida do texto. Só você roda o comando, porque ele envia o trabalho a um projeto na nuvem.",
+    "note": "Não consta na tabela oficial de comandos. Aparece no binário 2.1.325 como comando de usuário e no menu do app em vídeo de 22/11/2026, com o nome cortado no tooltip. Ainda não foi testado no app.",
+    "examples": [
+      [
+        "/send-to-project",
+        "Pede o projeto de destino antes de enviar."
+      ],
+      [
+        "/send-to-project Pesquisa de fornecedores",
+        "Envia o trabalho ao projeto com esse nome."
+      ],
+      [
+        "/send-to-project <nome-do-projeto> nota: revisar os custos",
+        "Envia o trabalho com uma nota para quem for continuar."
+      ]
+    ]
+  },
+  {
+    "id": "storage",
+    "h": 210,
+    "icon": "chart",
+    "kind": "Comando do app",
+    "lote": 10,
+    "short": "Ver quanto espaço o Claude usa neste computador",
+    "what": "Abre o diálogo Armazenamento do app Claude Desktop, com o espaço usado neste computador. O total aparece dividido em tarefas Cowork, sessões de código e worktrees, runtime e caches do app. Cada seção tem detalhes, e a seção de caches tem um botão para limpar o cache e reiniciar o app.",
+    "why": "Mostra onde está o espaço antes de apagar qualquer coisa.",
+    "how": "Digite <code>/storage</code> no app para abrir o diálogo, depois confira cada seção. O botão Atualizar recalcula os números.",
+    "note": "Não consta na tabela oficial nem como nome de comando no binário Claude Code 2.1.325. Confirmado por captura de tela do app Desktop em 26/11/2026. Os valores variam de computador para computador, por isso o cartão não mostra números.",
+    "examples": [
+      [
+        "/storage",
+        "Abre o diálogo de armazenamento do app."
+      ],
+      [
+        "/storage",
+        "Mostra o total em uso e a divisão por categoria."
+      ],
+      [
+        "/storage",
+        "Atualiza os números com Atualizar, antes de limpar caches."
+      ]
+    ]
+  }
+];
+
+const LOTE10_CONTEXTS = {
+  "send-to-project": "Quando o trabalho de uma sessão deve continuar num Claude Project, no claude.ai, em vez de virar uma conversa nova.",
+  "storage": "Quando o disco está cheio ou você quer saber o que o Claude ocupa neste computador antes de limpar algo."
+};
+
+const LOTE10_CATEGORY = {
+  "send-to-project": "criacao",
+  "storage": "ajustes"
+};
+
+const LOTE10_MOTION = {
+  "send-to-project": "rise",
+  "storage": "squeeze"
+};
+
+const LOTE10_DOCS = {
+  "send-to-project": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Não consta na tabela oficial consultada em 26/11/2026. Está no binário 2.1.325 e no menu do app em vídeo de 22/11/2026."
+  },
+  "storage": {
+    "url": "https://code.claude.com/docs/en/commands#all-commands",
+    "note": "Não consta na tabela oficial consultada em 26/11/2026. O diálogo aparece no app Desktop, em Configurações > Desktop app."
+  }
+};
+
+Object.assign(ICONS, LOTE10_ICONS);
+COMMANDS.push(...LOTE10_COMMANDS);
+Object.assign(CONTEXTS, LOTE10_CONTEXTS);
+for (const [id, cat] of Object.entries(LOTE10_CATEGORY)) CATEGORIES.find((k) => k.id === cat).ids.push(id);
+for (const [id, a] of Object.entries(LOTE10_MOTION)) MOTION[a].push(id);
+Object.assign(DOCS, LOTE10_DOCS);
+
 const ANIM_OF = Object.fromEntries(Object.entries(MOTION).flatMap(([a, ids]) => ids.map((id) => [id, a])));
 
 const STORE = "native-commands-tested-v1";
@@ -3193,7 +3285,7 @@ const INFOGRAPHICS = {
       "vector": null
     },
     "model_mode": "notebooklm",
-    "updated_at": "2026-11-24T19:07:00Z"
+    "updated_at": "2026-11-26T20:33:40Z"
   },
   "claude-api": {
     "command": "/claude-api",
@@ -3789,6 +3881,17 @@ const INFOGRAPHICS = {
     "model_mode": "notebooklm",
     "updated_at": "2026-11-23T18:34:46Z"
   },
+  "send-to-project": {
+    "command": "/send-to-project",
+    "formats": {
+      "download": "assets/infographics/send-to-project/infographic-1920.png",
+      "image": "assets/infographics/send-to-project/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-26T20:41:30Z"
+  },
   "simplify": {
     "command": "/simplify",
     "formats": {
@@ -3854,6 +3957,17 @@ const INFOGRAPHICS = {
     },
     "model_mode": "notebooklm",
     "updated_at": "2026-11-23T11:29:58Z"
+  },
+  "storage": {
+    "command": "/storage",
+    "formats": {
+      "download": "assets/infographics/storage/infographic-1920.png",
+      "image": "assets/infographics/storage/infographic.webp",
+      "pdf": null,
+      "vector": null
+    },
+    "model_mode": "notebooklm",
+    "updated_at": "2026-11-26T20:59:41Z"
   },
   "subtask": {
     "command": "/subtask",
