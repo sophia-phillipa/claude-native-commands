@@ -4,7 +4,7 @@
 
 Aprenda os comandos nativos do Claude Code Desktop com um guia visual pronto para abrir no navegador.
 
-<img src="docs/screenshots/guide-hero-1280.webp" alt="Topo do guia: índice das categorias à esquerda, título com a contagem de 82 comandos e o painel de progresso dos testes" width="100%">
+<img src="docs/screenshots/guide-hero-1280.webp" alt="Topo do guia: índice das categorias à esquerda, título com a contagem de 84 comandos e o painel de progresso dos testes" width="100%">
 
 Uma página HTML com um design atraente que ensina o que os comandos nativos do Claude Code Desktop podem fazer por você. Você testa cada comando e marca **Testei** (a marca fica só no seu navegador), navega pelas oito categorias e abre o infográfico de cada comando que tem um.
 

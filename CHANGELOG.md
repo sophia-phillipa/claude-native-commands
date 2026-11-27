@@ -10,6 +10,7 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `/bug` card: now a built-in command with alias `/share`, as the docs table and the 2.1.325 binary say; the 22/11/2026 app observation (it opened `/feedback`) stays as a dated note.
 - Page history panel: the Lote 9 and Lote 10 lines are added, the footer covers lotes 4 to 10, and the "Fora do Desktop" panel no longer lists `/btw` and `/rewind`, which work in the app.
+- README screenshots of the guide's top, menu and filters, and the 375 px view retaken with the 84-command count.
 - README rewritten for a company audience: screenshots of the guide in `docs/screenshots/` and a gallery of registered posters.
 - The repository is public, with a fresh history. Working notes (`dossier/`, and `work/` except `work/infographic-contracts.md`) stay local and gitignored, and the skill reads the NotebookLM notebook URL from a gitignored `references/notebook.local.md`.
 - Command guide card text corrected against the 2026-11-23 source recheck: 58 wording fixes, the reload-skills and rewind notes, two docs links and the `/doctor` app field.
